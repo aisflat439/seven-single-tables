@@ -25,7 +25,7 @@ Ticket attributes:
 - createdAt: date;
 - description: string;
 
-
+Access Patterns:
 - Create a ticket for a team (default to pending)
 - Mark a teams ticket complete/blocked/pending/in-progress
 - Get all of a teams pending tickets, sorted by creation time
