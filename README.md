@@ -3,9 +3,9 @@
 ## Table of contents
 
 - [Concept](#concept)
-- [Tickets](#1--tickets)
-- [Posts](#2--posts)
-- [Orders](#3--orders)
+- [Tickets](#1---tickets)
+- [Posts](#2---posts)
+- [Orders](#3---orders)
 - [Thanks](#thanks)
 
 ## Concept
