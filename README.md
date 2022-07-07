@@ -3,7 +3,7 @@
 ## Table of contents
 
 - [Concept](#concept)
-- [Tickets](#ticekts)
+- [Tickets](#tickets)
 - [Thanks](#thanks)
 
 ## Concept
