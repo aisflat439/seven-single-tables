@@ -17,21 +17,23 @@ Generally, I believe in practice. This represents an example of that.
 A mini implementation of Jira tickets. In this case we have teams, and teams have tickets. They want to get tickets in various states of progress, sorted by creation date.
 
 <details>
-  <summary>Access Patterns</summary>
-
-Ticket attributes:
+  <summary>Ticket Attributes</summary>
 - team: string; // name of team
 - status: enum; // staus of ticket
 - createdAt: date;
 - description: string;
+</details>
+  
+<details>
+  <summary>Access Patterns</summary>
 
 Access Patterns:
 - Create a ticket for a team (default to pending)
 - Mark a teams ticket complete/blocked/pending/in-progress
 - Get all of a teams pending tickets, sorted by creation time
 - Get all of a teams blocked tickets, sorted by creation time
-
-### Detailed Explanation
+  
+  ### Detailed Explanation
 
 This task goal is to learn the concept of heirarchical search and a compound sort key
 
