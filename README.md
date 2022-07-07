@@ -4,6 +4,8 @@
 
 - [Concept](#concept)
 - [Tickets](#1--tickets)
+- [Posts](#2--posts)
+- [Orders](#3--orders)
 - [Thanks](#thanks)
 
 ## Concept
@@ -39,6 +41,37 @@ This task goal is to learn the concept of heirarchical search and a compound sor
 
 </details>
 
+
+## 2 - Posts
+
+A mini implementation of a part of a site Reddit or Hacker News
+
+<details>
+  <summary>Ticket Attributes</summary>
+</details>
+  
+<details>
+  <summary>Access Patterns</summary>
+
+### Detailed Explanation
+
+</details>
+
+
+## 3 - Orders
+
+A mini implementation of Jira tickets. In this case we have teams, and teams have tickets. They want to get tickets in various states of progress, sorted by creation date.
+
+<details>
+  <summary>Ticket Attributes</summary>
+</details>
+  
+<details>
+  <summary>Access Patterns</summary>
+  
+### Detailed Explanation
+
+</details>
 
 ## Thanks
 
