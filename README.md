@@ -18,6 +18,7 @@ A mini implementation of Jira tickets. In this case we have teams, and teams hav
 
 <details>
   <summary>Ticket Attributes</summary>
+  
 - team: string; // name of team
 - status: enum; // staus of ticket
 - createdAt: date;
@@ -27,7 +28,6 @@ A mini implementation of Jira tickets. In this case we have teams, and teams hav
 <details>
   <summary>Access Patterns</summary>
 
-Access Patterns:
 - Create a ticket for a team (default to pending)
 - Mark a teams ticket complete/blocked/pending/in-progress
 - Get all of a teams pending tickets, sorted by creation time
