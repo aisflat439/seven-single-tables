@@ -12,7 +12,7 @@ Seven Single Tables is a series of exercises that are for practicing and teachin
 
 Generally, I believe in practice. This represents an example of that.
 
-## Tickets
+## 1 - Tickets
 
 A mini implementation of Jira tickets. In this case we have teams, and teams have tickets. They want to get tickets in various states of progress, sorted by creation date.
 
