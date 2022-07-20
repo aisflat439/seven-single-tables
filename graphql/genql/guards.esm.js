@@ -28,3 +28,11 @@ export var isTeam = function(obj) {
   if (!obj || !obj.__typename) throw new Error('__typename is missing in "isTeam"')
   return Team_possibleTypes.includes(obj.__typename)
 }
+
+
+
+var Ticket_possibleTypes = ['Ticket']
+export var isTicket = function(obj) {
+  if (!obj || !obj.__typename) throw new Error('__typename is missing in "isTicket"')
+  return Ticket_possibleTypes.includes(obj.__typename)
+}

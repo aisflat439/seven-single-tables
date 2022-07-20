@@ -14,6 +14,7 @@ export interface Article {
 }
 
 export interface Mutation {
+    create: Ticket
     createArticle: Article
     createTeam: Team
     __typename: 'Mutation'
@@ -31,6 +32,13 @@ export interface Team {
     __typename: 'Team'
 }
 
+export interface Ticket {
+    id: Scalars['ID']
+    team: Scalars['ID']
+    title: Scalars['ID']
+    __typename: 'Ticket'
+}
+
 export interface ArticleRequest{
     id?: boolean | number
     title?: boolean | number
@@ -40,6 +48,7 @@ export interface ArticleRequest{
 }
 
 export interface MutationRequest{
+    create?: [{teamId: Scalars['String'],title: Scalars['String']},TicketRequest]
     createArticle?: [{title: Scalars['String'],url: Scalars['String']},ArticleRequest]
     createTeam?: [{name: Scalars['String']},TeamRequest]
     __typename?: boolean | number
@@ -56,6 +65,14 @@ export interface QueryRequest{
 export interface TeamRequest{
     id?: boolean | number
     name?: boolean | number
+    __typename?: boolean | number
+    __scalar?: boolean | number
+}
+
+export interface TicketRequest{
+    id?: boolean | number
+    team?: boolean | number
+    title?: boolean | number
     __typename?: boolean | number
     __scalar?: boolean | number
 }
@@ -92,6 +109,14 @@ export const isTeam = (obj?: { __typename?: any } | null): obj is Team => {
 }
 
 
+
+const Ticket_possibleTypes: string[] = ['Ticket']
+export const isTicket = (obj?: { __typename?: any } | null): obj is Ticket => {
+  if (!obj?.__typename) throw new Error('__typename is missing in "isTicket"')
+  return Ticket_possibleTypes.includes(obj.__typename)
+}
+
+
 export interface ArticlePromiseChain{
     id: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Promise<Scalars['ID']>}),
     title: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Promise<Scalars['ID']>}),
@@ -105,11 +130,13 @@ export interface ArticleObservableChain{
 }
 
 export interface MutationPromiseChain{
+    create: ((args: {teamId: Scalars['String'],title: Scalars['String']}) => TicketPromiseChain & {get: <R extends TicketRequest>(request: R, defaultValue?: FieldsSelection<Ticket, R>) => Promise<FieldsSelection<Ticket, R>>}),
     createArticle: ((args: {title: Scalars['String'],url: Scalars['String']}) => ArticlePromiseChain & {get: <R extends ArticleRequest>(request: R, defaultValue?: FieldsSelection<Article, R>) => Promise<FieldsSelection<Article, R>>}),
     createTeam: ((args: {name: Scalars['String']}) => TeamPromiseChain & {get: <R extends TeamRequest>(request: R, defaultValue?: FieldsSelection<Team, R>) => Promise<FieldsSelection<Team, R>>})
 }
 
 export interface MutationObservableChain{
+    create: ((args: {teamId: Scalars['String'],title: Scalars['String']}) => TicketObservableChain & {get: <R extends TicketRequest>(request: R, defaultValue?: FieldsSelection<Ticket, R>) => Observable<FieldsSelection<Ticket, R>>}),
     createArticle: ((args: {title: Scalars['String'],url: Scalars['String']}) => ArticleObservableChain & {get: <R extends ArticleRequest>(request: R, defaultValue?: FieldsSelection<Article, R>) => Observable<FieldsSelection<Article, R>>}),
     createTeam: ((args: {name: Scalars['String']}) => TeamObservableChain & {get: <R extends TeamRequest>(request: R, defaultValue?: FieldsSelection<Team, R>) => Observable<FieldsSelection<Team, R>>})
 }
@@ -132,4 +159,16 @@ export interface TeamPromiseChain{
 export interface TeamObservableChain{
     id: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Observable<Scalars['ID']>}),
     name: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Observable<Scalars['ID']>})
+}
+
+export interface TicketPromiseChain{
+    id: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Promise<Scalars['ID']>}),
+    team: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Promise<Scalars['ID']>}),
+    title: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Promise<Scalars['ID']>})
+}
+
+export interface TicketObservableChain{
+    id: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Observable<Scalars['ID']>}),
+    team: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Observable<Scalars['ID']>}),
+    title: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Observable<Scalars['ID']>})
 }

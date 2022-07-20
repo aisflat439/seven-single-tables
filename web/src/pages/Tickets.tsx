@@ -43,10 +43,55 @@ export function Tickets() {
       </form>
       <h3>Teams</h3>
       <ul>
-        {teams.data?.teams.map(({ id, name }) => (
-          <li key={id}>{name}</li>
+        {teams.data?.teams.map((team) => (
+          <TeamItem {...team} />
         ))}
       </ul>
     </div>
   );
 }
+
+interface TicketForm {
+  title: string;
+  teamId: string;
+}
+
+interface Team {
+  name: string;
+  id: string;
+}
+
+const TeamItem = ({ id, name }: Team) => {
+  const [, create] = useTypedMutation((opts: TicketForm) => ({
+    create: [
+      opts,
+      {
+        title: true,
+        teamId: true,
+      },
+    ],
+  }));
+
+  return (
+    <li key={id}>
+      <article>
+        <h5>{name}</h5>
+        <p>create a ticket for this team</p>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            const fd = new FormData(e.currentTarget);
+            create({
+              title: fd.get("title")!.toString(),
+              teamId: id,
+            });
+            e.currentTarget.reset();
+          }}
+        >
+          <input name="title" placeholder="ticket title" />
+          <button type="submit">Create</button>
+        </form>
+      </article>
+    </li>
+  );
+};

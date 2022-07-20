@@ -80,7 +80,7 @@ export const TicketEntity = new Entity(
   Dynamo.Configuration
 );
 
-// export type TicketEntityType = EntityItem<typeof TicketEntity>;
+export type TicketEntityType = EntityItem<typeof TicketEntity>;
 export type TeamEntityType = EntityItem<typeof TeamEntity>;
 
 export async function createTeam(name: string) {

@@ -5,6 +5,7 @@ type Article {
 }
 
 type Mutation {
+  create(teamId: String!, title: String!): Ticket!
   createArticle(title: String!, url: String!): Article!
   createTeam(name: String!): Team!
 }
@@ -17,4 +18,10 @@ type Query {
 type Team {
   id: ID!
   name: ID!
+}
+
+type Ticket {
+  id: ID!
+  team: ID!
+  title: ID!
 }

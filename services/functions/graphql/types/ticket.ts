@@ -7,6 +7,15 @@ const TeamType = builder.objectRef<Ticket.TeamEntityType>("Team").implement({
     name: t.exposeID("name"),
   }),
 });
+const TicketType = builder
+  .objectRef<Ticket.TicketEntityType>("Ticket")
+  .implement({
+    fields: (t) => ({
+      id: t.exposeID("ticketId"),
+      title: t.exposeID("title"),
+      team: t.exposeID("teamId"),
+    }),
+  });
 
 builder.queryFields((t) => ({
   teams: t.field({
@@ -22,5 +31,13 @@ builder.mutationFields((t) => ({
       name: t.arg.string({ required: true }),
     },
     resolve: async (_, args) => Ticket.createTeam(args.name),
+  }),
+  create: t.field({
+    type: TicketType,
+    args: {
+      title: t.arg.string({ required: true }),
+      teamId: t.arg.string({ required: true }),
+    },
+    resolve: async (_, args) => Ticket.create(args.title, args.teamId),
   }),
 }));

@@ -2,7 +2,7 @@ export default {
     "scalars": [
         1,
         3,
-        6
+        7
     ],
     "types": {
         "Article": {
@@ -21,6 +21,19 @@ export default {
         },
         "ID": {},
         "Mutation": {
+            "create": [
+                6,
+                {
+                    "teamId": [
+                        3,
+                        "String!"
+                    ],
+                    "title": [
+                        3,
+                        "String!"
+                    ]
+                }
+            ],
             "createArticle": [
                 0,
                 {
@@ -64,6 +77,20 @@ export default {
                 1
             ],
             "name": [
+                1
+            ],
+            "__typename": [
+                3
+            ]
+        },
+        "Ticket": {
+            "id": [
+                1
+            ],
+            "team": [
+                1
+            ],
+            "title": [
                 1
             ],
             "__typename": [
