@@ -5,11 +5,11 @@ interface TeamForm {
 }
 
 export function Tickets() {
-  // const [teams] = useTypedQuery({
-  //   query: {
-  //     tickets: {},
-  //   },
-  // });
+  const [teams] = useTypedQuery({
+    query: {
+      teams: { name: true, id: true },
+    },
+  });
 
   const [, createTeam] = useTypedMutation((opts: TeamForm) => ({
     createTeam: [
@@ -21,9 +21,9 @@ export function Tickets() {
   }));
 
   return (
-    <div>
-      <h2>Tickets</h2>
-      <p>
+    <div className="p-8">
+      <h2 className="text-2xl">Tickets</h2>
+      <p className="max-w-prose">
         A mini implementation of Jira tickets. In this case we have teams, and
         teams have tickets. They want to get tickets in various states of
         progress, sorted by creation date.
@@ -41,7 +41,12 @@ export function Tickets() {
         <input name="teamName" placeholder="team name" />
         <button type="submit">Submit</button>
       </form>
-      <h3>Latest</h3>
+      <h3>Teams</h3>
+      <ul>
+        {teams.data?.teams.map(({ id, name }) => (
+          <li key={id}>{name}</li>
+        ))}
+      </ul>
     </div>
   );
 }
