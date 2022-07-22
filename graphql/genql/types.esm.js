@@ -2,7 +2,8 @@ export default {
     "scalars": [
         1,
         3,
-        7
+        7,
+        8
     ],
     "types": {
         "Article": {
@@ -56,6 +57,23 @@ export default {
                     ]
                 }
             ],
+            "updateStatus": [
+                6,
+                {
+                    "status": [
+                        7,
+                        "ValidStatuses!"
+                    ],
+                    "teamId": [
+                        3,
+                        "String!"
+                    ],
+                    "ticketId": [
+                        3,
+                        "String!"
+                    ]
+                }
+            ],
             "__typename": [
                 3
             ]
@@ -93,10 +111,13 @@ export default {
             ]
         },
         "Ticket": {
-            "id": [
+            "status": [
                 1
             ],
             "teamId": [
+                1
+            ],
+            "ticketId": [
                 1
             ],
             "title": [
@@ -106,6 +127,7 @@ export default {
                 3
             ]
         },
+        "ValidStatuses": {},
         "Boolean": {}
     }
 }

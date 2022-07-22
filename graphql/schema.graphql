@@ -8,6 +8,7 @@ type Mutation {
   create(teamId: String!, title: String!): Ticket!
   createArticle(title: String!, url: String!): Article!
   createTeam(name: String!): Team!
+  updateStatus(status: ValidStatuses!, teamId: String!, ticketId: String!): Ticket!
 }
 
 type Query {
@@ -22,7 +23,15 @@ type Team {
 }
 
 type Ticket {
-  id: ID!
+  status: ID!
   teamId: ID!
+  ticketId: ID!
   title: ID!
+}
+
+enum ValidStatuses {
+  blocked
+  complete
+  inprogress
+  pending
 }

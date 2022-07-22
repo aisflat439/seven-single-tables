@@ -57,7 +57,8 @@ export const TicketEntity = new Entity(
         readOnly: true,
       },
       status: {
-        type: ["pending", "blocked", "inprogress", "complete"] as const
+        type: ["pending", "blocked", "inprogress", "complete"] as const,
+        required: true,
       },
       title: {
         type: "string",
@@ -66,6 +67,7 @@ export const TicketEntity = new Entity(
       teamId: {
         type: "string",
         required: true,
+        readOnly: true,
       },
     },
     indexes: {
@@ -111,5 +113,11 @@ export function create(title: string, teamId: string) {
 
 export async function listTickets(id: string) {
   return TicketEntity.query.tickets({teamId: id}).go();
+}
+
+export type Statuses = "pending" | "blocked" | "inprogress" | "complete";
+
+export async function updateStatus(teamId: string, ticketId: string, status: Statuses) {
+  return TicketEntity.update({ticketId, teamId}).set({status}).go();
 }
 

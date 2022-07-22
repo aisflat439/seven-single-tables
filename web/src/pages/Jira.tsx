@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ChangeEvent, ChangeEventHandler } from "react";
 import { useTypedMutation, useTypedQuery } from "../urql";
 
 interface TeamForm {
@@ -76,7 +76,7 @@ export function Jira() {
                 </td>
                 <td className="py-1 px-2 text-center"></td>
                 <td className="py-1 px-2 text-center"></td>
-                <td className="py-1 px-2 text-center">team id</td>
+                <td className="py-1 px-2 text-center">ticket title</td>
                 <td className="py-1 px-2 text-center">ticket id</td>
                 <td className="py-1 px-2 text-center">status</td>
               </tr>
@@ -141,9 +141,15 @@ interface TeamTicketsProps {
 const TeamTickets = ({ id }: TeamTicketsProps) => {
   const [tickets] = useTypedQuery({
     query: {
-      tickets: [{ id }, { title: true, teamId: true, id: true }],
+      tickets: [
+        { id },
+        { title: true, teamId: true, ticketId: true, status: true },
+      ],
     },
   });
+
+  const hasTickets = tickets.data?.tickets && tickets.data?.tickets?.length > 0;
+  const tix = tickets.data?.tickets || [];
 
   return (
     <div className="border p-8">
@@ -151,12 +157,99 @@ const TeamTickets = ({ id }: TeamTicketsProps) => {
         <>Loading...</>
       ) : (
         <ul>
-          {tickets.data?.tickets.map((ticket) => (
-            <li key={ticket.id}>{ticket.title}</li>
-          ))}
+          {hasTickets ? (
+            tix.map((ticket, index) => {
+              return (
+                <Ticket
+                  teamId={ticket.teamId}
+                  ticketId={ticket.ticketId}
+                  title={ticket.title}
+                  even={Boolean(index % 2)}
+                  status={ticket.status}
+                  key={ticket.ticketId}
+                />
+              );
+            })
+          ) : (
+            <li>no tickets</li>
+          )}
         </ul>
       )}
     </div>
+  );
+};
+
+interface ITicket {
+  ticketId: string;
+  even: boolean;
+  title: string;
+  status: string;
+  teamId: string;
+}
+interface StatusForm {
+  ticketId: string;
+  teamId: string;
+  status: "pending" | "blocked" | "inprogress" | "complete";
+}
+
+const Ticket = ({
+  ticketId,
+  even,
+  title,
+  status: tStatus,
+  teamId,
+}: ITicket) => {
+  const [status, setStatus] = React.useState<string>(tStatus);
+  const [, updateStatus] = useTypedMutation((opts: StatusForm) => ({
+    updateStatus: [
+      opts,
+      {
+        teamId: true,
+        ticketId: true,
+        status: true,
+      },
+    ],
+  }));
+  console.log("updateStatus: ", updateStatus);
+  // const [, createTeam] = useTypedMutation((opts: TeamForm) => ({
+  //   createTeam: [
+  //     opts,
+  //     {
+  //       name: true,
+  //     },
+  //   ],
+  // }));
+  const handleUpdateStatus = (event: ChangeEvent<HTMLSelectElement>) => {
+    const status = event.target.value as
+      | "pending"
+      | "blocked"
+      | "inprogress"
+      | "complete";
+    setStatus(status);
+    updateStatus({ teamId, ticketId, status });
+  };
+  return (
+    <li>
+      <div
+        className={`p-2 flex justify-between items-center my-2 border border-transparent ${
+          even ? "bg-slate-100" : "border-slate-100"
+        }`}
+      >
+        <h6>
+          <span className="text-sm text-gray-500 mr-1">title:</span>
+          {title}
+        </h6>
+        <div>
+          <label className="text-sm text-gray-500 mr-1">Status:</label>
+          <select onChange={handleUpdateStatus} value={status}>
+            <option value="pending">Pending</option>
+            <option value="blocked">Blocked</option>
+            <option value="inprogress">In Progress</option>
+            <option value="complete">Complete</option>
+          </select>
+        </div>
+      </div>
+    </li>
   );
 };
 

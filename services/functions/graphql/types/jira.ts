@@ -7,13 +7,15 @@ const TeamType = builder.objectRef<Jira.TeamEntityType>("Team").implement({
     name: t.exposeID("name"),
   }),
 });
+
 const TicketType = builder
   .objectRef<Jira.TicketEntityType>("Ticket")
   .implement({
     fields: (t) => ({
-      id: t.exposeID("ticketId"),
+      ticketId: t.exposeID("ticketId"),
       title: t.exposeID("title"),
       teamId: t.exposeID("teamId"),
+      status: t.exposeID("status"),
     }),
   });
 
@@ -31,6 +33,15 @@ builder.queryFields((t) => ({
   }),
 }));
 
+const ValidStatuses = builder.enumType("ValidStatuses", {
+  values: {
+    pending: {},
+    blocked: {},
+    inprogress: {},
+    complete: {},
+  },
+});
+
 builder.mutationFields((t) => ({
   createTeam: t.field({
     type: TeamType,
@@ -46,5 +57,19 @@ builder.mutationFields((t) => ({
       teamId: t.arg.string({ required: true }),
     },
     resolve: async (_, args) => Jira.create(args.title, args.teamId),
+  }),
+  updateStatus: t.field({
+    type: TicketType,
+    args: {
+      teamId: t.arg.string({ required: true }),
+      ticketId: t.arg.string({ required: true }),
+      status: t.arg({
+        required: true,
+        type: ValidStatuses,
+      }),
+    },
+    resolve: async (_, args) =>
+      // @ts-ignore
+      Jira.updateStatus(args.teamId, args.ticketId, args.status),
   }),
 }));

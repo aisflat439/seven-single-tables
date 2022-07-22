@@ -17,6 +17,7 @@ export interface Mutation {
     create: Ticket
     createArticle: Article
     createTeam: Team
+    updateStatus: Ticket
     __typename: 'Mutation'
 }
 
@@ -34,11 +35,14 @@ export interface Team {
 }
 
 export interface Ticket {
-    id: Scalars['ID']
+    status: Scalars['ID']
     teamId: Scalars['ID']
+    ticketId: Scalars['ID']
     title: Scalars['ID']
     __typename: 'Ticket'
 }
+
+export type ValidStatuses = 'blocked' | 'complete' | 'inprogress' | 'pending'
 
 export interface ArticleRequest{
     id?: boolean | number
@@ -52,6 +56,7 @@ export interface MutationRequest{
     create?: [{teamId: Scalars['String'],title: Scalars['String']},TicketRequest]
     createArticle?: [{title: Scalars['String'],url: Scalars['String']},ArticleRequest]
     createTeam?: [{name: Scalars['String']},TeamRequest]
+    updateStatus?: [{status: ValidStatuses,teamId: Scalars['String'],ticketId: Scalars['String']},TicketRequest]
     __typename?: boolean | number
     __scalar?: boolean | number
 }
@@ -72,8 +77,9 @@ export interface TeamRequest{
 }
 
 export interface TicketRequest{
-    id?: boolean | number
+    status?: boolean | number
     teamId?: boolean | number
+    ticketId?: boolean | number
     title?: boolean | number
     __typename?: boolean | number
     __scalar?: boolean | number
@@ -134,13 +140,15 @@ export interface ArticleObservableChain{
 export interface MutationPromiseChain{
     create: ((args: {teamId: Scalars['String'],title: Scalars['String']}) => TicketPromiseChain & {get: <R extends TicketRequest>(request: R, defaultValue?: FieldsSelection<Ticket, R>) => Promise<FieldsSelection<Ticket, R>>}),
     createArticle: ((args: {title: Scalars['String'],url: Scalars['String']}) => ArticlePromiseChain & {get: <R extends ArticleRequest>(request: R, defaultValue?: FieldsSelection<Article, R>) => Promise<FieldsSelection<Article, R>>}),
-    createTeam: ((args: {name: Scalars['String']}) => TeamPromiseChain & {get: <R extends TeamRequest>(request: R, defaultValue?: FieldsSelection<Team, R>) => Promise<FieldsSelection<Team, R>>})
+    createTeam: ((args: {name: Scalars['String']}) => TeamPromiseChain & {get: <R extends TeamRequest>(request: R, defaultValue?: FieldsSelection<Team, R>) => Promise<FieldsSelection<Team, R>>}),
+    updateStatus: ((args: {status: ValidStatuses,teamId: Scalars['String'],ticketId: Scalars['String']}) => TicketPromiseChain & {get: <R extends TicketRequest>(request: R, defaultValue?: FieldsSelection<Ticket, R>) => Promise<FieldsSelection<Ticket, R>>})
 }
 
 export interface MutationObservableChain{
     create: ((args: {teamId: Scalars['String'],title: Scalars['String']}) => TicketObservableChain & {get: <R extends TicketRequest>(request: R, defaultValue?: FieldsSelection<Ticket, R>) => Observable<FieldsSelection<Ticket, R>>}),
     createArticle: ((args: {title: Scalars['String'],url: Scalars['String']}) => ArticleObservableChain & {get: <R extends ArticleRequest>(request: R, defaultValue?: FieldsSelection<Article, R>) => Observable<FieldsSelection<Article, R>>}),
-    createTeam: ((args: {name: Scalars['String']}) => TeamObservableChain & {get: <R extends TeamRequest>(request: R, defaultValue?: FieldsSelection<Team, R>) => Observable<FieldsSelection<Team, R>>})
+    createTeam: ((args: {name: Scalars['String']}) => TeamObservableChain & {get: <R extends TeamRequest>(request: R, defaultValue?: FieldsSelection<Team, R>) => Observable<FieldsSelection<Team, R>>}),
+    updateStatus: ((args: {status: ValidStatuses,teamId: Scalars['String'],ticketId: Scalars['String']}) => TicketObservableChain & {get: <R extends TicketRequest>(request: R, defaultValue?: FieldsSelection<Ticket, R>) => Observable<FieldsSelection<Ticket, R>>})
 }
 
 export interface QueryPromiseChain{
@@ -166,13 +174,15 @@ export interface TeamObservableChain{
 }
 
 export interface TicketPromiseChain{
-    id: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Promise<Scalars['ID']>}),
+    status: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Promise<Scalars['ID']>}),
     teamId: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Promise<Scalars['ID']>}),
+    ticketId: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Promise<Scalars['ID']>}),
     title: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Promise<Scalars['ID']>})
 }
 
 export interface TicketObservableChain{
-    id: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Observable<Scalars['ID']>}),
+    status: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Observable<Scalars['ID']>}),
     teamId: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Observable<Scalars['ID']>}),
+    ticketId: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Observable<Scalars['ID']>}),
     title: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Observable<Scalars['ID']>})
 }

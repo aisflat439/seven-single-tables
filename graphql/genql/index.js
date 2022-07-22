@@ -25,6 +25,13 @@ export var createClient = function(options) {
   return createClientOriginal(optionsCopy)
 }
 
+export const enumValidStatuses = {
+  blocked: 'blocked',
+  complete: 'complete',
+  inprogress: 'inprogress',
+  pending: 'pending',
+}
+
 export var generateQueryOp = function(fields) {
   return generateGraphqlOperation('query', typeMap.Query, fields)
 }
