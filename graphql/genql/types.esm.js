@@ -1,130 +1,100 @@
 export default {
     "scalars": [
         1,
-        3,
-        7,
-        8
+        4,
+        6,
+        7
     ],
     "types": {
-        "Article": {
-            "id": [
-                1
-            ],
-            "title": [
-                1
-            ],
-            "url": [
-                1
-            ],
-            "__typename": [
-                3
-            ]
-        },
-        "ID": {},
         "Mutation": {
             "create": [
-                6,
+                5,
                 {
                     "teamId": [
-                        3,
+                        1,
                         "String!"
                     ],
                     "title": [
-                        3,
-                        "String!"
-                    ]
-                }
-            ],
-            "createArticle": [
-                0,
-                {
-                    "title": [
-                        3,
-                        "String!"
-                    ],
-                    "url": [
-                        3,
+                        1,
                         "String!"
                     ]
                 }
             ],
             "createTeam": [
-                5,
+                3,
                 {
                     "name": [
-                        3,
+                        1,
                         "String!"
                     ]
                 }
             ],
             "updateStatus": [
-                6,
+                5,
                 {
                     "status": [
-                        7,
+                        6,
                         "ValidStatuses!"
                     ],
                     "teamId": [
-                        3,
+                        1,
                         "String!"
                     ],
                     "ticketId": [
-                        3,
+                        1,
                         "String!"
                     ]
                 }
             ],
             "__typename": [
-                3
+                1
             ]
         },
         "String": {},
         "Query": {
-            "articles": [
-                0
-            ],
             "teams": [
-                5
+                3
             ],
             "tickets": [
-                6,
+                5,
                 {
                     "id": [
-                        3,
+                        1,
                         "String!"
                     ]
                 }
             ],
             "__typename": [
-                3
+                1
             ]
         },
         "Team": {
             "id": [
-                1
+                4
             ],
             "name": [
-                1
+                4
             ],
             "__typename": [
-                3
+                1
             ]
         },
+        "ID": {},
         "Ticket": {
             "status": [
-                1
+                4
             ],
             "teamId": [
-                1
+                4
             ],
             "ticketId": [
-                1
+                4
             ],
             "title": [
-                1
+                4
             ],
             "__typename": [
-                3
+                1
             ]
         },
         "ValidStatuses": {},

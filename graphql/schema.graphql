@@ -1,18 +1,10 @@
-type Article {
-  id: ID!
-  title: ID!
-  url: ID!
-}
-
 type Mutation {
   create(teamId: String!, title: String!): Ticket!
-  createArticle(title: String!, url: String!): Article!
   createTeam(name: String!): Team!
   updateStatus(status: ValidStatuses!, teamId: String!, ticketId: String!): Ticket!
 }
 
 type Query {
-  articles: [Article!]!
   teams: [Team!]!
   tickets(id: String!): [Ticket!]!
 }
