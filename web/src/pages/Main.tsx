@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { useTypedMutation, useTypedQuery } from "../urql";
 
 export function Main() {
   return (
