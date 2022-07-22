@@ -68,6 +68,15 @@ export default {
             "teams": [
                 5
             ],
+            "tickets": [
+                6,
+                {
+                    "id": [
+                        3,
+                        "String!"
+                    ]
+                }
+            ],
             "__typename": [
                 3
             ]

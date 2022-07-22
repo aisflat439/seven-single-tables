@@ -22,6 +22,13 @@ builder.queryFields((t) => ({
     type: [TeamType],
     resolve: () => Jira.listTeams(),
   }),
+  tickets: t.field({
+    type: [TicketType],
+    args: {
+      id: t.arg.string({ required: true }),
+    },
+    resolve: (_, args) => Jira.listTickets(args.id),
+  }),
 }));
 
 builder.mutationFields((t) => ({

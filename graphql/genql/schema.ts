@@ -23,6 +23,7 @@ export interface Mutation {
 export interface Query {
     articles: Article[]
     teams: Team[]
+    tickets: Ticket[]
     __typename: 'Query'
 }
 
@@ -58,6 +59,7 @@ export interface MutationRequest{
 export interface QueryRequest{
     articles?: ArticleRequest
     teams?: TeamRequest
+    tickets?: [{id: Scalars['String']},TicketRequest]
     __typename?: boolean | number
     __scalar?: boolean | number
 }
@@ -143,12 +145,14 @@ export interface MutationObservableChain{
 
 export interface QueryPromiseChain{
     articles: ({get: <R extends ArticleRequest>(request: R, defaultValue?: FieldsSelection<Article, R>[]) => Promise<FieldsSelection<Article, R>[]>}),
-    teams: ({get: <R extends TeamRequest>(request: R, defaultValue?: FieldsSelection<Team, R>[]) => Promise<FieldsSelection<Team, R>[]>})
+    teams: ({get: <R extends TeamRequest>(request: R, defaultValue?: FieldsSelection<Team, R>[]) => Promise<FieldsSelection<Team, R>[]>}),
+    tickets: ((args: {id: Scalars['String']}) => {get: <R extends TicketRequest>(request: R, defaultValue?: FieldsSelection<Ticket, R>[]) => Promise<FieldsSelection<Ticket, R>[]>})
 }
 
 export interface QueryObservableChain{
     articles: ({get: <R extends ArticleRequest>(request: R, defaultValue?: FieldsSelection<Article, R>[]) => Observable<FieldsSelection<Article, R>[]>}),
-    teams: ({get: <R extends TeamRequest>(request: R, defaultValue?: FieldsSelection<Team, R>[]) => Observable<FieldsSelection<Team, R>[]>})
+    teams: ({get: <R extends TeamRequest>(request: R, defaultValue?: FieldsSelection<Team, R>[]) => Observable<FieldsSelection<Team, R>[]>}),
+    tickets: ((args: {id: Scalars['String']}) => {get: <R extends TicketRequest>(request: R, defaultValue?: FieldsSelection<Ticket, R>[]) => Observable<FieldsSelection<Ticket, R>[]>})
 }
 
 export interface TeamPromiseChain{

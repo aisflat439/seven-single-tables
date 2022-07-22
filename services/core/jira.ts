@@ -109,7 +109,7 @@ export function create(title: string, teamId: string) {
   }).go();
 }
 
-// export async function list() {
-//   return TicketEntity.query.primary({}).go();
-// }
+export async function listTickets(id: string) {
+  return TicketEntity.query.tickets({teamId: id}).go();
+}
 

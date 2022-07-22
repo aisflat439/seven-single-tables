@@ -6,7 +6,7 @@ interface TeamForm {
 }
 
 export function Jira() {
-  const [visibleTeam, setVisibleTeam] = React.useState<String | false>(false);
+  const [visibleTeam, setVisibleTeam] = React.useState<string | false>(false);
   const [teams] = useTypedQuery({
     query: {
       teams: { name: true, id: true },
@@ -28,18 +28,61 @@ export function Jira() {
 
   return (
     <div className="p-8">
-      <h2 className="text-2xl">Jira</h2>
-      <div className="p-2 max-w-prose shadow my-4">
-        <p className="">
-          A mini implementation of Jira tickets. In this case we have teams, and
-          teams have tickets. They want to get tickets in various states of
-          progress, sorted by creation date.
-        </p>
-        <p className="">
-          A mini implementation of Jira tickets. In this case we have teams, and
-          teams have tickets. They want to get tickets in various states of
-          progress, sorted by creation date.
-        </p>
+      <h2 className="text-2xl m-4">Jira</h2>
+      <div className="p-2 shadow">
+        <div className="max-w-prose my-4">
+          <p className="">
+            A mini implementation of Jira tickets. In this case we have teams,
+            and teams have tickets. They want to get tickets in various states
+            of progress, sorted by creation date.
+          </p>
+          <p className="mt-2">
+            This example implements the following access patterns:
+          </p>
+          <ul className="pl-4">
+            <li>List all Teams</li>
+            <li>List a teams tickets</li>
+            <li>Update a ticket</li>
+          </ul>
+          <p>The table looks roughly like this:</p>
+        </div>
+        <div className="p-4 ">
+          <table className="block overflow-auto whitespace-nowrap">
+            <thead>
+              <tr className="bg-gray-100">
+                <th className="p-2">PK</th>
+                <th className="p-2">SK</th>
+                <th className="p-2">Team Name</th>
+                <th className="p-2">Team Id</th>
+                <th className="p-2">Ticket Title</th>
+                <th className="p-2">Ticket Id</th>
+                <th className="p-2">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="py-1 px-2 text-center">jira</td>
+                <td className="py-1 px-2 text-center">jira + team name</td>
+                <td className="py-1 px-2 text-center">team name</td>
+                <td className="py-1 px-2 text-center">team id</td>
+                <td className="py-1 px-2 text-center"></td>
+                <td className="py-1 px-2 text-center"></td>
+                <td className="py-1 px-2 text-center"></td>
+              </tr>
+              <tr className="bg-gray-100">
+                <td className="py-1 px-2 text-center">jira + teamId</td>
+                <td className="py-1 px-2 text-center">
+                  jira + ticket + ticket id
+                </td>
+                <td className="py-1 px-2 text-center"></td>
+                <td className="py-1 px-2 text-center"></td>
+                <td className="py-1 px-2 text-center">team id</td>
+                <td className="py-1 px-2 text-center">ticket id</td>
+                <td className="py-1 px-2 text-center">status</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
       <form
         onSubmit={(e) => {
@@ -71,17 +114,9 @@ export function Jira() {
           </button>
         </div>
       </form>
-      <h3>Teams</h3>
       <div className="grid grid-cols-2 gap-2">
         {teams.fetching ? (
-          <div className="flex justify-center items-center m-12">
-            <div
-              className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full"
-              role="status"
-            >
-              <span className="invisible">Loading...</span>
-            </div>
-          </div>
+          <>Loading...</>
         ) : (
           <ul>
             {teams.data?.teams.map((team) => (
@@ -93,11 +128,37 @@ export function Jira() {
             ))}
           </ul>
         )}
-        <div>viewsection</div>
+        {visibleTeam && <TeamTickets id={visibleTeam} />}
       </div>
     </div>
   );
 }
+
+interface TeamTicketsProps {
+  id: string;
+}
+
+const TeamTickets = ({ id }: TeamTicketsProps) => {
+  const [tickets] = useTypedQuery({
+    query: {
+      tickets: [{ id }, { title: true, teamId: true, id: true }],
+    },
+  });
+
+  return (
+    <div className="border p-8">
+      {tickets.fetching ? (
+        <>Loading...</>
+      ) : (
+        <ul>
+          {tickets.data?.tickets.map((ticket) => (
+            <li key={ticket.id}>{ticket.title}</li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+};
 
 interface TicketForm {
   title: string;
