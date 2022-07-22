@@ -4,7 +4,16 @@ import { Api } from "./Api";
 export function Web({ stack }: StackContext) {
   const api = use(Api);
 
+  const isProduction = stack.stage === "prod";
+  const domain = {
+    customDomain: {
+      domainName: "sevensingletables.com",
+      domainAlias: "www.sevensingletables.com",
+    },
+  };
+
   const site = new ViteStaticSite(stack, "site", {
+    ...(isProduction ? domain : {}),
     path: "web",
     buildCommand: "npm run build",
     environment: {

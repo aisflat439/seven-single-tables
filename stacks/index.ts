@@ -8,5 +8,12 @@ export default function main(app: App) {
     runtime: "nodejs16.x",
     srcPath: "services",
   });
-  app.stack(Database).stack(Api).stack(Web);
+  // Remove all resources when the dev stage is removed
+  if (app.stage !== "prod") {
+    app.setDefaultRemovalPolicy("destroy");
+  }
+  app
+    .stack(Database)
+    .stack(Api)
+    .stack(Web);
 }

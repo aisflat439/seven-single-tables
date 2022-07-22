@@ -88,9 +88,12 @@ export function Jira() {
         onSubmit={(e) => {
           e.preventDefault();
           const fd = new FormData(e.currentTarget);
-          createTeam({
-            name: fd.get("teamName")!.toString(),
-          });
+          const name = fd.get("teamName")!.toString();
+          if (name) {
+            createTeam({
+              name,
+            });
+          }
           e.currentTarget.reset();
         }}
       >
@@ -186,10 +189,13 @@ interface ITicket {
   status: string;
   teamId: string;
 }
+
+type Statuses = "pending" | "blocked" | "inprogress" | "complete";
+
 interface StatusForm {
   ticketId: string;
   teamId: string;
-  status: "pending" | "blocked" | "inprogress" | "complete";
+  status: Statuses;
 }
 
 const Ticket = ({
@@ -210,24 +216,13 @@ const Ticket = ({
       },
     ],
   }));
-  console.log("updateStatus: ", updateStatus);
-  // const [, createTeam] = useTypedMutation((opts: TeamForm) => ({
-  //   createTeam: [
-  //     opts,
-  //     {
-  //       name: true,
-  //     },
-  //   ],
-  // }));
+
   const handleUpdateStatus = (event: ChangeEvent<HTMLSelectElement>) => {
-    const status = event.target.value as
-      | "pending"
-      | "blocked"
-      | "inprogress"
-      | "complete";
+    const status = event.target.value as Statuses;
     setStatus(status);
     updateStatus({ teamId, ticketId, status });
   };
+
   return (
     <li>
       <div
@@ -292,10 +287,13 @@ const Team = ({ id, name, handleViewTickets }: Team) => {
             onSubmit={(e) => {
               e.preventDefault();
               const fd = new FormData(e.currentTarget);
-              create({
-                title: fd.get("title")!.toString(),
-                teamId: id,
-              });
+              const title = fd.get("title")!.toString();
+              if (title) {
+                create({
+                  title,
+                  teamId: id,
+                });
+              }
               e.currentTarget.reset();
             }}
           >

@@ -34,12 +34,7 @@ builder.queryFields((t) => ({
 }));
 
 const ValidStatuses = builder.enumType("ValidStatuses", {
-  values: {
-    pending: {},
-    blocked: {},
-    inprogress: {},
-    complete: {},
-  },
+  values: ["pending", "blocked", "inprogress", "complete"],
 });
 
 builder.mutationFields((t) => ({

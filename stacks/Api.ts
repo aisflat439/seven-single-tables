@@ -9,6 +9,8 @@ export function Api({ stack }: StackContext) {
   const db = use(Database);
 
   const api = new ApiGateway(stack, "api", {
+    customDomain:
+      stack.stage === "prod" ? "api.sevensingletables.com" : undefined,
     defaults: {
       function: {
         permissions: [db],
