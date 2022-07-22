@@ -87,7 +87,7 @@ export default {
             "id": [
                 1
             ],
-            "team": [
+            "teamId": [
                 1
             ],
             "title": [

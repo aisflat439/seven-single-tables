@@ -14,7 +14,7 @@ Seven Single Tables is a series of exercises that are for practicing and teachin
 
 Generally, I believe in practice. This represents an example of that.
 
-## 1 - Tickets
+## 1 - Jira
 
 A mini implementation of Jira tickets. In this case we have teams, and teams have tickets. They want to get tickets in various states of progress, sorted by creation date.
 
@@ -34,13 +34,12 @@ A mini implementation of Jira tickets. In this case we have teams, and teams hav
 - Mark a teams ticket complete/blocked/pending/in-progress
 - Get all of a teams pending tickets, sorted by creation time
 - Get all of a teams blocked tickets, sorted by creation time
-  
+
   ### Detailed Explanation
 
 This task goal is to learn the concept of heirarchical search and a compound sort key
 
 </details>
-
 
 ## 2 - Posts
 
@@ -56,7 +55,6 @@ A mini implementation of a part of a site Reddit or Hacker News
 ### Detailed Explanation
 
 </details>
-
 
 ## 3 - Orders
 

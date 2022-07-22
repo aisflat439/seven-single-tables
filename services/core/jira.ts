@@ -1,59 +1,63 @@
-export * as Ticket from "./ticket";
+export * as Jira from "./jira";
 import { Dynamo } from "./dynamo";
 import { Entity, EntityItem } from "electrodb";
 import { ulid } from "ulid";
 
 export const TeamEntity = new Entity( 
-    {
-        model: {
-          version: "1",
-          entity: "Team",
-          service: "tickets",
+  {
+    model: {
+      version: "1",
+      entity: "Team",
+      service: "jira",
+    },
+    attributes: {
+      teamId: {
+        type: "string",
+        required: true,
+        readOnly: true,
+      },
+      profile: {
+        type: "string",
+        required: true,
+        readOnly: true,
+      },
+      name: {
+        type: "string",
+        required: true,
+      },
+    },
+    indexes: {
+      teams: {
+        collection: "jira",
+        pk:{
+          field: "pk",
+          composite: []
         },
-        attributes: {
-          teamId: {
-            type: "string",
-            required: true,
-            readOnly: true,
-          },
-          profile: {
-            type: "string",
-            required: true,
-            readOnly: true,
-          },
-          name: {
-            type: "string",
-            required: true,
-          },
-        },
-        indexes: {
-          primary: {
-            pk:{
-              field: "pk",
-              composite: []
-            },
-            sk: {
-              field: "sk",
-              composite: ["profile", "name"]
-            }
-          },
+        sk: {
+          field: "sk",
+          composite: ["name"]
         }
       },
-      Dynamo.Configuration
-    )
+    }
+  },
+  Dynamo.Configuration
+)
 
 export const TicketEntity = new Entity(
   {
     model: {
       version: "1",
       entity: "Ticket",
-      service: "tickets",
+      service: "jira",
     },
     attributes: {
       ticketId: {
         type: "string",
         required: true,
         readOnly: true,
+      },
+      status: {
+        type: ["pending", "blocked", "inprogress", "complete"] as const
       },
       title: {
         type: "string",
@@ -65,10 +69,11 @@ export const TicketEntity = new Entity(
       },
     },
     indexes: {
-      primary: {
+      tickets: {
+        collection: "jira",
         pk: {
           field: "pk",
-          composite: [],
+          composite: ["teamId"],
         },
         sk: {
           field: "sk",
@@ -92,14 +97,15 @@ export async function createTeam(name: string) {
 }
 
 export async function listTeams() {
-  return TeamEntity.query.primary({}).begins({profile: 'profile'}).go();
+  return TeamEntity.query.teams({}).go();
 }
 
 export function create(title: string, teamId: string) {
   return TicketEntity.create({
+    status: "pending",
+    teamId,
     ticketId: ulid(),
     title,
-    teamId
   }).go();
 }
 

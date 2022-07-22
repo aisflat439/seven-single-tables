@@ -34,7 +34,7 @@ export interface Team {
 
 export interface Ticket {
     id: Scalars['ID']
-    team: Scalars['ID']
+    teamId: Scalars['ID']
     title: Scalars['ID']
     __typename: 'Ticket'
 }
@@ -71,7 +71,7 @@ export interface TeamRequest{
 
 export interface TicketRequest{
     id?: boolean | number
-    team?: boolean | number
+    teamId?: boolean | number
     title?: boolean | number
     __typename?: boolean | number
     __scalar?: boolean | number
@@ -163,12 +163,12 @@ export interface TeamObservableChain{
 
 export interface TicketPromiseChain{
     id: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Promise<Scalars['ID']>}),
-    team: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Promise<Scalars['ID']>}),
+    teamId: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Promise<Scalars['ID']>}),
     title: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Promise<Scalars['ID']>})
 }
 
 export interface TicketObservableChain{
     id: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Observable<Scalars['ID']>}),
-    team: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Observable<Scalars['ID']>}),
+    teamId: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Observable<Scalars['ID']>}),
     title: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Observable<Scalars['ID']>})
 }

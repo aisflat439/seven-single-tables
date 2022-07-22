@@ -1,26 +1,26 @@
-import { Ticket } from "@seven-single-tables/core/ticket";
+import { Jira } from "@seven-single-tables/core/jira";
 import { builder } from "../builder";
 
-const TeamType = builder.objectRef<Ticket.TeamEntityType>("Team").implement({
+const TeamType = builder.objectRef<Jira.TeamEntityType>("Team").implement({
   fields: (t) => ({
     id: t.exposeID("teamId"),
     name: t.exposeID("name"),
   }),
 });
 const TicketType = builder
-  .objectRef<Ticket.TicketEntityType>("Ticket")
+  .objectRef<Jira.TicketEntityType>("Ticket")
   .implement({
     fields: (t) => ({
       id: t.exposeID("ticketId"),
       title: t.exposeID("title"),
-      team: t.exposeID("teamId"),
+      teamId: t.exposeID("teamId"),
     }),
   });
 
 builder.queryFields((t) => ({
   teams: t.field({
     type: [TeamType],
-    resolve: () => Ticket.listTeams(),
+    resolve: () => Jira.listTeams(),
   }),
 }));
 
@@ -30,7 +30,7 @@ builder.mutationFields((t) => ({
     args: {
       name: t.arg.string({ required: true }),
     },
-    resolve: async (_, args) => Ticket.createTeam(args.name),
+    resolve: async (_, args) => Jira.createTeam(args.name),
   }),
   create: t.field({
     type: TicketType,
@@ -38,6 +38,6 @@ builder.mutationFields((t) => ({
       title: t.arg.string({ required: true }),
       teamId: t.arg.string({ required: true }),
     },
-    resolve: async (_, args) => Ticket.create(args.title, args.teamId),
+    resolve: async (_, args) => Jira.create(args.title, args.teamId),
   }),
 }));

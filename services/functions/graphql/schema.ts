@@ -1,6 +1,6 @@
 import { builder } from "./builder";
 
 import "./types/article";
-import "./types/ticket";
+import "./types/jira";
 
 export const schema = builder.toSchema({});
