@@ -27,14 +27,25 @@ export function Jira() {
   };
 
   return (
-    <div className="p-8">
+    <div className="px-4">
       <h2 className="text-2xl m-4">Jira</h2>
       <div className="p-2 shadow">
         <div className="max-w-prose my-4">
           <p className="">
             A mini implementation of Jira tickets. In this case we have teams,
             and teams have tickets. They want to get tickets in various states
-            of progress, sorted by creation date.
+            of progress, sorted by creation date. The lesson here is partition
+            overloading. SK values are either:
+            <pre className="mt-1">teamname</pre>
+            or
+            <pre>"ticket" + ticketid</pre>
+          </p>
+          <p>
+            The point here is that you want to be comfortable with SK having
+            multiple different values in it. We can then query for all tickets
+            of a given team with a PK of "teamname" and then an SK that begins
+            with ticket. Should we need to update a specific value on a given
+            ticket, we can use that tickets ID to update just that one value.
           </p>
           <p className="mt-2">
             This example implements the following access patterns:

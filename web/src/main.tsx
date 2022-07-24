@@ -1,10 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Provider as UrqlProvider, createClient, defaultExchanges } from "urql";
-import { Main } from "./pages/Main";
+import { Dashboard } from "./pages/Dashboard";
 import { Jira } from "./pages/Jira";
+import { Orders } from "./pages/Orders";
+import { Posts } from "./pages/Posts";
+import { Frame } from "./components/Frame";
 
 const urql = createClient({
   url: import.meta.env.VITE_GRAPHQL_URL,
@@ -22,11 +25,16 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="jira" element={<Jira />} />
-        <Route path="*" element={<Main />} />
-      </Routes>
+      <Frame>
+        
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="jira" element={<Jira />} />
+          <Route path="posts" element={<Posts />} />
+          <Route path="orders" element={<Orders />} />
+          <Route path="*" element={<Dashboard />} />
+        </Routes>
+      </Frame>
     </BrowserRouter>
   );
 }
