@@ -9,6 +9,8 @@ const TeamType = builder.objectRef<Jira.TeamEntityType>("Team").implement({
 });
 
 const TicketType = builder
+  // the parenthesis ("Ticket") is what appears in the
+  // graphql Docs as the type Ticket!
   .objectRef<Jira.TicketEntityType>("Ticket")
   .implement({
     fields: (t) => ({
@@ -18,6 +20,10 @@ const TicketType = builder
       status: t.exposeID("status"),
     }),
   });
+
+const ValidStatuses = builder.enumType("ValidStatuses", {
+  values: ["pending", "blocked", "inprogress", "complete"],
+});
 
 builder.queryFields((t) => ({
   teams: t.field({
@@ -32,10 +38,6 @@ builder.queryFields((t) => ({
     resolve: (_, args) => Jira.listTickets(args.id),
   }),
 }));
-
-const ValidStatuses = builder.enumType("ValidStatuses", {
-  values: ["pending", "blocked", "inprogress", "complete"],
-});
 
 builder.mutationFields((t) => ({
   createTeam: t.field({

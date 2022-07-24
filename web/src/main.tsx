@@ -26,7 +26,6 @@ function App() {
   return (
     <BrowserRouter>
       <Frame>
-        
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="jira" element={<Jira />} />

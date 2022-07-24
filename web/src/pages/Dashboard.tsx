@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export function Dashboard() {
   return (
     <div>
@@ -76,6 +78,20 @@ export function Dashboard() {
           </li>
         </ul>
       </article>
+      <section>
+        <ul>
+          <li>
+            <Link to="jira">
+              <div className="shadow p-4 my-4 flex">
+                <h5>Jira:</h5>
+                <p className="ml-4">
+                  The simplest example of Single Table Design
+                </p>
+              </div>
+            </Link>
+          </li>
+        </ul>
+      </section>
     </div>
   );
 }

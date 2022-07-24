@@ -1,100 +1,202 @@
 export default {
     "scalars": [
         1,
-        4,
-        6,
-        7
+        3,
+        9,
+        10
     ],
     "types": {
+        "Comment": {
+            "comment": [
+                1
+            ],
+            "postId": [
+                1
+            ],
+            "redditorId": [
+                1
+            ],
+            "__typename": [
+                3
+            ]
+        },
+        "ID": {},
         "Mutation": {
+            "comment": [
+                0,
+                {
+                    "comment": [
+                        3,
+                        "String!"
+                    ],
+                    "postId": [
+                        3,
+                        "String!"
+                    ],
+                    "redditorId": [
+                        3,
+                        "String!"
+                    ]
+                }
+            ],
             "create": [
-                5,
+                8,
                 {
                     "teamId": [
-                        1,
+                        3,
                         "String!"
                     ],
                     "title": [
-                        1,
+                        3,
+                        "String!"
+                    ]
+                }
+            ],
+            "createPost": [
+                4,
+                {
+                    "post": [
+                        3,
+                        "String!"
+                    ],
+                    "redditorId": [
+                        3,
+                        "String!"
+                    ]
+                }
+            ],
+            "createRedditor": [
+                6,
+                {
+                    "name": [
+                        3,
                         "String!"
                     ]
                 }
             ],
             "createTeam": [
-                3,
+                7,
                 {
                     "name": [
-                        1,
+                        3,
                         "String!"
                     ]
                 }
             ],
             "updateStatus": [
-                5,
+                8,
                 {
                     "status": [
-                        6,
+                        9,
                         "ValidStatuses!"
                     ],
                     "teamId": [
-                        1,
+                        3,
                         "String!"
                     ],
                     "ticketId": [
-                        1,
+                        3,
                         "String!"
                     ]
                 }
             ],
             "__typename": [
-                1
+                3
             ]
         },
         "String": {},
-        "Query": {
-            "teams": [
+        "Post": {
+            "comments": [
+                0
+            ],
+            "post": [
+                1
+            ],
+            "postId": [
+                1
+            ],
+            "redditorId": [
+                1
+            ],
+            "__typename": [
                 3
+            ]
+        },
+        "Query": {
+            "getPost": [
+                4,
+                {
+                    "postId": [
+                        3,
+                        "String!"
+                    ]
+                }
+            ],
+            "getPosts": [
+                4,
+                {
+                    "redditorId": [
+                        3,
+                        "String!"
+                    ]
+                }
+            ],
+            "redditors": [
+                6
+            ],
+            "teams": [
+                7
             ],
             "tickets": [
-                5,
+                8,
                 {
                     "id": [
-                        1,
+                        3,
                         "String!"
                     ]
                 }
             ],
             "__typename": [
+                3
+            ]
+        },
+        "Redditor": {
+            "name": [
                 1
+            ],
+            "redditorId": [
+                1
+            ],
+            "__typename": [
+                3
             ]
         },
         "Team": {
             "id": [
-                4
+                1
             ],
             "name": [
-                4
+                1
             ],
             "__typename": [
-                1
+                3
             ]
         },
-        "ID": {},
         "Ticket": {
             "status": [
-                4
+                1
             ],
             "teamId": [
-                4
+                1
             ],
             "ticketId": [
-                4
+                1
             ],
             "title": [
-                4
+                1
             ],
             "__typename": [
-                1
+                3
             ]
         },
         "ValidStatuses": {},

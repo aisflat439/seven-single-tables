@@ -82,7 +82,7 @@ export const Frame = ({ children }: FrameProps) => {
           </div>
         </nav>
       </header>
-      <main className="max-w-screen-xl m-auto p-4">{children}</main>
+      <main className="max-w-screen-xl m-auto py-4 px-8">{children}</main>
     </div>
   );
 };

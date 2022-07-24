@@ -27,7 +27,7 @@ export function Jira() {
   };
 
   return (
-    <div className="px-4">
+    <>
       <h2 className="text-2xl m-4">Jira</h2>
       <div className="p-2 shadow">
         <div className="max-w-prose my-4">
@@ -144,7 +144,7 @@ export function Jira() {
         )}
         {visibleTeam && <TeamTickets id={visibleTeam} />}
       </div>
-    </div>
+    </>
   );
 }
 

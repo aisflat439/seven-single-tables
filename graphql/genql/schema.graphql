@@ -1,12 +1,36 @@
+type Comment {
+  comment: ID!
+  postId: ID!
+  redditorId: ID!
+}
+
 type Mutation {
+  comment(comment: String!, postId: String!, redditorId: String!): Comment!
   create(teamId: String!, title: String!): Ticket!
+  createPost(post: String!, redditorId: String!): Post!
+  createRedditor(name: String!): Redditor!
   createTeam(name: String!): Team!
   updateStatus(status: ValidStatuses!, teamId: String!, ticketId: String!): Ticket!
 }
 
+type Post {
+  comments: [Comment!]!
+  post: ID!
+  postId: ID!
+  redditorId: ID!
+}
+
 type Query {
+  getPost(postId: String!): Post!
+  getPosts(redditorId: String!): [Post!]!
+  redditors: [Redditor!]!
   teams: [Team!]!
   tickets(id: String!): [Ticket!]!
+}
+
+type Redditor {
+  name: ID!
+  redditorId: ID!
 }
 
 type Team {
