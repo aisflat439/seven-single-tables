@@ -14,13 +14,14 @@ type Mutation {
 }
 
 type Post {
+  comments: [Comment!]!
   post: ID!
   postId: ID!
   redditorId: ID!
 }
 
 type Query {
-  getPost(postId: String!): Post!
+  getPost(postId: String!): [Post!]!
   getPosts(redditorId: String!): [Post!]!
   redditors: [Redditor!]!
   teams: [Team!]!

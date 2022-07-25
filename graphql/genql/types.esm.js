@@ -106,6 +106,9 @@ export default {
         },
         "String": {},
         "Post": {
+            "comments": [
+                0
+            ],
             "post": [
                 1
             ],

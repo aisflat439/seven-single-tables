@@ -1,4 +1,12 @@
+import { useTypedQuery } from "../urql";
+
 export const Posts = () => {
+  const [redditors] = useTypedQuery({
+    query: {
+      redditors: { redditorId: true, name: true },
+    },
+  });
+
   return (
     <>
       <h2 className="text-2xl m-4">Posts</h2>
@@ -15,6 +23,20 @@ export const Posts = () => {
           <li>List posts by poster</li>
           <li>List comments by poster</li>
         </ul>
+      </div>
+      <div className="my-4">
+        {!redditors.fetching ? (
+          <>
+            <label>Select a user to see their post history</label>
+            <select>
+              {redditors.data?.redditors.map((r) => (
+                <option key={r.redditorId}>{r.name}</option>
+              ))}
+            </select>
+          </>
+        ) : (
+          <>Loading...</>
+        )}
       </div>
     </>
   );

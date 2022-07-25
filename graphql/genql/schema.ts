@@ -24,6 +24,7 @@ export interface Mutation {
 }
 
 export interface Post {
+    comments: Comment[]
     post: Scalars['ID']
     postId: Scalars['ID']
     redditorId: Scalars['ID']
@@ -31,7 +32,7 @@ export interface Post {
 }
 
 export interface Query {
-    getPost: Post
+    getPost: Post[]
     getPosts: Post[]
     redditors: Redditor[]
     teams: Team[]
@@ -81,6 +82,7 @@ export interface MutationRequest{
 }
 
 export interface PostRequest{
+    comments?: CommentRequest
     post?: boolean | number
     postId?: boolean | number
     redditorId?: boolean | number
@@ -208,19 +210,21 @@ export interface MutationObservableChain{
 }
 
 export interface PostPromiseChain{
+    comments: ({get: <R extends CommentRequest>(request: R, defaultValue?: FieldsSelection<Comment, R>[]) => Promise<FieldsSelection<Comment, R>[]>}),
     post: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Promise<Scalars['ID']>}),
     postId: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Promise<Scalars['ID']>}),
     redditorId: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Promise<Scalars['ID']>})
 }
 
 export interface PostObservableChain{
+    comments: ({get: <R extends CommentRequest>(request: R, defaultValue?: FieldsSelection<Comment, R>[]) => Observable<FieldsSelection<Comment, R>[]>}),
     post: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Observable<Scalars['ID']>}),
     postId: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Observable<Scalars['ID']>}),
     redditorId: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Observable<Scalars['ID']>})
 }
 
 export interface QueryPromiseChain{
-    getPost: ((args: {postId: Scalars['String']}) => PostPromiseChain & {get: <R extends PostRequest>(request: R, defaultValue?: FieldsSelection<Post, R>) => Promise<FieldsSelection<Post, R>>}),
+    getPost: ((args: {postId: Scalars['String']}) => {get: <R extends PostRequest>(request: R, defaultValue?: FieldsSelection<Post, R>[]) => Promise<FieldsSelection<Post, R>[]>}),
     getPosts: ((args: {redditorId: Scalars['String']}) => {get: <R extends PostRequest>(request: R, defaultValue?: FieldsSelection<Post, R>[]) => Promise<FieldsSelection<Post, R>[]>}),
     redditors: ({get: <R extends RedditorRequest>(request: R, defaultValue?: FieldsSelection<Redditor, R>[]) => Promise<FieldsSelection<Redditor, R>[]>}),
     teams: ({get: <R extends TeamRequest>(request: R, defaultValue?: FieldsSelection<Team, R>[]) => Promise<FieldsSelection<Team, R>[]>}),
@@ -228,7 +232,7 @@ export interface QueryPromiseChain{
 }
 
 export interface QueryObservableChain{
-    getPost: ((args: {postId: Scalars['String']}) => PostObservableChain & {get: <R extends PostRequest>(request: R, defaultValue?: FieldsSelection<Post, R>) => Observable<FieldsSelection<Post, R>>}),
+    getPost: ((args: {postId: Scalars['String']}) => {get: <R extends PostRequest>(request: R, defaultValue?: FieldsSelection<Post, R>[]) => Observable<FieldsSelection<Post, R>[]>}),
     getPosts: ((args: {redditorId: Scalars['String']}) => {get: <R extends PostRequest>(request: R, defaultValue?: FieldsSelection<Post, R>[]) => Observable<FieldsSelection<Post, R>[]>}),
     redditors: ({get: <R extends RedditorRequest>(request: R, defaultValue?: FieldsSelection<Redditor, R>[]) => Observable<FieldsSelection<Redditor, R>[]>}),
     teams: ({get: <R extends TeamRequest>(request: R, defaultValue?: FieldsSelection<Team, R>[]) => Observable<FieldsSelection<Team, R>[]>}),

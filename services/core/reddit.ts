@@ -23,8 +23,8 @@ export const RedditorEntity = new Entity(
       }
     },
     indexes: {
-      posts: {
-        collection: "summary",
+      posters: {
+        collection: "reddit",
         pk: {
           field: "pk",
           composite: [],
@@ -75,7 +75,7 @@ export const PostEntity = new Entity(
       },
       postComments: {
         collection: "postComments",
-        index: 'gsi1pk',
+        index: "gsi1",
         pk: {
           field: "gsi1pk",
           composite: ["postId"]
@@ -131,7 +131,7 @@ export const CommentEntity = new Entity(
       },
       postComments: {
         collection: "postComments",
-        index: 'gsi1pk',
+        index: "gsi1",
         pk: {
           field: "gsi1pk",
           composite: ["postId"]
@@ -175,7 +175,7 @@ export async function comment(comment: string, postId: string, redditorId: strin
 }
 
 export async function listRedditors() {
-  return RedditorEntity.query.posts({}).go()
+  return RedditorEntity.query.posters({}).go()
 }
 
 export async function getPosts(redditorId: string) {
@@ -184,17 +184,25 @@ export async function getPosts(redditorId: string) {
   }).go()
 }
 
-const PostService = new Service({ RedditorEntity, PostEntity, CommentEntity });
-
-export async function getPost(postId: string) {
-  const params = PostService.collections.postComments({ postId }).params()
-  console.log('params: ', params);
-
-  return PostService.collections.postComments({ postId }).go()  
+export async function getSinglePost(postId: string) {
+  return PostEntity.query.postComments({
+    postId
+  }).go()
 }
 
-// export async function getComments(postId: string) {
-//   return CommentEntity.query.comments({
-//     postId
-//   }).go()
-// }
+export async function getComments(postId: string) {
+  return CommentEntity.query.postComments({
+    postId
+  }).go()
+}
+
+const PostService = new Service({ RedditorEntity, PostEntity, CommentEntity });
+
+export async function getPostFromService(postId: string) {
+  // want to see the params that get generated? You can always log them out here.
+  // const params = PostService.collections.postComments({ postId }).params()
+  // console.log('params: ', params);
+  const data = await PostService.collections.postComments({ postId }).go()  
+
+  return { post: data.PostEntity, comments: data.CommentEntity }
+}
