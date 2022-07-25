@@ -24,7 +24,6 @@ export interface Mutation {
 }
 
 export interface Post {
-    comments: Comment[]
     post: Scalars['ID']
     postId: Scalars['ID']
     redditorId: Scalars['ID']
@@ -82,7 +81,6 @@ export interface MutationRequest{
 }
 
 export interface PostRequest{
-    comments?: CommentRequest
     post?: boolean | number
     postId?: boolean | number
     redditorId?: boolean | number
@@ -210,14 +208,12 @@ export interface MutationObservableChain{
 }
 
 export interface PostPromiseChain{
-    comments: ({get: <R extends CommentRequest>(request: R, defaultValue?: FieldsSelection<Comment, R>[]) => Promise<FieldsSelection<Comment, R>[]>}),
     post: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Promise<Scalars['ID']>}),
     postId: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Promise<Scalars['ID']>}),
     redditorId: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Promise<Scalars['ID']>})
 }
 
 export interface PostObservableChain{
-    comments: ({get: <R extends CommentRequest>(request: R, defaultValue?: FieldsSelection<Comment, R>[]) => Observable<FieldsSelection<Comment, R>[]>}),
     post: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Observable<Scalars['ID']>}),
     postId: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Observable<Scalars['ID']>}),
     redditorId: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Observable<Scalars['ID']>})

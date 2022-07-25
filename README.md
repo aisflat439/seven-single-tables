@@ -76,5 +76,7 @@ A mini implementation of Jira tickets. In this case we have teams, and teams hav
 This is an incomplete list of the tools and people that I appreciate along with any contributors who may help along the way.
 
 - [SST](https://sst.dev/): This is how I learn and build in serverless.
+- [Rick Houlihan](https://youtu.be/6yqfmXiZTlM): This is the talk that made me think this is something I should learn.
+- [Alex DeBrie](https://www.dynamodbbook.com/): This is the book I read to try to get this stuff.
 - [Paul Swail](https://serverlessfirst.com/): This is one of the voices I trust
 - [Dynobase](https://dynobase.dev/): This is how I visualize my tables.

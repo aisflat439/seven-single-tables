@@ -1,6 +1,6 @@
 export * as Reddit from "./reddit";
 import { Dynamo } from "./dynamo";
-import { Entity, EntityItem } from "electrodb";
+import { Entity, EntityItem, Service } from "electrodb";
 import { ulid } from "ulid";
 
 export const RedditorEntity = new Entity(
@@ -24,7 +24,7 @@ export const RedditorEntity = new Entity(
     },
     indexes: {
       posts: {
-        collection: "posts",
+        collection: "summary",
         pk: {
           field: "pk",
           composite: [],
@@ -73,9 +73,9 @@ export const PostEntity = new Entity(
           composite: ["postId"]
         }
       },
-      postsWithComments: {
-        collection: "comments",
-        index: "comments",
+      postComments: {
+        collection: "postComments",
+        index: 'gsi1pk',
         pk: {
           field: "gsi1pk",
           composite: ["postId"]
@@ -119,8 +119,7 @@ export const CommentEntity = new Entity(
       }
     },
     indexes: {
-      posts: {
-        collection: "posts",
+      comments: {
         pk: {
           field: "pk",
           composite: ["redditorId"]
@@ -130,8 +129,8 @@ export const CommentEntity = new Entity(
           composite: ["commentId"]
         }
       },
-      comments: {
-        collection: "comments",
+      postComments: {
+        collection: "postComments",
         index: 'gsi1pk',
         pk: {
           field: "gsi1pk",
@@ -185,14 +184,17 @@ export async function getPosts(redditorId: string) {
   }).go()
 }
 
+const PostService = new Service({ RedditorEntity, PostEntity, CommentEntity });
+
 export async function getPost(postId: string) {
-  return PostEntity.query.postsWithComments({
-    postId
-  }).go()
+  const params = PostService.collections.postComments({ postId }).params()
+  console.log('params: ', params);
+
+  return PostService.collections.postComments({ postId }).go()  
 }
 
-export async function getComments(postId: string) {
-  return CommentEntity.query.comments({
-    postId
-  }).go()
-}
+// export async function getComments(postId: string) {
+//   return CommentEntity.query.comments({
+//     postId
+//   }).go()
+// }

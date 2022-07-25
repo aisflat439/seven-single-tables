@@ -16,10 +16,10 @@ const PostType = builder.objectRef<Reddit.PostEntityType>("Post").implement({
     postId: t.exposeID("postId"),
     post: t.exposeID("post"),
     redditorId: t.exposeID("redditorId"),
-    comments: t.field({
-      type: [CommentType],
-      resolve: (post) => Reddit.getComments(post.postId),
-    }),
+    // comments: t.field({
+    //   type: [CommentType],
+    //   resolve: (post) => Reddit.getComments(post.postId),
+    // }),
   }),
 });
 
@@ -50,7 +50,9 @@ builder.queryFields((t) => ({
       postId: t.arg.string({ required: true }),
     },
     // @ts-ignore
-    resolve: (_, { postId }) => Reddit.getPost(postId),
+    resolve: (_, { postId }) => {
+      return Reddit.getPost(postId);
+    },
   }),
 }));
 
