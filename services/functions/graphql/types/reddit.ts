@@ -37,12 +37,18 @@ builder.queryFields((t) => ({
     type: [RedditorType],
     resolve: () => Reddit.listRedditors(),
   }),
+  posts: t.field({
+    type: [PostType],
+    resolve: () => Reddit.listPosts(),
+  }),
   getPosts: t.field({
     type: [PostType],
     args: {
       redditorId: t.arg.string({ required: true }),
     },
-    resolve: (_, { redditorId }) => Reddit.getPosts(redditorId),
+    resolve: (_, { redditorId }) => {
+      return Reddit.getPosts(redditorId);
+    },
   }),
   getPost: t.field({
     type: [PostType],

@@ -141,6 +141,9 @@ export default {
                     ]
                 }
             ],
+            "posts": [
+                4
+            ],
             "redditors": [
                 6
             ],

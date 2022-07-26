@@ -13,6 +13,7 @@ export const Frame = ({ children }: FrameProps) => {
   const handleOpen = () => {
     setIsOpen((current) => !current);
   };
+
   return (
     <div>
       <header className="bg-slate-300">

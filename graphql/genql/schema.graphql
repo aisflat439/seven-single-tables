@@ -23,6 +23,7 @@ type Post {
 type Query {
   getPost(postId: String!): [Post!]!
   getPosts(redditorId: String!): [Post!]!
+  posts: [Post!]!
   redditors: [Redditor!]!
   teams: [Team!]!
   tickets(id: String!): [Ticket!]!

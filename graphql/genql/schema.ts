@@ -34,6 +34,7 @@ export interface Post {
 export interface Query {
     getPost: Post[]
     getPosts: Post[]
+    posts: Post[]
     redditors: Redditor[]
     teams: Team[]
     tickets: Ticket[]
@@ -93,6 +94,7 @@ export interface PostRequest{
 export interface QueryRequest{
     getPost?: [{postId: Scalars['String']},PostRequest]
     getPosts?: [{redditorId: Scalars['String']},PostRequest]
+    posts?: PostRequest
     redditors?: RedditorRequest
     teams?: TeamRequest
     tickets?: [{id: Scalars['String']},TicketRequest]
@@ -226,6 +228,7 @@ export interface PostObservableChain{
 export interface QueryPromiseChain{
     getPost: ((args: {postId: Scalars['String']}) => {get: <R extends PostRequest>(request: R, defaultValue?: FieldsSelection<Post, R>[]) => Promise<FieldsSelection<Post, R>[]>}),
     getPosts: ((args: {redditorId: Scalars['String']}) => {get: <R extends PostRequest>(request: R, defaultValue?: FieldsSelection<Post, R>[]) => Promise<FieldsSelection<Post, R>[]>}),
+    posts: ({get: <R extends PostRequest>(request: R, defaultValue?: FieldsSelection<Post, R>[]) => Promise<FieldsSelection<Post, R>[]>}),
     redditors: ({get: <R extends RedditorRequest>(request: R, defaultValue?: FieldsSelection<Redditor, R>[]) => Promise<FieldsSelection<Redditor, R>[]>}),
     teams: ({get: <R extends TeamRequest>(request: R, defaultValue?: FieldsSelection<Team, R>[]) => Promise<FieldsSelection<Team, R>[]>}),
     tickets: ((args: {id: Scalars['String']}) => {get: <R extends TicketRequest>(request: R, defaultValue?: FieldsSelection<Ticket, R>[]) => Promise<FieldsSelection<Ticket, R>[]>})
@@ -234,6 +237,7 @@ export interface QueryPromiseChain{
 export interface QueryObservableChain{
     getPost: ((args: {postId: Scalars['String']}) => {get: <R extends PostRequest>(request: R, defaultValue?: FieldsSelection<Post, R>[]) => Observable<FieldsSelection<Post, R>[]>}),
     getPosts: ((args: {redditorId: Scalars['String']}) => {get: <R extends PostRequest>(request: R, defaultValue?: FieldsSelection<Post, R>[]) => Observable<FieldsSelection<Post, R>[]>}),
+    posts: ({get: <R extends PostRequest>(request: R, defaultValue?: FieldsSelection<Post, R>[]) => Observable<FieldsSelection<Post, R>[]>}),
     redditors: ({get: <R extends RedditorRequest>(request: R, defaultValue?: FieldsSelection<Redditor, R>[]) => Observable<FieldsSelection<Redditor, R>[]>}),
     teams: ({get: <R extends TeamRequest>(request: R, defaultValue?: FieldsSelection<Team, R>[]) => Observable<FieldsSelection<Team, R>[]>}),
     tickets: ((args: {id: Scalars['String']}) => {get: <R extends TicketRequest>(request: R, defaultValue?: FieldsSelection<Ticket, R>[]) => Observable<FieldsSelection<Ticket, R>[]>})

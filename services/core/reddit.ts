@@ -73,6 +73,18 @@ export const PostEntity = new Entity(
           composite: ["postId"]
         }
       },
+      allPosts: {
+        collection: "allPosts",
+        index: "gsi2",
+        pk: {
+          field: "gsi2pk",
+          composite: []
+        },
+        sk: {
+          field: "gsi2sk",
+          composite: ["postId"]
+        }
+      },
       postComments: {
         collection: "postComments",
         index: "gsi1",
@@ -178,7 +190,15 @@ export async function listRedditors() {
   return RedditorEntity.query.posters({}).go()
 }
 
+export async function listPosts() {
+  return PostEntity.query.allPosts({}).go()
+}
+
 export async function getPosts(redditorId: string) {
+  // want to see the params that get generated? You can always log them out here.
+  // const params = PostEntity.query.posts({ redditorId }).params();
+  // console.log('params: ', params);
+  
   return PostEntity.query.posts({
     redditorId
   }).go()
