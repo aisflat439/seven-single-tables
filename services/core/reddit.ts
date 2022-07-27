@@ -216,6 +216,13 @@ export async function getComments(postId: string) {
   }).go()
 }
 
+export async function getPostersComments(redditorId: string) {
+  // const params = CommentEntity.query.comments({ redditorId }).params();
+  // console.log('params: ', params);
+  return CommentEntity.query.comments({ redditorId }).go()
+}
+
+// This is unused but an example of how services can be used.
 const PostService = new Service({ RedditorEntity, PostEntity, CommentEntity });
 
 export async function getPostFromService(postId: string) {

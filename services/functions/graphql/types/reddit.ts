@@ -9,6 +9,10 @@ const CommentType = builder
       comment: t.exposeID("comment"),
       commentId: t.exposeID("commentId"),
       redditorId: t.exposeID("redditorId"),
+      // post: t.field({
+      //   type: [PostType],
+      //   resolve: async (comment) => Reddit.getSinglePost(comment.postId),
+      // }),
     }),
   });
 
@@ -58,6 +62,15 @@ builder.queryFields((t) => ({
     },
     resolve: (_, { postId }) => {
       return Reddit.getSinglePost(postId);
+    },
+  }),
+  getPostersComments: t.field({
+    type: [CommentType],
+    args: {
+      redditorId: t.arg.string({ required: true }),
+    },
+    resolve: (_, { redditorId }) => {
+      return Reddit.getPostersComments(redditorId);
     },
   }),
 }));

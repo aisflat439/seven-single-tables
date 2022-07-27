@@ -65,6 +65,15 @@ export const Posts = () => {
               "",
               "",
             ],
+            [
+              "getPostersComments",
+              "$reddit + redditorId",
+              "$comment + commentId",
+              "",
+              "",
+              "",
+              "",
+            ],
           ]}
         />
       </div>
@@ -79,7 +88,15 @@ export const Posts = () => {
                     className="border p-4 border-l-4 border-l-slate-200 rounded"
                     key={post.id}
                   >
-                    <h3>{post.post}</h3>
+                    <div className="flex justify-between">
+                      <h3>{post.post}</h3>
+                      <span className="flex items-center">
+                        <span className="mr-1 text-sm text-gray-400">
+                          replies:
+                        </span>
+                        {post.comments.length || 0}
+                      </span>
+                    </div>
                     <button
                       className="text-blue-400"
                       onClick={() => handleViewPost(post.id)}
@@ -151,7 +168,7 @@ const ViewPost = (props: Omit<ModalProps, "title" | "content">) => {
       getPost: [
         { postId: props.id },
         {
-          postId: true,
+          id: true,
           post: true,
           comments: {
             comment: true,
@@ -187,11 +204,36 @@ const ViewPost = (props: Omit<ModalProps, "title" | "content">) => {
 };
 
 const ViewRedditor = (props: Omit<ModalProps, "title" | "content">) => {
-  // const [data] = useTypedQuery({
+  const [data] = useTypedQuery({
+    query: {
+      getPostersComments: [
+        { redditorId: props.id },
+        { comment: true, id: true },
+      ],
+    },
+  });
 
-  // })
+  const comments = data.data?.getPostersComments || [];
+  const ready = !data.fetching;
+
+  const content = (
+    <div>
+      {comments.length > 0 ? (
+        comments.map((c) => (
+          <div key={c.id} className="py-4 px-8 border rounded">
+            <p>{c.comment}</p>
+          </div>
+        ))
+      ) : (
+        <p>This poster has no comments.</p>
+      )}
+    </div>
+  );
+
   return (
-    <Modal {...props} title="Redditor post history" content="{content soon}" />
+    <Modal {...props} title="Redditor post history">
+      {ready ? content : "Loading..."}
+    </Modal>
   );
 };
 

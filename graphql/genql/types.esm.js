@@ -135,6 +135,15 @@ export default {
                     ]
                 }
             ],
+            "getPostersComments": [
+                0,
+                {
+                    "redditorId": [
+                        3,
+                        "String!"
+                    ]
+                }
+            ],
             "getPosts": [
                 4,
                 {

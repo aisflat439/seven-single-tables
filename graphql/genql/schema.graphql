@@ -23,6 +23,7 @@ type Post {
 
 type Query {
   getPost(postId: String!): [Post!]!
+  getPostersComments(redditorId: String!): [Comment!]!
   getPosts(redditorId: String!): [Post!]!
   posts: [Post!]!
   redditors: [Redditor!]!

@@ -34,6 +34,7 @@ export interface Post {
 
 export interface Query {
     getPost: Post[]
+    getPostersComments: Comment[]
     getPosts: Post[]
     posts: Post[]
     redditors: Redditor[]
@@ -95,6 +96,7 @@ export interface PostRequest{
 
 export interface QueryRequest{
     getPost?: [{postId: Scalars['String']},PostRequest]
+    getPostersComments?: [{redditorId: Scalars['String']},CommentRequest]
     getPosts?: [{redditorId: Scalars['String']},PostRequest]
     posts?: PostRequest
     redditors?: RedditorRequest
@@ -231,6 +233,7 @@ export interface PostObservableChain{
 
 export interface QueryPromiseChain{
     getPost: ((args: {postId: Scalars['String']}) => {get: <R extends PostRequest>(request: R, defaultValue?: FieldsSelection<Post, R>[]) => Promise<FieldsSelection<Post, R>[]>}),
+    getPostersComments: ((args: {redditorId: Scalars['String']}) => {get: <R extends CommentRequest>(request: R, defaultValue?: FieldsSelection<Comment, R>[]) => Promise<FieldsSelection<Comment, R>[]>}),
     getPosts: ((args: {redditorId: Scalars['String']}) => {get: <R extends PostRequest>(request: R, defaultValue?: FieldsSelection<Post, R>[]) => Promise<FieldsSelection<Post, R>[]>}),
     posts: ({get: <R extends PostRequest>(request: R, defaultValue?: FieldsSelection<Post, R>[]) => Promise<FieldsSelection<Post, R>[]>}),
     redditors: ({get: <R extends RedditorRequest>(request: R, defaultValue?: FieldsSelection<Redditor, R>[]) => Promise<FieldsSelection<Redditor, R>[]>}),
@@ -240,6 +243,7 @@ export interface QueryPromiseChain{
 
 export interface QueryObservableChain{
     getPost: ((args: {postId: Scalars['String']}) => {get: <R extends PostRequest>(request: R, defaultValue?: FieldsSelection<Post, R>[]) => Observable<FieldsSelection<Post, R>[]>}),
+    getPostersComments: ((args: {redditorId: Scalars['String']}) => {get: <R extends CommentRequest>(request: R, defaultValue?: FieldsSelection<Comment, R>[]) => Observable<FieldsSelection<Comment, R>[]>}),
     getPosts: ((args: {redditorId: Scalars['String']}) => {get: <R extends PostRequest>(request: R, defaultValue?: FieldsSelection<Post, R>[]) => Observable<FieldsSelection<Post, R>[]>}),
     posts: ({get: <R extends PostRequest>(request: R, defaultValue?: FieldsSelection<Post, R>[]) => Observable<FieldsSelection<Post, R>[]>}),
     redditors: ({get: <R extends RedditorRequest>(request: R, defaultValue?: FieldsSelection<Redditor, R>[]) => Observable<FieldsSelection<Redditor, R>[]>}),
