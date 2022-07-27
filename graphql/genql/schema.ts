@@ -8,7 +8,8 @@ export type Scalars = {
 
 export interface Comment {
     comment: Scalars['ID']
-    postId: Scalars['ID']
+    commentId: Scalars['ID']
+    id: Scalars['ID']
     redditorId: Scalars['ID']
     __typename: 'Comment'
 }
@@ -25,8 +26,8 @@ export interface Mutation {
 
 export interface Post {
     comments: Comment[]
+    id: Scalars['ID']
     post: Scalars['ID']
-    postId: Scalars['ID']
     redditorId: Scalars['ID']
     __typename: 'Post'
 }
@@ -42,8 +43,8 @@ export interface Query {
 }
 
 export interface Redditor {
+    id: Scalars['ID']
     name: Scalars['ID']
-    redditorId: Scalars['ID']
     __typename: 'Redditor'
 }
 
@@ -65,7 +66,8 @@ export type ValidStatuses = 'blocked' | 'complete' | 'inprogress' | 'pending'
 
 export interface CommentRequest{
     comment?: boolean | number
-    postId?: boolean | number
+    commentId?: boolean | number
+    id?: boolean | number
     redditorId?: boolean | number
     __typename?: boolean | number
     __scalar?: boolean | number
@@ -84,8 +86,8 @@ export interface MutationRequest{
 
 export interface PostRequest{
     comments?: CommentRequest
+    id?: boolean | number
     post?: boolean | number
-    postId?: boolean | number
     redditorId?: boolean | number
     __typename?: boolean | number
     __scalar?: boolean | number
@@ -103,8 +105,8 @@ export interface QueryRequest{
 }
 
 export interface RedditorRequest{
+    id?: boolean | number
     name?: boolean | number
-    redditorId?: boolean | number
     __typename?: boolean | number
     __scalar?: boolean | number
 }
@@ -183,13 +185,15 @@ export const isTicket = (obj?: { __typename?: any } | null): obj is Ticket => {
 
 export interface CommentPromiseChain{
     comment: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Promise<Scalars['ID']>}),
-    postId: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Promise<Scalars['ID']>}),
+    commentId: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Promise<Scalars['ID']>}),
+    id: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Promise<Scalars['ID']>}),
     redditorId: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Promise<Scalars['ID']>})
 }
 
 export interface CommentObservableChain{
     comment: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Observable<Scalars['ID']>}),
-    postId: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Observable<Scalars['ID']>}),
+    commentId: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Observable<Scalars['ID']>}),
+    id: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Observable<Scalars['ID']>}),
     redditorId: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Observable<Scalars['ID']>})
 }
 
@@ -213,15 +217,15 @@ export interface MutationObservableChain{
 
 export interface PostPromiseChain{
     comments: ({get: <R extends CommentRequest>(request: R, defaultValue?: FieldsSelection<Comment, R>[]) => Promise<FieldsSelection<Comment, R>[]>}),
+    id: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Promise<Scalars['ID']>}),
     post: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Promise<Scalars['ID']>}),
-    postId: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Promise<Scalars['ID']>}),
     redditorId: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Promise<Scalars['ID']>})
 }
 
 export interface PostObservableChain{
     comments: ({get: <R extends CommentRequest>(request: R, defaultValue?: FieldsSelection<Comment, R>[]) => Observable<FieldsSelection<Comment, R>[]>}),
+    id: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Observable<Scalars['ID']>}),
     post: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Observable<Scalars['ID']>}),
-    postId: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Observable<Scalars['ID']>}),
     redditorId: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Observable<Scalars['ID']>})
 }
 
@@ -244,13 +248,13 @@ export interface QueryObservableChain{
 }
 
 export interface RedditorPromiseChain{
-    name: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Promise<Scalars['ID']>}),
-    redditorId: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Promise<Scalars['ID']>})
+    id: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Promise<Scalars['ID']>}),
+    name: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Promise<Scalars['ID']>})
 }
 
 export interface RedditorObservableChain{
-    name: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Observable<Scalars['ID']>}),
-    redditorId: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Observable<Scalars['ID']>})
+    id: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Observable<Scalars['ID']>}),
+    name: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Observable<Scalars['ID']>})
 }
 
 export interface TeamPromiseChain{

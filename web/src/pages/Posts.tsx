@@ -12,20 +12,22 @@ export const Posts = () => {
 
   const [redditorQuery] = useTypedQuery({
     query: {
-      redditors: { redditorId: true, name: true },
+      redditors: { id: true, name: true },
       posts: {
-        postId: true,
+        id: true,
         post: true,
         comments: { comment: true },
       },
     },
   });
 
-  const handleViewRedditor = () => {
+  const handleViewRedditor = (id: string) => {
+    setSelectedRedditor(id);
     setIsRedditorOpen(true);
   };
 
-  const handleViewPost = () => {
+  const handleViewPost = (id: string) => {
+    setSelectedPost(id);
     setIsOpen(true);
   };
 
@@ -54,6 +56,15 @@ export const Posts = () => {
           rows={[
             ["redditors", "$reddit", "$reddit + entity + redditorId"],
             ["posts", "", "", "", "", "$reddit", "$allPosts + post + postId"],
+            [
+              "getComments",
+              "",
+              "",
+              "$allPosts + post + postId",
+              "$postComments",
+              "",
+              "",
+            ],
           ]}
         />
       </div>
@@ -61,19 +72,28 @@ export const Posts = () => {
         <div className="my-4">
           <h4>All Posts:</h4>
           <div className="grid grid-cols-2 gap-4">
-            {posts.map((post) => {
-              return (
-                <div
-                  className="border p-4 border-l-4 border-l-slate-200 rounded"
-                  key={post.postId}
-                >
-                  <h3>{post.post}</h3>
-                  <button className="text-blue-400" onClick={handleViewPost}>
-                    view
-                  </button>
-                </div>
-              );
-            })}
+            {ready ? (
+              posts.map((post) => {
+                return (
+                  <div
+                    className="border p-4 border-l-4 border-l-slate-200 rounded"
+                    key={post.id}
+                  >
+                    <h3>{post.post}</h3>
+                    <button
+                      className="text-blue-400"
+                      onClick={() => handleViewPost(post.id)}
+                    >
+                      view comments of this post
+                    </button>
+                  </div>
+                );
+              })
+            ) : (
+              <div className="my-8 text-indigo-200">
+                Loading... usually I'd put a spinner here
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -81,22 +101,28 @@ export const Posts = () => {
         <div className="my-4">
           <h4>All Redditors:</h4>
           <div className="grid grid-cols-2 gap-4">
-            {redditors.map((r) => {
-              return (
-                <div
-                  className="border p-4 border-l-4 border-l-slate-200 rounded"
-                  key={r.redditorId}
-                >
-                  <h3>{r.name}</h3>
-                  <button
-                    className="text-blue-400"
-                    onClick={handleViewRedditor}
+            {ready ? (
+              redditors.map((r) => {
+                return (
+                  <div
+                    className="border p-4 border-l-4 border-l-slate-200 rounded"
+                    key={r.id}
                   >
-                    view
-                  </button>
-                </div>
-              );
-            })}
+                    <h3>{r.name}</h3>
+                    <button
+                      className="text-blue-400"
+                      onClick={() => handleViewRedditor(r.id)}
+                    >
+                      view all comments by this redditor
+                    </button>
+                  </div>
+                );
+              })
+            ) : (
+              <div className="my-8 text-indigo-200">
+                Loading... usually I'd put a spinner here
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -111,27 +137,52 @@ export const Posts = () => {
 };
 
 type ModalProps = {
+  children?: React.ReactNode;
+  content?: string;
   id: string;
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
   title: string;
-  content: string;
 };
 
 const ViewPost = (props: Omit<ModalProps, "title" | "content">) => {
-  const [data] = useTypedQuery({
+  const [postQuery] = useTypedQuery({
     query: {
       getPost: [
         { postId: props.id },
         {
           postId: true,
+          post: true,
+          comments: {
+            comment: true,
+            commentId: true,
+          },
         },
       ],
     },
   });
-  console.log("data: ", data);
+
+  const comments = postQuery.data?.getPost[0]?.comments || [];
+  const ready = !postQuery.fetching;
+
+  const content = (
+    <div>
+      {comments.length > 0 ? (
+        comments.map((c) => (
+          <div key={c.commentId} className="py-4 px-8 border rounded">
+            <p>{c.comment}</p>
+          </div>
+        ))
+      ) : (
+        <p>This post has no comments.</p>
+      )}
+    </div>
+  );
+
   return (
-    <Modal {...props} title="Post with comments" content="{content soon}" />
+    <Modal {...props} title="Post with comments">
+      {ready ? content : "Loading..."}
+    </Modal>
   );
 };
 
@@ -145,10 +196,11 @@ const ViewRedditor = (props: Omit<ModalProps, "title" | "content">) => {
 };
 
 const Modal = ({
+  children,
+  content,
   isOpen,
   setIsOpen,
   title,
-  content,
 }: Omit<ModalProps, "id">) => {
   return (
     <Dialog
@@ -161,6 +213,7 @@ const Modal = ({
         <Dialog.Panel className="mx-auto max-w-sm rounded bg-white p-4">
           <Dialog.Title className="text-xl">{title}</Dialog.Title>
           <Dialog.Description className="my-4">{content}</Dialog.Description>
+          {children}
 
           <div className="flex justify-end text-blue-400">
             <button onClick={() => setIsOpen(false)}>Close</button>

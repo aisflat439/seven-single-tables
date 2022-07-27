@@ -19,7 +19,7 @@ export const Table = ({ headers, rows }: TableProps) => {
       <tbody>
         {rows.map((row, index) => {
           return (
-            <tr key={row[0]}>
+            <tr key={row[0]} className="border-b">
               {row.map((cell, celly) => (
                 <td
                   className="py-1 px-2 text-center"

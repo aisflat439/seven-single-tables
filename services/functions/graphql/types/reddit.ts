@@ -5,15 +5,16 @@ const CommentType = builder
   .objectRef<Reddit.CommentEntityType>("Comment")
   .implement({
     fields: (t) => ({
-      postId: t.exposeID("postId"),
+      id: t.exposeID("postId"),
       comment: t.exposeID("comment"),
+      commentId: t.exposeID("commentId"),
       redditorId: t.exposeID("redditorId"),
     }),
   });
 
 const PostType = builder.objectRef<Reddit.PostEntityType>("Post").implement({
   fields: (t) => ({
-    postId: t.exposeID("postId"),
+    id: t.exposeID("postId"),
     post: t.exposeID("post"),
     redditorId: t.exposeID("redditorId"),
     comments: t.field({
@@ -27,7 +28,7 @@ const RedditorType = builder
   .objectRef<Reddit.RedditorEntityType>("Redditor") // remember this is the name in graphql
   .implement({
     fields: (t) => ({
-      redditorId: t.exposeID("redditorId"),
+      id: t.exposeID("redditorId"),
       name: t.exposeID("name"),
     }),
   });

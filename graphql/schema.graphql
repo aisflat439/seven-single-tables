@@ -1,6 +1,7 @@
 type Comment {
   comment: ID!
-  postId: ID!
+  commentId: ID!
+  id: ID!
   redditorId: ID!
 }
 
@@ -15,8 +16,8 @@ type Mutation {
 
 type Post {
   comments: [Comment!]!
+  id: ID!
   post: ID!
-  postId: ID!
   redditorId: ID!
 }
 
@@ -30,8 +31,8 @@ type Query {
 }
 
 type Redditor {
+  id: ID!
   name: ID!
-  redditorId: ID!
 }
 
 type Team {

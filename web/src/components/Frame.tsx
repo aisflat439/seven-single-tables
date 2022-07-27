@@ -83,7 +83,25 @@ export const Frame = ({ children }: FrameProps) => {
           </div>
         </nav>
       </header>
-      <main className="max-w-screen-xl m-auto py-4 px-8">{children}</main>
+      <main className="max-w-screen-xl h-screen m-auto py-4 px-8">
+        {children}
+      </main>
+      <footer className="bg-gray-100 p-4 flex justify-between">
+        <a
+          href="https://twitter.com/fitzsimons_dev"
+          target="__blank"
+          className="text-gray-500"
+        >
+          Follow me on the twitter machine
+        </a>
+        <a
+          href="https://github.com/aisflat439/seven-single-tables"
+          target="__blank"
+          className="text-gray-500"
+        >
+          Visit this project on Github
+        </a>
+      </footer>
     </div>
   );
 };

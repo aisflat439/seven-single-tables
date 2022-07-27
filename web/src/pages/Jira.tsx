@@ -1,4 +1,5 @@
 import React, { ChangeEvent, ChangeEventHandler } from "react";
+import { Table } from "../components/Table";
 import { useTypedMutation, useTypedQuery } from "../urql";
 
 interface TeamForm {
@@ -33,13 +34,13 @@ export function Jira() {
         <div className="max-w-prose my-4">
           <p className="">
             A mini implementation of Jira tickets. In this case we have teams,
-            and teams have tickets. They want to get tickets in various states
-            of progress, sorted by creation date. The lesson here is partition
-            overloading. SK values are either:
-            <pre className="mt-1">teamname</pre>
-            or
-            <pre>"ticket" + ticketid</pre>
+            and teams have tickets. Tickets can be in various states of
+            progress, we should be able to update statuses. The lesson here is
+            partition overloading. SK values are either:
           </p>
+          <pre className="mt-1">teamname</pre>
+          <p>or</p>
+          <pre className="mb-1">"ticket" + ticketid</pre>
           <p>
             The point here is that you want to be comfortable with SK having
             multiple different values in it. We can then query for all tickets
@@ -50,7 +51,7 @@ export function Jira() {
           <p className="mt-2">
             This example implements the following access patterns:
           </p>
-          <ul className="pl-4">
+          <ul className="pl-4 my-4">
             <li>List all Teams</li>
             <li>List a teams tickets</li>
             <li>Update a ticket</li>
@@ -58,41 +59,14 @@ export function Jira() {
           <p>The table looks roughly like this:</p>
         </div>
         <div className="p-4 ">
-          <table className="block overflow-auto whitespace-nowrap">
-            <thead>
-              <tr className="bg-gray-100">
-                <th className="p-2">PK</th>
-                <th className="p-2">SK</th>
-                <th className="p-2">Team Name</th>
-                <th className="p-2">Team Id</th>
-                <th className="p-2">Ticket Title</th>
-                <th className="p-2">Ticket Id</th>
-                <th className="p-2">Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td className="py-1 px-2 text-center">jira</td>
-                <td className="py-1 px-2 text-center">jira + team name</td>
-                <td className="py-1 px-2 text-center">team name</td>
-                <td className="py-1 px-2 text-center">team id</td>
-                <td className="py-1 px-2 text-center"></td>
-                <td className="py-1 px-2 text-center"></td>
-                <td className="py-1 px-2 text-center"></td>
-              </tr>
-              <tr className="bg-gray-100">
-                <td className="py-1 px-2 text-center">jira + teamId</td>
-                <td className="py-1 px-2 text-center">
-                  jira + ticket + ticket id
-                </td>
-                <td className="py-1 px-2 text-center"></td>
-                <td className="py-1 px-2 text-center"></td>
-                <td className="py-1 px-2 text-center">ticket title</td>
-                <td className="py-1 px-2 text-center">ticket id</td>
-                <td className="py-1 px-2 text-center">status</td>
-              </tr>
-            </tbody>
-          </table>
+          <Table
+            headers={["PK", "SK"]}
+            rows={[
+              ["list teams", "$reddit", "$jira + team"],
+              ["list tickets", "$reddit", "$jira + ticket + ticketId"],
+              ["update ticket", "$reddit", "$jira + ticket + ticketId"],
+            ]}
+          />
         </div>
       </div>
       <form

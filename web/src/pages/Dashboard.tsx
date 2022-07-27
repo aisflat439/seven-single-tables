@@ -90,6 +90,16 @@ export function Dashboard() {
               </div>
             </Link>
           </li>
+          <li>
+            <Link to="posts">
+              <div className="shadow p-4 my-4 flex">
+                <h5>Posts:</h5>
+                <p className="ml-4">
+                  All we add is GSI's so understand how that works
+                </p>
+              </div>
+            </Link>
+          </li>
         </ul>
       </section>
     </div>

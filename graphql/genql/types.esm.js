@@ -10,7 +10,10 @@ export default {
             "comment": [
                 1
             ],
-            "postId": [
+            "commentId": [
+                1
+            ],
+            "id": [
                 1
             ],
             "redditorId": [
@@ -109,10 +112,10 @@ export default {
             "comments": [
                 0
             ],
-            "post": [
+            "id": [
                 1
             ],
-            "postId": [
+            "post": [
                 1
             ],
             "redditorId": [
@@ -164,10 +167,10 @@ export default {
             ]
         },
         "Redditor": {
-            "name": [
+            "id": [
                 1
             ],
-            "redditorId": [
+            "name": [
                 1
             ],
             "__typename": [

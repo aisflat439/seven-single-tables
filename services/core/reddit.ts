@@ -205,7 +205,6 @@ export async function getPosts(redditorId: string) {
 }
 
 export async function getSinglePost(postId: string) {
-  console.log('postId: ', postId);
   return PostEntity.query.postComments({
     postId
   }).go()
