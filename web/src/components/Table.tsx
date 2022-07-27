@@ -17,11 +17,14 @@ export const Table = ({ headers, rows }: TableProps) => {
         </tr>
       </thead>
       <tbody>
-        {rows.map((row) => {
+        {rows.map((row, index) => {
           return (
             <tr key={row[0]}>
-              {row.map((cell) => (
-                <td className="py-1 px-2 text-center" key={cell}>
+              {row.map((cell, celly) => (
+                <td
+                  className="py-1 px-2 text-center"
+                  key={`${index}-${celly}-${cell}`}
+                >
                   {cell}
                 </td>
               ))}

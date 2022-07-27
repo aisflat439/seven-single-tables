@@ -1,9 +1,15 @@
-import { Redditor } from "@seven-single-tables/graphql/genql";
-import React, { ChangeEvent } from "react";
+import React from "react";
+import { Dialog } from "@headlessui/react";
+
 import { Table } from "../components/Table";
 import { useTypedQuery } from "../urql";
 
 export const Posts = () => {
+  const [isOpen, setIsOpen] = React.useState(false);
+  const [isRedditorOpen, setIsRedditorOpen] = React.useState(false);
+  const [selectedPost, setSelectedPost] = React.useState("");
+  const [selectedRedditor, setSelectedRedditor] = React.useState("");
+
   const [redditorQuery] = useTypedQuery({
     query: {
       redditors: { redditorId: true, name: true },
@@ -14,6 +20,14 @@ export const Posts = () => {
       },
     },
   });
+
+  const handleViewRedditor = () => {
+    setIsRedditorOpen(true);
+  };
+
+  const handleViewPost = () => {
+    setIsOpen(true);
+  };
 
   const redditors = redditorQuery.data?.redditors || [];
   const posts = redditorQuery.data?.posts || [];
@@ -43,101 +57,116 @@ export const Posts = () => {
           ]}
         />
       </div>
-      <div className="my-4">
-        <h4>All Posts:</h4>
-        <div className="grid grid-cols-2 gap-4">
-          {posts.map((post) => {
-            return (
-              <div className="border p-4" key={post.postId}>
-                <h3>{post.post}</h3>
-              </div>
-            );
-          })}
+      <div>
+        <div className="my-4">
+          <h4>All Posts:</h4>
+          <div className="grid grid-cols-2 gap-4">
+            {posts.map((post) => {
+              return (
+                <div
+                  className="border p-4 border-l-4 border-l-slate-200 rounded"
+                  key={post.postId}
+                >
+                  <h3>{post.post}</h3>
+                  <button className="text-blue-400" onClick={handleViewPost}>
+                    view
+                  </button>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
-      <div className="my-4">
-        <h4>All Redditors:</h4>
-        <div className="grid grid-cols-2 gap-4">
-          {redditors.map((r) => {
-            return (
-              <div className="border p-4" key={r.redditorId}>
-                <h3>{r.name}</h3>
-              </div>
-            );
-          })}
+      <div>
+        <div className="my-4">
+          <h4>All Redditors:</h4>
+          <div className="grid grid-cols-2 gap-4">
+            {redditors.map((r) => {
+              return (
+                <div
+                  className="border p-4 border-l-4 border-l-slate-200 rounded"
+                  key={r.redditorId}
+                >
+                  <h3>{r.name}</h3>
+                  <button
+                    className="text-blue-400"
+                    onClick={handleViewRedditor}
+                  >
+                    view
+                  </button>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
+      <ViewPost id={selectedPost} isOpen={isOpen} setIsOpen={setIsOpen} />
+      <ViewRedditor
+        id={selectedRedditor}
+        isOpen={isRedditorOpen}
+        setIsOpen={setIsRedditorOpen}
+      />
     </>
   );
 };
 
-interface ActivePostsProps {
-  ready: boolean;
-  redditors: Redditor[];
-}
+type ModalProps = {
+  id: string;
+  isOpen: boolean;
+  setIsOpen: (isOpen: boolean) => void;
+  title: string;
+  content: string;
+};
 
-const ActivePosts = ({ redditors, ready }: ActivePostsProps) => {
-  const [redditorId, setRedditorId] = React.useState<string>("");
-
-  const handleSelect = (event: ChangeEvent<HTMLSelectElement>) => {
-    setRedditorId(event.target.value);
-  };
-  const [posts] = useTypedQuery({
+const ViewPost = (props: Omit<ModalProps, "title" | "content">) => {
+  const [data] = useTypedQuery({
     query: {
-      getPosts: [
-        { redditorId },
+      getPost: [
+        { postId: props.id },
         {
           postId: true,
-          post: true,
         },
       ],
     },
   });
-  const postsData = posts.data?.getPosts || [];
+  console.log("data: ", data);
   return (
-    <div className="my-4">
-      {ready ? (
-        <>
-          <label>Select a user to see their post history</label>
-          <select onChange={handleSelect}>
-            {redditors.map((r) => (
-              <option key={r.redditorId} value={r.redditorId}>
-                {r.name}
-              </option>
-            ))}
-          </select>
-        </>
-      ) : (
-        <>Loading...</>
-      )}
-      <ul>
-        {postsData.map((p) => (
-          <Post post={p.post} key={p.postId} postId={p.postId} />
-        ))}
-      </ul>
-    </div>
+    <Modal {...props} title="Post with comments" content="{content soon}" />
   );
 };
 
-interface PostProps {
-  postId: string;
-  post: string;
-}
+const ViewRedditor = (props: Omit<ModalProps, "title" | "content">) => {
+  // const [data] = useTypedQuery({
 
-const Post = ({ postId, post }: PostProps) => {
-  // const [comments] = useTypedQuery({
-  //   query: {
-  //     getComments: [
-  //       { postId },
-  //       {
-
-  const handleSelectPost = (event: React.MouseEvent<HTMLButtonElement>) => {
-    console.log("event: ", event);
-  };
+  // })
   return (
-    <li key={postId}>
-      {post}
-      <button onClick={handleSelectPost}>View Post</button>
-    </li>
+    <Modal {...props} title="Redditor post history" content="{content soon}" />
+  );
+};
+
+const Modal = ({
+  isOpen,
+  setIsOpen,
+  title,
+  content,
+}: Omit<ModalProps, "id">) => {
+  return (
+    <Dialog
+      open={isOpen}
+      onClose={() => setIsOpen(false)}
+      className="relative z-50 "
+    >
+      <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
+      <div className="fixed inset-0 flex items-center justify-center p-4">
+        <Dialog.Panel className="mx-auto max-w-sm rounded bg-white p-4">
+          <Dialog.Title className="text-xl">{title}</Dialog.Title>
+          <Dialog.Description className="my-4">{content}</Dialog.Description>
+
+          <div className="flex justify-end text-blue-400">
+            <button onClick={() => setIsOpen(false)}>Close</button>
+          </div>
+        </Dialog.Panel>
+      </div>
+    </Dialog>
   );
 };
