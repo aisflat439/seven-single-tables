@@ -83,9 +83,7 @@ export const Frame = ({ children }: FrameProps) => {
           </div>
         </nav>
       </header>
-      <main className="max-w-screen-xl h-screen m-auto py-4 px-8">
-        {children}
-      </main>
+      <main className="max-w-screen-xl m-auto py-4 px-8">{children}</main>
       <footer className="bg-gray-100 p-4 flex justify-between">
         <a
           href="https://twitter.com/fitzsimons_dev"
