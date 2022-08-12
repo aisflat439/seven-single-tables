@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "sst start",
+    "dev": "sst start",
     "build": "sst build",
     "deploy": "sst deploy --stage=production",
     "remove": "sst remove",

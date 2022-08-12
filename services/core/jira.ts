@@ -99,7 +99,8 @@ export async function createTeam(name: string) {
 }
 
 export async function listTeams() {
-  const params = TeamEntity.query.teams({}).params()
+  // const params = TeamEntity.query.teams({}).params()
+  // console.log('params: ', params);
   return TeamEntity.query.teams({}).go();
 }
 

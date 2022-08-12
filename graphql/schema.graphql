@@ -6,11 +6,14 @@ type Comment {
 }
 
 type Mutation {
+  addProductToWarehouse(productId: String!, quantity: Int, warehouseId: String!): Warehouse!
   comment(comment: String!, postId: String!, redditorId: String!): Comment!
   create(teamId: String!, title: String!): Ticket!
   createPost(post: String!, redditorId: String!): Post!
+  createProduct(description: String, name: String!, price: Int): Product!
   createRedditor(name: String!): Redditor!
   createTeam(name: String!): Team!
+  createWarehouse(input: WarehouseInput!): Warehouse!
   updateStatus(status: ValidStatuses!, teamId: String!, ticketId: String!): Ticket!
 }
 
@@ -21,14 +24,23 @@ type Post {
   redditorId: ID!
 }
 
+type Product {
+  description: String
+  id: ID!
+  name: ID!
+  price: Int
+}
+
 type Query {
   getPost(postId: String!): [Post!]!
   getPostersComments(redditorId: String!): [Comment!]!
   getPosts(redditorId: String!): [Post!]!
   posts: [Post!]!
+  products: [Product!]!
   redditors: [Redditor!]!
   teams: [Team!]!
   tickets(id: String!): [Ticket!]!
+  warehouses: [Warehouse!]!
 }
 
 type Redditor {
@@ -53,4 +65,16 @@ enum ValidStatuses {
   complete
   inprogress
   pending
+}
+
+type Warehouse {
+  address: String!
+  id: ID!
+  name: String!
+  productId: String
+}
+
+input WarehouseInput {
+  address: String
+  name: String!
 }

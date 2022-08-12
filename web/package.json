@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "sst-env -- vite",
+    "start": "sst-env -- vite",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },

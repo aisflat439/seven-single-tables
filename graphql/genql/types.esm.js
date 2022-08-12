@@ -2,8 +2,9 @@ export default {
     "scalars": [
         1,
         3,
-        9,
-        10
+        4,
+        11,
+        14
     ],
     "types": {
         "Comment": {
@@ -25,6 +26,22 @@ export default {
         },
         "ID": {},
         "Mutation": {
+            "addProductToWarehouse": [
+                12,
+                {
+                    "productId": [
+                        3,
+                        "String!"
+                    ],
+                    "quantity": [
+                        4
+                    ],
+                    "warehouseId": [
+                        3,
+                        "String!"
+                    ]
+                }
+            ],
             "comment": [
                 0,
                 {
@@ -43,7 +60,7 @@ export default {
                 }
             ],
             "create": [
-                8,
+                10,
                 {
                     "teamId": [
                         3,
@@ -56,7 +73,7 @@ export default {
                 }
             ],
             "createPost": [
-                4,
+                5,
                 {
                     "post": [
                         3,
@@ -68,8 +85,23 @@ export default {
                     ]
                 }
             ],
-            "createRedditor": [
+            "createProduct": [
                 6,
+                {
+                    "description": [
+                        3
+                    ],
+                    "name": [
+                        3,
+                        "String!"
+                    ],
+                    "price": [
+                        4
+                    ]
+                }
+            ],
+            "createRedditor": [
+                8,
                 {
                     "name": [
                         3,
@@ -78,7 +110,7 @@ export default {
                 }
             ],
             "createTeam": [
-                7,
+                9,
                 {
                     "name": [
                         3,
@@ -86,11 +118,20 @@ export default {
                     ]
                 }
             ],
+            "createWarehouse": [
+                12,
+                {
+                    "input": [
+                        13,
+                        "WarehouseInput!"
+                    ]
+                }
+            ],
             "updateStatus": [
-                8,
+                10,
                 {
                     "status": [
-                        9,
+                        11,
                         "ValidStatuses!"
                     ],
                     "teamId": [
@@ -108,6 +149,7 @@ export default {
             ]
         },
         "String": {},
+        "Int": {},
         "Post": {
             "comments": [
                 0
@@ -125,9 +167,26 @@ export default {
                 3
             ]
         },
+        "Product": {
+            "description": [
+                3
+            ],
+            "id": [
+                1
+            ],
+            "name": [
+                1
+            ],
+            "price": [
+                4
+            ],
+            "__typename": [
+                3
+            ]
+        },
         "Query": {
             "getPost": [
-                4,
+                5,
                 {
                     "postId": [
                         3,
@@ -145,7 +204,7 @@ export default {
                 }
             ],
             "getPosts": [
-                4,
+                5,
                 {
                     "redditorId": [
                         3,
@@ -154,22 +213,28 @@ export default {
                 }
             ],
             "posts": [
-                4
+                5
             ],
-            "redditors": [
+            "products": [
                 6
             ],
+            "redditors": [
+                8
+            ],
             "teams": [
-                7
+                9
             ],
             "tickets": [
-                8,
+                10,
                 {
                     "id": [
                         3,
                         "String!"
                     ]
                 }
+            ],
+            "warehouses": [
+                12
             ],
             "__typename": [
                 3
@@ -215,6 +280,34 @@ export default {
             ]
         },
         "ValidStatuses": {},
+        "Warehouse": {
+            "address": [
+                3
+            ],
+            "id": [
+                1
+            ],
+            "name": [
+                3
+            ],
+            "productId": [
+                3
+            ],
+            "__typename": [
+                3
+            ]
+        },
+        "WarehouseInput": {
+            "address": [
+                3
+            ],
+            "name": [
+                3
+            ],
+            "__typename": [
+                3
+            ]
+        },
         "Boolean": {}
     }
 }

@@ -3,7 +3,15 @@ import { Link } from "react-router-dom";
 export function Dashboard() {
   return (
     <div>
-      <article className="max-w-prose">
+      <article className="max-w-prose p-2 m-2">
+        <h2>What is this?</h2>
+        <p>
+          In an effort to get more comfortable with Single Table Design and
+          SST's opinions about how applications should be built, I've created
+          this project.
+        </p>
+      </article>
+      <article className="max-w-prose p-2 m-2">
         <p>
           This project is inspired by{" "}
           <a
@@ -33,9 +41,7 @@ export function Dashboard() {
             <a
               className="underline text-blue-400"
               target="__blank"
-              href="
-          https://www.dynamodbbook.com/
-          "
+              href="https://www.dynamodbbook.com/"
             >
               The DynamoDB Book
             </a>
@@ -45,9 +51,7 @@ export function Dashboard() {
             <a
               className="underline text-blue-400"
               target="__blank"
-              href="
-          https://www.youtube.com/watch?v=6yqfmXiZTlM
-          "
+              href="https://www.youtube.com/watch?v=6yqfmXiZTlM"
             >
               his talks
             </a>
@@ -57,9 +61,7 @@ export function Dashboard() {
             <a
               className="underline text-blue-400"
               target="__blank"
-              href="
-          https://github.com/tywalch/electrodb
-          "
+              href="https://github.com/tywalch/electrodb"
             >
               the electrodb library
             </a>
@@ -69,9 +71,7 @@ export function Dashboard() {
             <a
               className="underline text-blue-400"
               target="__blank"
-              href="
-              https://sst.dev/
-              "
+              href="https://sst.dev/"
             >
               their framework
             </a>
@@ -96,6 +96,27 @@ export function Dashboard() {
                 <h5>Posts:</h5>
                 <p className="ml-4">
                   All we add is GSI's so understand how that works
+                </p>
+              </div>
+            </Link>
+          </li>
+          <li>
+            <Link to="orders">
+              <div className="shadow p-4 my-4 flex">
+                <h5>Orders:</h5>
+                <p className="ml-4">
+                  A simplified version of{" "}
+                  <a
+                    target="__blank"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                    }}
+                    className="text-blue-400 underline"
+                    href="https://youtu.be/KYy8X8t4MB8"
+                  >
+                    this data model
+                  </a>{" "}
+                  from Rick Houlihan
                 </p>
               </div>
             </Link>
