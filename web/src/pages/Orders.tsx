@@ -1,3 +1,4 @@
+import { Card } from "../components/Card";
 import { useTypedQuery } from "../urql";
 import { formatPrice } from "../utils/utils";
 
@@ -8,7 +9,6 @@ export const Orders = () => {
       warehouses: { id: true, name: true, address: true },
     },
   });
-  console.log("productsQuery: ", productsQuery.data?.products);
 
   return (
     <>
@@ -35,22 +35,19 @@ export const Orders = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {productsQuery.data.products.map((p) => {
             return (
-              <div className="border p-4" key={p.id}>
-                <p>
-                  <span className="text-gray-400">Name: </span>
-                  {p.name}
-                </p>
-                {p.description && (
+              <Card>
+                <div>
                   <p>
-                    <span className="text-gray-400">Description: </span>
-                    {p.description}
+                    <span className="text-gray-400">Name: </span>
+                    {p.name}
                   </p>
-                )}
-                <p>
-                  <span className="text-gray-400">Price: </span>
-                  {formatPrice(p.price || 0)}
-                </p>
-              </div>
+                  <p className="mb-4">
+                    <span className="text-gray-400">Price: </span>
+                    {formatPrice(p.price || 0)}
+                  </p>
+                </div>
+                <Card.Footer>Learn More</Card.Footer>
+              </Card>
             );
           })}
         </div>
@@ -59,18 +56,21 @@ export const Orders = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
           {productsQuery.data.warehouses.map((p) => {
             return (
-              <div className="border p-4" key={p.id}>
-                <p>
-                  <span className="text-gray-400">Name: </span>
-                  {p.name}
-                </p>
-                {p.address && (
+              <Card>
+                <div>
                   <p>
-                    <span className="text-gray-400">Address: </span>
-                    {p.address}
+                    <span className="text-gray-400">Name: </span>
+                    {p.name}
                   </p>
-                )}
-              </div>
+                  {p.address && (
+                    <p>
+                      <span className="text-gray-400">Address: </span>
+                      {p.address}
+                    </p>
+                  )}
+                </div>
+                <Card.Footer>View Warehouse</Card.Footer>
+              </Card>
             );
           })}
         </div>
