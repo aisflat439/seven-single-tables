@@ -1,4 +1,6 @@
+import { useBoolean } from "usehooks-ts";
 import { Card } from "../components/Card";
+import { Modal } from "../components/Modal";
 import { useTypedQuery } from "../urql";
 import { formatPrice } from "../utils/utils";
 
@@ -34,8 +36,10 @@ export const Orders = () => {
       {productsQuery.data && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {productsQuery.data.products.map((p) => {
+            const { value: isOpen, toggle } = useBoolean(false);
+
             return (
-              <Card>
+              <Card isOpen={isOpen}>
                 <div>
                   <p>
                     <span className="text-gray-400">Name: </span>
@@ -46,7 +50,17 @@ export const Orders = () => {
                     {formatPrice(p.price || 0)}
                   </p>
                 </div>
-                <Card.Footer>Learn More</Card.Footer>
+                <Card.Footer toggle={toggle}>Learn More</Card.Footer>
+                <Modal
+                  isOpen={isOpen}
+                  setIsOpen={toggle}
+                  title="Product details"
+                >
+                  <p>
+                    <span className="text-gray-400">Name: </span>
+                    {p.description ? p.description : "No description"}
+                  </p>
+                </Modal>
               </Card>
             );
           })}
@@ -55,8 +69,10 @@ export const Orders = () => {
       {productsQuery.data && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
           {productsQuery.data.warehouses.map((p) => {
+            const { value: isOpen, toggle } = useBoolean(false);
+
             return (
-              <Card>
+              <Card isOpen={isOpen}>
                 <div>
                   <p>
                     <span className="text-gray-400">Name: </span>
@@ -69,7 +85,14 @@ export const Orders = () => {
                     </p>
                   )}
                 </div>
-                <Card.Footer>View Warehouse</Card.Footer>
+                <Card.Footer toggle={toggle}>View Warehouse</Card.Footer>
+                <Modal
+                  isOpen={isOpen}
+                  setIsOpen={toggle}
+                  title="Product details"
+                >
+                  <p>Product details</p>
+                </Modal>
               </Card>
             );
           })}

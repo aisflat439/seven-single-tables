@@ -1,8 +1,8 @@
 import React from "react";
-import { Dialog } from "@headlessui/react";
 
 import { Table } from "../components/Table";
 import { useTypedQuery } from "../urql";
+import { Modal, ModalProps } from "../components/Modal";
 
 export const Posts = () => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -153,15 +153,6 @@ export const Posts = () => {
   );
 };
 
-type ModalProps = {
-  children?: React.ReactNode;
-  content?: string;
-  id: string;
-  isOpen: boolean;
-  setIsOpen: (isOpen: boolean) => void;
-  title: string;
-};
-
 const ViewPost = (props: Omit<ModalProps, "title" | "content">) => {
   const [postQuery] = useTypedQuery({
     query: {
@@ -234,34 +225,5 @@ const ViewRedditor = (props: Omit<ModalProps, "title" | "content">) => {
     <Modal {...props} title="Redditor post history">
       {ready ? content : "Loading..."}
     </Modal>
-  );
-};
-
-const Modal = ({
-  children,
-  content,
-  isOpen,
-  setIsOpen,
-  title,
-}: Omit<ModalProps, "id">) => {
-  return (
-    <Dialog
-      open={isOpen}
-      onClose={() => setIsOpen(false)}
-      className="relative z-50 "
-    >
-      <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
-      <div className="fixed inset-0 flex items-center justify-center p-4">
-        <Dialog.Panel className="mx-auto max-w-sm rounded bg-white p-4">
-          <Dialog.Title className="text-xl">{title}</Dialog.Title>
-          <Dialog.Description className="my-4">{content}</Dialog.Description>
-          {children}
-
-          <div className="flex justify-end text-blue-400">
-            <button onClick={() => setIsOpen(false)}>Close</button>
-          </div>
-        </Dialog.Panel>
-      </div>
-    </Dialog>
   );
 };

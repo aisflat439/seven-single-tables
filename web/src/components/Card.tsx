@@ -1,22 +1,24 @@
 import React from "react";
-import { useBoolean } from "usehooks-ts";
 
 interface ICard {
   children: React.ReactNode;
+  isOpen: boolean;
 }
 
 interface IFooter {
+  toggle: () => void;
   children: React.ReactNode;
 }
 
-const Footer = ({ children }: IFooter) => {
-  const { value: isOpen, toggle } = useBoolean(false);
+const Footer = ({ children, toggle }: IFooter) => {
   return (
-    <div className="flex justify-end">
-      <button className="text-sm text-blue-500 underline" onClick={toggle}>
-        {children}
-      </button>
-    </div>
+    <>
+      <div className="flex justify-end">
+        <button className="text-sm text-blue-500 underline" onClick={toggle}>
+          {children}
+        </button>
+      </div>
+    </>
   );
 };
 
