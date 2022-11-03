@@ -6,7 +6,8 @@ type Comment {
 }
 
 type Mutation {
-  addProductToWarehouse(productId: String!, quantity: Int, warehouseId: String!): Warehouse!
+  addManager(name: String!, warehouseId: String!): Warehouse!
+  addProductToWarehouse(name: String!, productId: String!, warehouseId: String!): Product!
   comment(comment: String!, postId: String!, redditorId: String!): Comment!
   create(teamId: String!, title: String!): Ticket!
   createPost(post: String!, redditorId: String!): Post!
@@ -35,6 +36,7 @@ type Query {
   getPost(postId: String!): [Post!]!
   getPostersComments(redditorId: String!): [Comment!]!
   getPosts(redditorId: String!): [Post!]!
+  getWarehouse(id: String!): [Warehouse!]!
   posts: [Post!]!
   products: [Product!]!
   redditors: [Redditor!]!
@@ -70,8 +72,8 @@ enum ValidStatuses {
 type Warehouse {
   address: String!
   id: ID!
+  manager: String
   name: String!
-  productId: String
 }
 
 input WarehouseInput {

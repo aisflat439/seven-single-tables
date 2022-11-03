@@ -24,7 +24,7 @@ export const Modal = ({
     >
       <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
       <div className="fixed inset-0 flex items-center justify-center p-4">
-        <Dialog.Panel className="mx-auto max-w-sm rounded bg-white p-4">
+        <Dialog.Panel className="mx-auto max-w-sm lg:max-w-lg rounded bg-white p-4">
           <Dialog.Title className="text-xl">{title}</Dialog.Title>
           {content && (
             <Dialog.Description className="my-4">{content}</Dialog.Description>

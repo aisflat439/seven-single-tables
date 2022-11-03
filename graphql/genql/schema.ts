@@ -16,7 +16,8 @@ export interface Comment {
 }
 
 export interface Mutation {
-    addProductToWarehouse: Warehouse
+    addManager: Warehouse
+    addProductToWarehouse: Product
     comment: Comment
     create: Ticket
     createPost: Post
@@ -48,6 +49,7 @@ export interface Query {
     getPost: Post[]
     getPostersComments: Comment[]
     getPosts: Post[]
+    getWarehouse: Warehouse[]
     posts: Post[]
     products: Product[]
     redditors: Redditor[]
@@ -82,8 +84,8 @@ export type ValidStatuses = 'blocked' | 'complete' | 'inprogress' | 'pending'
 export interface Warehouse {
     address: Scalars['String']
     id: Scalars['ID']
+    manager?: Scalars['String']
     name: Scalars['String']
-    productId?: Scalars['String']
     __typename: 'Warehouse'
 }
 
@@ -97,7 +99,8 @@ export interface CommentRequest{
 }
 
 export interface MutationRequest{
-    addProductToWarehouse?: [{productId: Scalars['String'],quantity?: (Scalars['Int'] | null),warehouseId: Scalars['String']},WarehouseRequest]
+    addManager?: [{name: Scalars['String'],warehouseId: Scalars['String']},WarehouseRequest]
+    addProductToWarehouse?: [{name: Scalars['String'],productId: Scalars['String'],warehouseId: Scalars['String']},ProductRequest]
     comment?: [{comment: Scalars['String'],postId: Scalars['String'],redditorId: Scalars['String']},CommentRequest]
     create?: [{teamId: Scalars['String'],title: Scalars['String']},TicketRequest]
     createPost?: [{post: Scalars['String'],redditorId: Scalars['String']},PostRequest]
@@ -132,6 +135,7 @@ export interface QueryRequest{
     getPost?: [{postId: Scalars['String']},PostRequest]
     getPostersComments?: [{redditorId: Scalars['String']},CommentRequest]
     getPosts?: [{redditorId: Scalars['String']},PostRequest]
+    getWarehouse?: [{id: Scalars['String']},WarehouseRequest]
     posts?: PostRequest
     products?: ProductRequest
     redditors?: RedditorRequest
@@ -168,8 +172,8 @@ export interface TicketRequest{
 export interface WarehouseRequest{
     address?: boolean | number
     id?: boolean | number
+    manager?: boolean | number
     name?: boolean | number
-    productId?: boolean | number
     __typename?: boolean | number
     __scalar?: boolean | number
 }
@@ -263,7 +267,8 @@ export interface CommentObservableChain{
 }
 
 export interface MutationPromiseChain{
-    addProductToWarehouse: ((args: {productId: Scalars['String'],quantity?: (Scalars['Int'] | null),warehouseId: Scalars['String']}) => WarehousePromiseChain & {get: <R extends WarehouseRequest>(request: R, defaultValue?: FieldsSelection<Warehouse, R>) => Promise<FieldsSelection<Warehouse, R>>}),
+    addManager: ((args: {name: Scalars['String'],warehouseId: Scalars['String']}) => WarehousePromiseChain & {get: <R extends WarehouseRequest>(request: R, defaultValue?: FieldsSelection<Warehouse, R>) => Promise<FieldsSelection<Warehouse, R>>}),
+    addProductToWarehouse: ((args: {name: Scalars['String'],productId: Scalars['String'],warehouseId: Scalars['String']}) => ProductPromiseChain & {get: <R extends ProductRequest>(request: R, defaultValue?: FieldsSelection<Product, R>) => Promise<FieldsSelection<Product, R>>}),
     comment: ((args: {comment: Scalars['String'],postId: Scalars['String'],redditorId: Scalars['String']}) => CommentPromiseChain & {get: <R extends CommentRequest>(request: R, defaultValue?: FieldsSelection<Comment, R>) => Promise<FieldsSelection<Comment, R>>}),
     create: ((args: {teamId: Scalars['String'],title: Scalars['String']}) => TicketPromiseChain & {get: <R extends TicketRequest>(request: R, defaultValue?: FieldsSelection<Ticket, R>) => Promise<FieldsSelection<Ticket, R>>}),
     createPost: ((args: {post: Scalars['String'],redditorId: Scalars['String']}) => PostPromiseChain & {get: <R extends PostRequest>(request: R, defaultValue?: FieldsSelection<Post, R>) => Promise<FieldsSelection<Post, R>>}),
@@ -275,7 +280,8 @@ export interface MutationPromiseChain{
 }
 
 export interface MutationObservableChain{
-    addProductToWarehouse: ((args: {productId: Scalars['String'],quantity?: (Scalars['Int'] | null),warehouseId: Scalars['String']}) => WarehouseObservableChain & {get: <R extends WarehouseRequest>(request: R, defaultValue?: FieldsSelection<Warehouse, R>) => Observable<FieldsSelection<Warehouse, R>>}),
+    addManager: ((args: {name: Scalars['String'],warehouseId: Scalars['String']}) => WarehouseObservableChain & {get: <R extends WarehouseRequest>(request: R, defaultValue?: FieldsSelection<Warehouse, R>) => Observable<FieldsSelection<Warehouse, R>>}),
+    addProductToWarehouse: ((args: {name: Scalars['String'],productId: Scalars['String'],warehouseId: Scalars['String']}) => ProductObservableChain & {get: <R extends ProductRequest>(request: R, defaultValue?: FieldsSelection<Product, R>) => Observable<FieldsSelection<Product, R>>}),
     comment: ((args: {comment: Scalars['String'],postId: Scalars['String'],redditorId: Scalars['String']}) => CommentObservableChain & {get: <R extends CommentRequest>(request: R, defaultValue?: FieldsSelection<Comment, R>) => Observable<FieldsSelection<Comment, R>>}),
     create: ((args: {teamId: Scalars['String'],title: Scalars['String']}) => TicketObservableChain & {get: <R extends TicketRequest>(request: R, defaultValue?: FieldsSelection<Ticket, R>) => Observable<FieldsSelection<Ticket, R>>}),
     createPost: ((args: {post: Scalars['String'],redditorId: Scalars['String']}) => PostObservableChain & {get: <R extends PostRequest>(request: R, defaultValue?: FieldsSelection<Post, R>) => Observable<FieldsSelection<Post, R>>}),
@@ -318,6 +324,7 @@ export interface QueryPromiseChain{
     getPost: ((args: {postId: Scalars['String']}) => {get: <R extends PostRequest>(request: R, defaultValue?: FieldsSelection<Post, R>[]) => Promise<FieldsSelection<Post, R>[]>}),
     getPostersComments: ((args: {redditorId: Scalars['String']}) => {get: <R extends CommentRequest>(request: R, defaultValue?: FieldsSelection<Comment, R>[]) => Promise<FieldsSelection<Comment, R>[]>}),
     getPosts: ((args: {redditorId: Scalars['String']}) => {get: <R extends PostRequest>(request: R, defaultValue?: FieldsSelection<Post, R>[]) => Promise<FieldsSelection<Post, R>[]>}),
+    getWarehouse: ((args: {id: Scalars['String']}) => {get: <R extends WarehouseRequest>(request: R, defaultValue?: FieldsSelection<Warehouse, R>[]) => Promise<FieldsSelection<Warehouse, R>[]>}),
     posts: ({get: <R extends PostRequest>(request: R, defaultValue?: FieldsSelection<Post, R>[]) => Promise<FieldsSelection<Post, R>[]>}),
     products: ({get: <R extends ProductRequest>(request: R, defaultValue?: FieldsSelection<Product, R>[]) => Promise<FieldsSelection<Product, R>[]>}),
     redditors: ({get: <R extends RedditorRequest>(request: R, defaultValue?: FieldsSelection<Redditor, R>[]) => Promise<FieldsSelection<Redditor, R>[]>}),
@@ -330,6 +337,7 @@ export interface QueryObservableChain{
     getPost: ((args: {postId: Scalars['String']}) => {get: <R extends PostRequest>(request: R, defaultValue?: FieldsSelection<Post, R>[]) => Observable<FieldsSelection<Post, R>[]>}),
     getPostersComments: ((args: {redditorId: Scalars['String']}) => {get: <R extends CommentRequest>(request: R, defaultValue?: FieldsSelection<Comment, R>[]) => Observable<FieldsSelection<Comment, R>[]>}),
     getPosts: ((args: {redditorId: Scalars['String']}) => {get: <R extends PostRequest>(request: R, defaultValue?: FieldsSelection<Post, R>[]) => Observable<FieldsSelection<Post, R>[]>}),
+    getWarehouse: ((args: {id: Scalars['String']}) => {get: <R extends WarehouseRequest>(request: R, defaultValue?: FieldsSelection<Warehouse, R>[]) => Observable<FieldsSelection<Warehouse, R>[]>}),
     posts: ({get: <R extends PostRequest>(request: R, defaultValue?: FieldsSelection<Post, R>[]) => Observable<FieldsSelection<Post, R>[]>}),
     products: ({get: <R extends ProductRequest>(request: R, defaultValue?: FieldsSelection<Product, R>[]) => Observable<FieldsSelection<Product, R>[]>}),
     redditors: ({get: <R extends RedditorRequest>(request: R, defaultValue?: FieldsSelection<Redditor, R>[]) => Observable<FieldsSelection<Redditor, R>[]>}),
@@ -375,13 +383,13 @@ export interface TicketObservableChain{
 export interface WarehousePromiseChain{
     address: ({get: (request?: boolean|number, defaultValue?: Scalars['String']) => Promise<Scalars['String']>}),
     id: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Promise<Scalars['ID']>}),
-    name: ({get: (request?: boolean|number, defaultValue?: Scalars['String']) => Promise<Scalars['String']>}),
-    productId: ({get: (request?: boolean|number, defaultValue?: (Scalars['String'] | undefined)) => Promise<(Scalars['String'] | undefined)>})
+    manager: ({get: (request?: boolean|number, defaultValue?: (Scalars['String'] | undefined)) => Promise<(Scalars['String'] | undefined)>}),
+    name: ({get: (request?: boolean|number, defaultValue?: Scalars['String']) => Promise<Scalars['String']>})
 }
 
 export interface WarehouseObservableChain{
     address: ({get: (request?: boolean|number, defaultValue?: Scalars['String']) => Observable<Scalars['String']>}),
     id: ({get: (request?: boolean|number, defaultValue?: Scalars['ID']) => Observable<Scalars['ID']>}),
-    name: ({get: (request?: boolean|number, defaultValue?: Scalars['String']) => Observable<Scalars['String']>}),
-    productId: ({get: (request?: boolean|number, defaultValue?: (Scalars['String'] | undefined)) => Observable<(Scalars['String'] | undefined)>})
+    manager: ({get: (request?: boolean|number, defaultValue?: (Scalars['String'] | undefined)) => Observable<(Scalars['String'] | undefined)>}),
+    name: ({get: (request?: boolean|number, defaultValue?: Scalars['String']) => Observable<Scalars['String']>})
 }

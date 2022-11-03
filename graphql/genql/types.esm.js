@@ -26,15 +26,29 @@ export default {
         },
         "ID": {},
         "Mutation": {
-            "addProductToWarehouse": [
+            "addManager": [
                 12,
                 {
-                    "productId": [
+                    "name": [
                         3,
                         "String!"
                     ],
-                    "quantity": [
-                        4
+                    "warehouseId": [
+                        3,
+                        "String!"
+                    ]
+                }
+            ],
+            "addProductToWarehouse": [
+                6,
+                {
+                    "name": [
+                        3,
+                        "String!"
+                    ],
+                    "productId": [
+                        3,
+                        "String!"
                     ],
                     "warehouseId": [
                         3,
@@ -212,6 +226,15 @@ export default {
                     ]
                 }
             ],
+            "getWarehouse": [
+                12,
+                {
+                    "id": [
+                        3,
+                        "String!"
+                    ]
+                }
+            ],
             "posts": [
                 5
             ],
@@ -287,10 +310,10 @@ export default {
             "id": [
                 1
             ],
-            "name": [
+            "manager": [
                 3
             ],
-            "productId": [
+            "name": [
                 3
             ],
             "__typename": [

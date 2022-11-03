@@ -66,7 +66,7 @@ builder.mutationFields((t) => ({
       }),
     },
     resolve: async (_, args) =>
-      // @ts-ignore
+      //@ts-ignore
       Jira.updateStatus(args.teamId, args.ticketId, args.status),
   }),
 }));

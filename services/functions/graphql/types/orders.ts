@@ -23,12 +23,15 @@ const WarehouseType = builder
       id: t.exposeID("warehouseId"),
       name: t.exposeString("name"),
       address: t.exposeString("address"),
-      productId: t.exposeString("productId", {
+      manager: t.exposeString("manager", {
         nullable: true,
-        //   type: [ProductType],
-        //   resolve: ({ warehouseId }) =>
-        //     Orders.listProductsByWarehouse(warehouseId),
       }),
+      // productId: t.exposeString("productId", {
+      //   nullable: true,
+      //   type: [ProductType],
+      //   resolve: ({ warehouseId }) =>
+      //     Orders.listProductsByWarehouse(warehouseId),
+      // }),
     }),
   });
 
@@ -48,8 +51,17 @@ builder.queryFields((t) => ({
     type: [WarehouseType],
     resolve: () => Orders.listWarehouses(),
   }),
+  getWarehouse: t.field({
+    type: [WarehouseType],
+    args: {
+      id: t.arg.string({ required: true }),
+    },
+    resolve: (_, { id }) => {
+      return Orders.getWarehouse(id);
+    },
+  }),
   // warehouseProducts: t.field({
-  //   type: [WarehouseType],
+  //   type: [ProductType],
   //   args: {
   //     warehouseId: t.arg.string({ required: true }),
   //   },
@@ -79,21 +91,42 @@ builder.mutationFields((t) => ({
     },
     resolve: (_, { input }) => Orders.createWarehouse(input),
   }),
-  addProductToWarehouse: t.field({
+  addManager: t.field({
     type: WarehouseType,
     args: {
       warehouseId: t.arg.string({ required: true }),
-      productId: t.arg.string({ required: true }),
-      quantity: t.arg.int(),
+      name: t.arg.string({ required: true }),
     },
-    resolve: async (_, args) => {
-      return Orders.addProductToWarehouse(
-        args.warehouseId,
-        args.productId,
-        args.quantity
-      );
-    },
+    resolve: async (_, { warehouseId, name }) =>
+      //@ts-ignore
+      Orders.addManager(warehouseId, name),
   }),
+  addProductToWarehouse: t.field({
+    type: ProductType,
+    args: {
+      warehouseId: t.arg.string({ required: true }),
+      productId: t.arg.string({ required: true }),
+      name: t.arg.string({ required: true }),
+    },
+    resolve: async (_, { warehouseId, productId, name }) =>
+      //@ts-ignore
+      Orders.addProductToWarehouse(warehouseId, productId, name),
+  }),
+  // addProductToWarehouse: t.field({
+  //   type: WarehouseType,
+  //   args: {
+  //     warehouseId: t.arg.string({ required: true }),
+  //     productId: t.arg.string({ required: true }),
+  //     quantity: t.arg.int(),
+  //   },
+  //   resolve: async (_, args) => {
+  //     return Orders.addProductToWarehouse(
+  //       args.warehouseId,
+  //       args.productId,
+  //       args.quantity
+  //     );
+  //   },
+  // }),
 }));
 
 //   createTeam: t.field({

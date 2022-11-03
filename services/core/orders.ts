@@ -24,6 +24,9 @@ export const ProductEntity = new Entity(
       },
       price: {
         type: "number",
+      },
+      warehouseId: {
+        type: "string",
       }
     },
     indexes: {
@@ -34,6 +37,18 @@ export const ProductEntity = new Entity(
         },
         sk: {
           field: "sk",
+          composite: ["productId"],
+        }
+      },
+      warehouseProducts: {
+        collection: "warehouseProducts",
+        index: "gsi1",
+        pk: {
+          field: "gsi1pk",
+          composite: ["warehouseId"],
+        },
+        sk: {
+          field: "gsi1sk",
           composite: ["productId"],
         }
       },
@@ -62,16 +77,16 @@ export const WarehouseEntity = new Entity(
         type: "string",
         required: true,
       },
-      productId: {
-        required: true,
+      manager: {
         type: "string",
       },
-      quantity: {
-        type: "number",
-      }
+      productId: {
+        type: "string",
+      },
     },
     indexes: {
       warehouses: {
+        collection: "warehouses",
         pk: {
           field: "pk",
           composite: [],
@@ -86,57 +101,17 @@ export const WarehouseEntity = new Entity(
         index: "gsi1",
         pk: {
           field: "gsi1pk",
-          composite: ["warehouseId",],
+          composite: ["warehouseId"],
         },
         sk: {
           field: "gsi1sk",
-          composite: ["productId"],
+          composite: [],
         }
       },
     }
   },
   Dynamo.Configuration
 )
-
-// export const InventoryEntity = new Entity(
-//   {
-//     model: {
-//       version: "1",
-//       entity: "Inventory",
-//       service: "orders",
-//     },
-//     attributes: {
-//       inventoryId: {
-//         type: "string",
-//         required: true,
-//       },
-//       productId: {
-//         type: "string",
-//         required: true,
-//       },
-//       warehouseId: {
-//         type: "string",
-//         required: true,
-//       },
-//       quantity: {
-//         type: "number",
-//         required: true,
-//       },
-//     },
-//     indexes: {
-//       inventory: {
-//         pk: {
-//           field: "pk",
-//           composite: ["warehouseId",],
-//         },
-//         sk: {
-//           field: "sk",
-//           composite: ["productId"],
-//         }
-//       }
-//     }
-//   }
-// )
 
 export const OrderEntity = new Entity( 
   {
@@ -190,7 +165,6 @@ export const OrderEntity = new Entity(
 export type ProductEntityType = EntityItem<typeof ProductEntity>;
 export type WarehouseEntityType = EntityItem<typeof WarehouseEntity>;
 export type OrderEntityType = EntityItem<typeof OrderEntity>;
-// export type InventoryEntityType = EntityItem<typeof InventoryEntity>;
 
 export async function createProduct(name: string, description?: string | null,
   price?: number | null) {
@@ -201,39 +175,44 @@ export async function createProduct(name: string, description?: string | null,
       price: price || 0,
     }).go()
 }
+
+
+export async function createWarehouse({ name, address }: { name: string, address?: string | null, productId?: string | null }) {
+  return WarehouseEntity.
+  create({
+    address: address || "",
+    name,
+    warehouseId: ulid(),
+  }).go()
+}
+
 export async function createOrder({  }) {
     return {}
 }
 
-export async function createWarehouse({ name, address, productId }: { name: string, address?: string | null, productId?: string | null }) {
-    return WarehouseEntity.
-      create({
-        address: address || "",
-        name,
-        productId: productId || "",
-        warehouseId: ulid(),
-      }).go()
-    }
-    
-export async function addProductToWarehouse(
-  warehouseId: string, 
-  productId: string, 
-  quantity?: number | null
-  ) {
+export async function addManager(warehouseId: string, name:string) {
     return WarehouseEntity.update({
       warehouseId,
     }).set({
+      manager: name,
+    }).go({ response: "all_new" })
+}
+
+export async function addProductToWarehouse(warehouseId: string, productId: string, name: string) {
+    return ProductEntity.create({
+      warehouseId,
       productId,
-      quantity: quantity || 0,
+      name
     }).go()
-  }
+}
+    
   
 export async function getOrder() {
  return {} 
 }
 
-export async function getWarehouse() {
- return {} 
+export async function getWarehouse(warehouseId: string) {
+ return WarehouseEntity.query.warehouses({warehouseId}).go() 
 }
 
 export async function getProduct() {
@@ -248,10 +227,10 @@ export async function listWarehouses() {
  return WarehouseEntity.query.warehouses({}).go()
 }
 
-// export async function listProductsByWarehouse(warehouseId: string) {
-//  return WarehouseEntity.query
-//   .warehouseProducts({ warehouseId }).go() 
-// }
+export async function listProductsByWarehouse(warehouseId: string) {
+ return WarehouseEntity.query
+  .warehouseProducts({ warehouseId }).go() 
+}
 
 export async function listOrdersByWarehouse() {
  return {} 
