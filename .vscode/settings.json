@@ -6,5 +6,9 @@
         "redditors",
         "sevensingletables",
         "usehooks"
-    ]
+    ],
+      "workbench.colorCustomizations": {
+    "titleBar.activeBackground": "#890c97",
+    "titleBar.inactiveBackground": "#890c97"
+  },
 }
