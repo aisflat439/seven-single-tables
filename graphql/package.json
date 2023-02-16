@@ -1,8 +1,0 @@
-{
-  "name": "@seven-single-tables/graphql",
-  "version": "0.0.0",
-  "type": "module",
-  "dependencies": {
-    "@genql/cli": "^2.10.0"
-  }
-}

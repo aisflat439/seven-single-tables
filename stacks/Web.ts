@@ -1,4 +1,4 @@
-import { StackContext, use, ViteStaticSite } from "@serverless-stack/resources";
+import { StackContext, use, StaticSite } from "sst/constructs";
 import { Api } from "./Api";
 
 export function Web({ stack }: StackContext) {
@@ -12,17 +12,19 @@ export function Web({ stack }: StackContext) {
     },
   };
 
-  const site = new ViteStaticSite(stack, "site", {
+  const site = new StaticSite(stack, "site", {
     ...(isProduction ? domain : {}),
-    path: "web",
+    path: "packages/web",
     buildCommand: "npm run build",
+    buildOutput: "dist",
     environment: {
       VITE_GRAPHQL_URL: api.url + "/graphql",
     },
   });
 
   stack.addOutputs({
-    SITE_URL: site.url,
+    SITE: site.url || "https://localhost:3000",
+    VITE_GRAPHQL_URL: api.url + "/graphql",
   });
 
   return api;

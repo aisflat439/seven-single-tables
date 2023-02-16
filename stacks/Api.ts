@@ -1,9 +1,5 @@
-import {
-  StackContext,
-  use,
-  Api as ApiGateway,
-} from "@serverless-stack/resources";
-import { Database } from "./Database";
+import { StackContext, use, Api as ApiGateway } from "sst/constructs";
+import { Database } from "./Database.js";
 
 export function Api({ stack }: StackContext) {
   const db = use(Database);
@@ -13,23 +9,22 @@ export function Api({ stack }: StackContext) {
       stack.stage === "prod" ? "api.sevensingletables.com" : undefined,
     defaults: {
       function: {
-        permissions: [db],
-        environment: {
-          TABLE_NAME: db.tableName,
-        },
+        bind: [db],
       },
     },
     routes: {
       "POST /graphql": {
-        type: "pothos",
+        type: "graphql",
         function: {
-          handler: "functions/graphql/graphql.handler",
+          handler: "packages/functions/src/graphql/graphql.handler",
         },
-        schema: "services/functions/graphql/schema.ts",
-        output: "graphql/schema.graphql",
-        commands: [
-          "npx genql --output ./graphql/genql --schema ./graphql/schema.graphql --esm",
-        ],
+        pothos: {
+          schema: "packages/functions/src/graphql/schema.ts",
+          output: "packages/graphql/schema.graphql",
+          commands: [
+            "cd packages/graphql && npx @genql/cli --output ./genql --schema ./schema.graphql --esm",
+          ],
+        },
       },
     },
   });
