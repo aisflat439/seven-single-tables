@@ -145,7 +145,7 @@ const TicketStatus = ({
     <li onClick={() => handleChangeStatus(status, ticket)}>
       <motion.div
         whileTap={{ scale: 0.9 }}
-        className={`px-2 py-1 text-sm bg-violet-600 rounded-full m-2 ${
+        className={`px-2 py-1 text-sm rounded-full m-2 ${
           ticket.status === status
             ? "bg-violet-500 text-white"
             : "bg-violet-100 text-violet-500"

@@ -11,7 +11,7 @@ export function Jira() {
 
   return (
     <div className="bg-blue-600 p-2 min-h-screen">
-      <div className="max-w-6xl m-auto">
+      <div className="max-w-7xl m-auto">
         <h2 className="text-4xl m-4 text-white underline">Jira</h2>
         <div>
           <form onSubmit={handleCreateTeam}>
