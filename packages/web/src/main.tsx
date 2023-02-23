@@ -1,25 +1,37 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
+
+import { httpBatchLink } from "@trpc/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Provider as UrqlProvider, createClient } from "urql";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+import "./index.css";
+import { trpc } from "./trpc";
+
 import { Dashboard } from "./pages/Dashboard";
 import { Jira } from "./pages/Jira";
-import { Orders } from "./pages/Orders";
-import { Posts } from "./pages/Posts";
 import { Frame } from "./components/Frame";
 
-const urql = createClient({
-  url: import.meta.env.VITE_GRAPHQL_URL,
-});
+export function Query() {
+  const [queryClient] = React.useState(() => new QueryClient());
+  const [trpcClient] = React.useState(() => {
+    return trpc.createClient({
+      links: [
+        httpBatchLink({
+          url: `${import.meta.env.VITE_API_URL}/trpc`,
+        }),
+      ],
+    });
+  });
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <UrqlProvider value={urql}>
-      <App />
-    </UrqlProvider>
-  </React.StrictMode>
-);
+  return (
+    <trpc.Provider client={trpcClient} queryClient={queryClient}>
+      <QueryClientProvider client={queryClient}>
+        <App />
+      </QueryClientProvider>
+    </trpc.Provider>
+  );
+}
 
 function App() {
   return (
@@ -28,11 +40,15 @@ function App() {
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="jira" element={<Jira />} />
-          <Route path="posts" element={<Posts />} />
-          <Route path="orders" element={<Orders />} />
           <Route path="*" element={<Dashboard />} />
         </Routes>
       </Frame>
     </BrowserRouter>
   );
 }
+
+ReactDOM.createRoot(document.getElementById("root")!).render(
+  <React.StrictMode>
+    <Query />
+  </React.StrictMode>
+);

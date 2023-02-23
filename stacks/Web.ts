@@ -18,13 +18,13 @@ export function Web({ stack }: StackContext) {
     buildCommand: "npm run build",
     buildOutput: "dist",
     environment: {
-      VITE_GRAPHQL_URL: api.url + "/graphql",
+      VITE_API_URL: api.url,
     },
   });
 
   stack.addOutputs({
     SITE: site.url || "https://localhost:3000",
-    VITE_GRAPHQL_URL: api.url + "/graphql",
+    VITE_API_URL: api.url,
   });
 
   return api;

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useMediaQuery } from "usehooks-ts";
-
+import { AnimatePresence, motion } from "framer-motion";
 interface FrameProps {
   children: React.ReactNode;
 }
@@ -16,14 +16,14 @@ export const Frame = ({ children }: FrameProps) => {
 
   return (
     <div>
-      <header className="bg-slate-300">
+      <header className="bg-white border-2 border-black">
         <nav>
-          <div className="max-w-screen-xl m-auto p-4">
+          <div className="max-w-screen-xl m-auto">
             <ul>
               <div className="md:flex justify-between">
-                <div className="flex justify-between">
+                <div className="flex justify-between p-4">
                   <li>
-                    <Link className="text-xl" to="/">
+                    <Link className="text-3xl" to="/">
                       Seven Single Tables
                     </Link>
                   </li>
@@ -61,31 +61,54 @@ export const Frame = ({ children }: FrameProps) => {
                     )}
                   </button>
                 </div>
-                <div className={`${isOpen ? "" : "hidden"} md:flex`}>
-                  <li>
-                    <Link className="md:ml-4 text-lg" to="/jira">
+                <div
+                  className={`${
+                    isOpen ? "" : "hidden"
+                  } md:flex justify-center items-center`}
+                >
+                  <motion.li
+                    whileHover={{
+                      backgroundColor: "#000",
+                      color: "#fff",
+                      scale: 1.2,
+                    }}
+                    className="border-l-2 border-black h-full flex justify-center items-center"
+                  >
+                    <Link className="md:m-4 text-lg" to="/jira">
                       Jira
                     </Link>
-                  </li>
-                  <li>
-                    <Link className="md:ml-4 text-lg" to="/posts">
+                  </motion.li>
+                  <motion.li
+                    whileHover={{
+                      backgroundColor: "#000",
+                      color: "#fff",
+                      scale: 1.2,
+                    }}
+                    className="border-l-2 border-black h-full flex justify-center items-center"
+                  >
+                    <Link className="md:m-4 text-lg" to="/posts">
                       Posts
                     </Link>
-                  </li>
-                  <li>
-                    <Link className="md:ml-4 text-lg" to="/orders">
+                  </motion.li>
+                  <motion.li
+                    whileHover={{
+                      backgroundColor: "#000",
+                      color: "#fff",
+                      scale: 1.2,
+                    }}
+                    className="border-l-2 border-black h-full flex justify-center items-center"
+                  >
+                    <Link className="md:m-4 text-lg" to="/orders">
                       Orders
                     </Link>
-                  </li>
+                  </motion.li>
                 </div>
               </div>
             </ul>
           </div>
         </nav>
       </header>
-      <main className="max-w-screen-xl m-auto py-4 px-8 h-screen">
-        {children}
-      </main>
+      <main className="m-auto min-h-screen">{children}</main>
       <footer className="bg-gray-100 p-4 flex justify-between">
         <a
           href="https://twitter.com/fitzsimons_dev"

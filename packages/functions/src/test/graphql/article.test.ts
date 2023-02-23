@@ -1,7 +1,5 @@
 import { Api } from "sst/constructs";
 import { expect, it } from "vitest";
-import { createClient } from "@seven-single-tables/graphql/genql";
-import { Article } from "@seven-single-tables/core/article";
 
 it("create an article", async () => {
   expect(1).toBe(1);

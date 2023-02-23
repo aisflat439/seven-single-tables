@@ -36,7 +36,7 @@ export const TeamEntity = new Entity(
         },
         sk: {
           field: "sk",
-          composite: ["name"],
+          composite: ["teamId"],
         },
       },
     },
@@ -88,8 +88,8 @@ export const TicketEntity = new Entity(
   Dynamo.Configuration
 );
 
-export type TicketEntityType = EntityItem<typeof TicketEntity>;
-export type TeamEntityType = EntityItem<typeof TeamEntity>;
+export type TTicketEntity = EntityItem<typeof TicketEntity>;
+export type TTeamEntity = EntityItem<typeof TeamEntity>;
 
 export async function createTeam(name: string) {
   const result = await TeamEntity.create({
@@ -101,9 +101,11 @@ export async function createTeam(name: string) {
   return result.data;
 }
 
+export async function deleteTeam(id: string) {
+  return await TeamEntity.delete({ teamId: id }).go();
+}
+
 export async function listTeams() {
-  // const params = TeamEntity.query.teams({}).params()
-  // console.log('params: ', params);
   const result = await TeamEntity.query.teams({}).go();
 
   return result.data;
