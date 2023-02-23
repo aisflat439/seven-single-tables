@@ -13,7 +13,7 @@ export function Web({ stack }: StackContext) {
   };
 
   const site = new StaticSite(stack, "site", {
-    ...(isProduction ? domain : {}),
+    ...(isProduction && domain),
     path: "packages/web",
     buildCommand: "npm run build",
     buildOutput: "dist",

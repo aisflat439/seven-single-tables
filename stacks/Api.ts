@@ -1,5 +1,5 @@
 import { StackContext, use, Api as ApiGateway } from "sst/constructs";
-import { Database } from "./Database.js";
+import { Database } from "./Database";
 
 export function Api({ stack }: StackContext) {
   const db = use(Database);

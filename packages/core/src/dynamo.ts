@@ -7,6 +7,7 @@ import { Table } from "sst/node/table";
 export const Client = new DynamoDBClient({});
 
 export const Configuration: EntityConfiguration = {
+  // @ts-ignore
   table: Table.table.tableName,
   client: Client,
 };

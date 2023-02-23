@@ -7,13 +7,13 @@ importers:
       '@tsconfig/node16': 1.0.3
       aws-cdk-lib: 2.62.2
       constructs: 10.1.156
-      sst: 2.0.24
+      sst: 2.0.35
       typescript: 4.9.5
     devDependencies:
       '@tsconfig/node16': 1.0.3
       aws-cdk-lib: 2.62.2_constructs@10.1.156
       constructs: 10.1.156
-      sst: 2.0.24
+      sst: 2.0.35
       typescript: 4.9.5
 
   packages/core:
@@ -6363,8 +6363,8 @@ packages:
       - utf-8-validate
     dev: true
 
-  /sst/2.0.24:
-    resolution: {integrity: sha512-Wnk7PZY91H6rbXsEmdWxvkOhQBN3Zy1R3H8qcqBFUmAuHbymw5O33DArEZXH/cJ4g/CsMWIy2yFGhbJnvS1Wyg==}
+  /sst/2.0.35:
+    resolution: {integrity: sha512-WCCHELDq24Y6zMvouc57UvbA5yBC164kJqq684gvpP3Y3IaW1pi2C+TAAm8ezfCqrzp3laK1RBF8gssHHzN70A==}
     hasBin: true
     peerDependencies:
       '@sls-next/lambda-at-edge': ^3.7.0
