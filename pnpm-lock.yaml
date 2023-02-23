@@ -39,6 +39,7 @@ importers:
 
   packages/functions:
     specifiers:
+      '@seven-single-tables/core': ^0.0.0
       '@trpc/server': ^10.12.0
       '@types/aws-lambda': ^8.10.110
       '@types/node': ^18.13.0
@@ -46,6 +47,7 @@ importers:
       ulid: ^2.3.0
       zod: ^3.20.6
     dependencies:
+      '@seven-single-tables/core': link:../core
       '@trpc/server': 10.12.0
       '@types/aws-lambda': 8.10.110
       sst: 2.0.23
@@ -59,6 +61,7 @@ importers:
       '@headlessui/react': 1.7.10
       '@heroicons/react': ^2.0.16
       '@seven-single-tables/functions': 0.0.0
+      '@tailwindcss/typography': ^0.5.9
       '@tanstack/react-query': ^4.24.10
       '@trpc/client': ^10.12.0
       '@trpc/react-query': ^10.12.0
@@ -97,6 +100,7 @@ importers:
       usehooks-ts: 2.9.1_biqbaboplfbrettd7655fr4n2y
       xstate: 4.36.0
     devDependencies:
+      '@tailwindcss/typography': 0.5.9_tailwindcss@3.2.6
       '@types/react': 18.0.28
       '@types/react-dom': 18.0.10
       '@vitejs/plugin-react': 1.3.2
@@ -3022,6 +3026,18 @@ packages:
       picomatch: 2.3.1
     dev: true
 
+  /@tailwindcss/typography/0.5.9_tailwindcss@3.2.6:
+    resolution: {integrity: sha512-t8Sg3DyynFysV9f4JDOVISGsjazNb48AeIYQwcL+Bsq5uf4RYL75C1giZ43KISjeDGBaTN3Kxh7Xj/vRSMJUUg==}
+    peerDependencies:
+      tailwindcss: '>=3.0.0 || insiders'
+    dependencies:
+      lodash.castarray: 4.4.0
+      lodash.isplainobject: 4.0.6
+      lodash.merge: 4.6.2
+      postcss-selector-parser: 6.0.10
+      tailwindcss: 3.2.6_postcss@8.4.21
+    dev: true
+
   /@tanstack/query-core/4.24.10:
     resolution: {integrity: sha512-2QywqXEAGBIUoTdgn1lAB4/C8QEqwXHj2jrCLeYTk2xVGtLiPEUD8jcMoeB2noclbiW2mMt4+Fq7fZStuz3wAQ==}
     dev: false
@@ -4819,7 +4835,7 @@ packages:
       react: '>=16.8.2'
     dependencies:
       cli-spinners: 2.7.0
-      ink: 3.2.0_jguntkfjozdfrzd4l22x7bdnx4
+      ink: 3.2.0_react@17.0.2
       react: 17.0.2
 
   /ink/3.2.0_jguntkfjozdfrzd4l22x7bdnx4:
@@ -4860,6 +4876,7 @@ packages:
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
+    dev: true
 
   /ink/3.2.0_react@17.0.2:
     resolution: {integrity: sha512-firNp1q3xxTzoItj/eOOSZQnYSlyrWks5llCTVX37nJ59K3eXbQ8PtzCguqo8YI19EELo5QxaKnJd4VxzhU8tg==}
@@ -5143,6 +5160,10 @@ packages:
       p-locate: 3.0.0
       path-exists: 3.0.0
 
+  /lodash.castarray/4.4.0:
+    resolution: {integrity: sha512-aVx8ztPv7/2ULbArGJ2Y42bG1mEQ5mGjpdvrbJcJFU3TbYybe+QlLS4pst9zV52ymy2in1KpFPiZnAOATxD4+Q==}
+    dev: true
+
   /lodash.defaults/4.2.0:
     resolution: {integrity: sha512-qjxPLHd3r5DnsdGacqOMU6pb/avJzdh9tFX2ymgoZE27BmjXrNy/y4LoaiTeAb+O3gL8AfpJGtqfX/ae2leYYQ==}
 
@@ -5154,6 +5175,10 @@ packages:
 
   /lodash.isplainobject/4.0.6:
     resolution: {integrity: sha512-oSXzaWypCMHkPC3NvBEaPHf0KsA5mvPrOPgQWDsbg8n7orZ290M0BmC/jgRZ4vcJ6DTAhjrsSYgdsW/F+MFOBA==}
+
+  /lodash.merge/4.6.2:
+    resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
+    dev: true
 
   /lodash.pad/4.5.1:
     resolution: {integrity: sha512-mvUHifnLqM+03YNzeTBS1/Gr6JRFjd3rRx88FHWUvamVaT9k2O/kXha3yBSOwB9/DTQrSTLJNHvLBBt2FdX7Mg==}
@@ -5670,6 +5695,14 @@ packages:
     dependencies:
       postcss: 8.4.21
       postcss-selector-parser: 6.0.11
+    dev: true
+
+  /postcss-selector-parser/6.0.10:
+    resolution: {integrity: sha512-IQ7TZdoaqbT+LCpShg46jnZVlhWD2w6iQYAcYXfHARZ7X1t/UGhhceQDs5X0cGqKvYlHNOuv7Oa1xmb0oQuA3w==}
+    engines: {node: '>=4'}
+    dependencies:
+      cssesc: 3.0.0
+      util-deprecate: 1.0.2
     dev: true
 
   /postcss-selector-parser/6.0.11:
