@@ -19,7 +19,10 @@ export const TeamCard: React.FC<{
   const { value: viewing, toggle: toggleViewing } = useBoolean(false);
 
   return (
-    <motion.article key={team.teamId} className={"bg-yellow-400 p-4 h-fit"}>
+    <motion.article
+      key={team.teamId}
+      className={"bg-yellow-400 p-4 h-fit border-2 border-black rounded"}
+    >
       <div className="flex justify-between">
         <h2 className="text-3xl text-indigo-900">{team.name}</h2>
         <Button

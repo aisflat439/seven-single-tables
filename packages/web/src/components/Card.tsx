@@ -1,33 +1,42 @@
 import React from "react";
 
+type Colors = "green" | "blue" | "yellow" | "orange";
 interface ICard {
-  children: React.ReactNode;
-  isOpen: boolean;
+  color: Colors;
+  link: string;
+  linkText: string;
+  subtitle: string;
+  title: string;
 }
 
-interface IFooter {
-  toggle: () => void;
-  children: React.ReactNode;
-}
-
-const Footer = ({ children, toggle }: IFooter) => {
+export const Card: React.FunctionComponent<ICard> = ({
+  color,
+  link,
+  linkText,
+  subtitle,
+  title,
+}) => {
+  const colorStyles = {
+    green: "bg-green-400",
+    blue: "bg-blue-400",
+    yellow: "bg-yellow-400",
+    orange: "bg-orange-400",
+  };
   return (
-    <>
-      <div className="flex justify-end">
-        <button className="text-sm text-blue-500 underline" onClick={toggle}>
-          {children}
-        </button>
+    <li className="bg-white rounded">
+      <div className={`${colorStyles[color]} p-8 rounded`}>
+        <h3 className="text-6xl">{title}</h3>
+        <p>{subtitle}</p>
       </div>
-    </>
+      <div className="p-8">
+        <a
+          className="underline text-blue-400 text-2xl"
+          target="__blank"
+          href={link}
+        >
+          {linkText}
+        </a>
+      </div>
+    </li>
   );
 };
-
-export const Card: React.FunctionComponent<ICard> & {
-  Footer: typeof Footer;
-} = function Card({ children }) {
-  return (
-    <div className="border p-4 flex flex-col justify-between">{children}</div>
-  );
-};
-
-Card.Footer = Footer;
