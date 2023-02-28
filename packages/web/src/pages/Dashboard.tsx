@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+
 import { Card } from "../components/Card";
 
 export function Dashboard() {
@@ -6,8 +8,10 @@ export function Dashboard() {
     <>
       <div className="bg-green-600 border-b-2 border-black">
         <div className="max-w-screen-xl m-auto">
-          <article className="max-w-prose py-24 m-auto">
-            <h2 className="prose-2xl underline text-center">What is this?</h2>
+          <article className="max-w-prose py-12 sm:py-24 px-4 md:px-0 m-auto">
+            <h2 className="text-4xl sm:text-6xl underline text-center pb-6">
+              What is this?
+            </h2>
             <p className="prose-lg">
               In an effort to get more comfortable with Single Table Design and
               SST's opinions about how applications should be built, I've
@@ -17,7 +21,7 @@ export function Dashboard() {
         </div>
       </div>
       <div className="border-b-2 border-black">
-        <div className="max-w-screen-xl py-24 m-auto">
+        <div className="max-w-screen-xl p-4 md:py-24  m-auto">
           <article className="max-w-prose m-auto prose-lg bg-fuchsia-500 border-2 border-black p-4">
             <p>
               This project is inspired by{" "}
@@ -43,14 +47,28 @@ export function Dashboard() {
           </article>
         </div>
       </div>
-      <div className="bg-black">
+      <div className="bg-black pb-12">
         <div className="max-w-screen-xl py-12 m-auto">
           <article className="">
-            <p className="text-white prose-2xl max-w-prose m-auto pb-8">
+            <p className="text-white prose-2xl max-w-prose m-auto pb-8 px-4">
               This project wouldn't be possible without the following people,
               technologies, and resources:
             </p>
-            <ul className="grid grid-cols-2 gap-6 px-8">
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-6 px-8">
+              <Card
+                color="orange"
+                link="https://sst.dev/"
+                linkText="SST Framework"
+                subtitle="their community and the"
+                title="SST"
+              />
+              <Card
+                color="yellow"
+                link="https://electrodb.dev/en/core-concepts/introduction/"
+                linkText="ElectroDB"
+                subtitle="and his library"
+                title="Tyler W. Walch"
+              />
               <Card
                 color="green"
                 link="https://www.dynamodbbook.com/"
@@ -65,20 +83,6 @@ export function Dashboard() {
                 subtitle="and"
                 title="Rick Houlihan"
               />
-              <Card
-                color="yellow"
-                link="https://electrodb.dev/en/core-concepts/introduction/"
-                linkText="ElectroDB"
-                subtitle="and his library"
-                title="Tyler W. Walch"
-              />
-              <Card
-                color="orange"
-                link="https://sst.dev/"
-                linkText="SST Framework"
-                subtitle="their community and the"
-                title="SST"
-              />
             </ul>
           </article>
         </div>
@@ -86,35 +90,59 @@ export function Dashboard() {
       <div className="bg-gray-200">
         <div className="max-w-screen-xl py-12 m-auto">
           <section>
-            <ul>
+            <h3 className="text-5xl text-center py-6 text-indigo-900 uppercase">
+              Examples
+            </h3>
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-6 px-8">
               <li>
                 <Link to="jira">
-                  <div className="shadow p-4 my-4 flex">
+                  <motion.div
+                    whileHover={{
+                      scale: 1.05,
+                      boxShadow: "4px 4px 0 2px #000",
+                    }}
+                    initial={{ boxShadow: "none" }}
+                    className="border-black border-2 rounded p-4 flex"
+                  >
                     <h5>Jira:</h5>
                     <p className="ml-4">
                       The simplest example of Single Table Design
                     </p>
-                  </div>
+                  </motion.div>
                 </Link>
               </li>
               <li>
                 <Link to="posts">
-                  <div className="shadow p-4 my-4 flex">
+                  <motion.div
+                    whileHover={{
+                      scale: 1.05,
+                      boxShadow: "4px 4px 0 2px #000",
+                    }}
+                    initial={{ boxShadow: "none" }}
+                    className="border-black border-2 rounded p-4 flex"
+                  >
                     <h5>Posts:</h5>
                     <p className="ml-4">
                       All we add is GSI's so understand how that works
                     </p>
-                  </div>
+                  </motion.div>
                 </Link>
               </li>
               <li>
                 <Link to="orders">
-                  <div className="shadow p-4 my-4 flex">
+                  <motion.div
+                    whileHover={{
+                      scale: 1.05,
+                      boxShadow: "4px 4px 0 2px #000",
+                    }}
+                    initial={{ boxShadow: "none" }}
+                    className="border-black border-2 rounded p-4 flex"
+                  >
                     <h5>Orders:</h5>
                     <p className="ml-4">
                       A simplified version of a talk by from Rick Houlihan
                     </p>
-                  </div>
+                  </motion.div>
                 </Link>
               </li>
             </ul>
