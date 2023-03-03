@@ -24,7 +24,7 @@ export function Jira() {
   };
 
   useOnClickOutside(ref, handleClickOutside);
-  useKeypress("esc", handleClickOutside);
+  useKeypress("Escape", handleClickOutside);
 
   return (
     <div className="bg-blue-600 p-2 min-h-screen">
