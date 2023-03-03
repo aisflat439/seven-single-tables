@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useMediaQuery } from "usehooks-ts";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 interface FrameProps {
   children: React.ReactNode;
 }
@@ -117,6 +117,9 @@ export const Frame = ({ children }: FrameProps) => {
         >
           Follow me on the twitter machine
         </a>
+        <Link to="privacy" className="text-gray-500">
+          Privacy policy
+        </Link>
         <a
           href="https://github.com/aisflat439/seven-single-tables"
           target="__blank"

@@ -22,7 +22,7 @@ export function Dashboard() {
       </div>
       <div className="border-b-2 border-black">
         <div className="max-w-screen-xl p-4 md:py-24  m-auto">
-          <article className="max-w-prose m-auto prose-lg bg-fuchsia-500 border-2 border-black p-4">
+          <article className="max-w-prose m-auto prose-lg bg-fuchsia-500 border-2 border-black p-4 rounded">
             <p>
               This project is inspired by{" "}
               <a

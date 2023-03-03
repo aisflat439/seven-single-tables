@@ -1,6 +1,11 @@
 import { motion } from "framer-motion";
 
-type Variants = "primary" | "secondary" | "destructive" | "brick";
+type Variants =
+  | "primary"
+  | "secondary"
+  | "destructive"
+  | "brick"
+  | "informational";
 
 interface IButton {
   children: React.ReactNode;
@@ -19,6 +24,8 @@ const variantStyles = {
   destructive:
     "px-4 py-1 bg-red-500 border-black border rounded-3xl text-black text-xs",
   brick: "px-4 py-1 bg-pink-600 border-black border-2 border text-white",
+  informational:
+    "px-4 py-1 bg-indigo-600 border-black border-2 border text-white",
 };
 
 export const Button = ({
