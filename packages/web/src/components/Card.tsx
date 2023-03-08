@@ -28,7 +28,7 @@ export const Card: React.FunctionComponent<ICard> = ({
         <h3 className="text-6xl">{title}</h3>
         <p>{subtitle}</p>
       </div>
-      <div className="p-8">
+      <div className="p-8 text-right">
         <a
           className="underline text-blue-400 text-2xl"
           target="__blank"

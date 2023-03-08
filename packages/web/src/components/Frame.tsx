@@ -96,7 +96,7 @@ export const Frame = ({ children }: FrameProps) => {
                       color: "#fff",
                       scale: 1.2,
                     }}
-                    className="border-l-2 border-black h-full flex justify-center items-center"
+                    className="border-l-2 border-black h-full flex justify-center items-center xl:border-r-2"
                   >
                     <Link className="md:m-4 text-lg" to="/orders">
                       Orders

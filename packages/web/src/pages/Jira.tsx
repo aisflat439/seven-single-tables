@@ -29,18 +29,30 @@ export function Jira() {
   return (
     <div className="bg-blue-600 p-2 min-h-screen">
       <div className="max-w-7xl m-auto">
-        <div className="flex justify-between">
-          <h2 className="text-4xl m-4 text-white underline">Jira</h2>
-          <Button
-            disabled={show}
-            onClick={toggle}
-            variant="informational"
-            className="text-sm"
-          >
-            Explain what's happening?
-          </Button>
-        </div>
-        <div>
+        <article className="bg-white border-2 border-black rounded my-8">
+          <div className="flex justify-between p-4">
+            <h1 className=" text-4xl">Jira</h1>
+            <Button
+              disabled={show}
+              onClick={toggle}
+              variant="informational"
+              className="text-sm"
+            >
+              What's happening?
+            </Button>
+          </div>
+          <p className="m-4">
+            Implement a table with the following access patterns:
+          </p>
+          <ul className="pl-6 m-4">
+            <li>Create and delete a team</li>
+            <li>Retrieve all the teams</li>
+            <li>Create a ticket for a team</li>
+            <li>Retrieve all the tickets for a team</li>
+            <li>Change the status of a ticket</li>
+          </ul>
+        </article>
+        <div className="">
           <form onSubmit={handleCreateTeam}>
             <Input {...register("name")} />
             <Button type="submit" disabled={loading}>

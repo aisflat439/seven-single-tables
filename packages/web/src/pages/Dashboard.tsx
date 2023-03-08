@@ -8,21 +8,44 @@ export function Dashboard() {
     <>
       <div className="bg-green-600 border-b-2 border-black">
         <div className="max-w-screen-xl m-auto">
-          <article className="max-w-prose py-12 sm:py-24 px-4 md:px-0 m-auto">
-            <h2 className="text-4xl sm:text-6xl underline text-center pb-6">
+          <svg
+            className="ml-auto"
+            xmlns="http://www.w3.org/2000/svg"
+            width="60px"
+            height="60px"
+            viewBox="0 0 1024 1024"
+          >
+            <path
+              fill="#22C522"
+              d="m308.352 489.344 226.304 226.304a32 32 0 0 0 45.248 0L783.552 512A192 192 0 1 0 512 240.448L308.352 444.16a32 32 0 0 0 0 45.248zm135.744 226.304L308.352 851.392a96 96 0 0 1-135.744-135.744l135.744-135.744-45.248-45.248a96 96 0 0 1 0-135.808L466.752 195.2A256 256 0 0 1 828.8 557.248L625.152 760.96a96 96 0 0 1-135.808 0l-45.248-45.248zM398.848 670.4 353.6 625.152 217.856 760.896a32 32 0 0 0 45.248 45.248L398.848 670.4zm248.96-384.64a32 32 0 0 1 0 45.248L466.624 512a32 32 0 1 1-45.184-45.248l180.992-181.056a32 32 0 0 1 45.248 0zm90.496 90.496a32 32 0 0 1 0 45.248L557.248 602.496A32 32 0 1 1 512 557.248l180.992-180.992a32 32 0 0 1 45.312 0z"
+            />
+          </svg>
+          <article className="max-w-prose py-12 sm:pb-24 sm:pt-12 px-4 md:px-0 m-auto">
+            <h2 className="text-4xl sm:text-8xl text-center pb-6">
               What is this?
             </h2>
-            <p className="prose-lg">
+            <p className="prose-xl pb-6">
+              Seven sample tables for demonstrating Single Table Design.
+            </p>
+            <p className="prose-lg pb-6">
               In an effort to get more comfortable with Single Table Design and
               SST's opinions about how applications should be built, I've
-              created this project.
+              created this project. The intent is that each table gets
+              progressively more complicated. The growing complexity will show
+              how Single Table Design works along with an example of how I'd
+              implement it.
+            </p>
+            <p className="prose-sm text-black">
+              <span className="text-red-500">*</span>
+              Also, I'm having fun making the sites design as close to a trapper
+              keeper as I can. Trapper keepers were the best.
             </p>
           </article>
         </div>
       </div>
-      <div className="border-b-2 border-black">
-        <div className="max-w-screen-xl p-4 md:py-24  m-auto">
-          <article className="max-w-prose m-auto prose-lg bg-fuchsia-500 border-2 border-black p-4 rounded">
+      <div className="border-b-2 border-black jigsaw">
+        <div className="max-w-screen-xl p-4 md:py-24 m-auto">
+          <article className="max-w-prose m-auto prose-lg bg-fuchsia-400 border-2 border-black p-4 rounded">
             <p>
               This project is inspired by{" "}
               <a
