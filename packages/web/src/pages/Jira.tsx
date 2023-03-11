@@ -19,6 +19,10 @@ export function Jira() {
   const [show, toggle, setShow] = useToggle(false);
   const ref = React.useRef(null);
 
+  React.useEffect(() => {
+    document.body.classList.toggle("overflow-hidden", show);
+  }, [show]);
+
   const handleClickOutside = () => {
     setShow(false);
   };
@@ -78,81 +82,130 @@ export function Jira() {
             initial="initial"
             animate="animate"
             exit="exit"
-            ref={ref}
-            className="fixed z-50 top-1/3 right-0 left-0 min-w-screen min-h-screen flex justify-end bg-transparent"
+            className="fixed z-50 top-0 left-0 h-full w-full flex oveflow-x-hidden overflow-y-auto overscroll-contain"
           >
-            <div className="bg-white flex-1 mx-8 p-8 border-2 border-black rounded">
-              <div className="text-right">
-                <Button variant="brick" onClick={toggle}>
-                  Close
-                </Button>
-              </div>
-              <div className="m-auto prose">
-                <p>
-                  Everything in DynamoDB works with primary keys and sort keys.
-                  From here forward, think of them as "sk" and "pk". You can
-                  have many of both. Rather than having a table with an index
-                  that references another table. In Dynamo, we keep everything
-                  together on one table. This relational data strategy is called
-                  "single table design."
-                </p>
-                <p>
-                  In this data model, we have Teams and Tickets. Teams have-many
-                  tickets. We have two access patterns. Retrieve all the teams.
-                  Retrieve all of the tickets of a team. Additionally, we set up
-                  deleting a team and updating ticket statuses just for fun!
-                </p>
-                <p>
-                  We have two entity types. Teams and Tickets. In ElectroDB we
-                  create collections to group like items. In this case, we name
-                  the collection <span className="bg-blue-100 p-1">jira</span>.
-                  The primary key for a team is
-                  <span className="bg-green-200 p-1">
-                    pk: = jira, sk: = teamId_some-team-id
-                  </span>
-                  . If we wanted all of the teams, we can just get{" "}
-                  <span className="bg-yellow-100 p-1">
-                    pk: = jira, sk: = teamId_
-                  </span>
-                  . This covers two of our access patterns!
-                </p>
-                <p>
-                  For ticket entity types, we can want to list all the tickets
-                  of a team. We're still using the same collection id{" "}
-                  <span className="bg-blue-100 p-1">jira</span>
-                  But now we add in a{" "}
-                  <span className="bg-indigo-100 p-1">teamId</span>. So if we
-                  want to list all the tickets for a team can say{" "}
-                  <span className="bg-orange-100 p-1">
-                    pk: = jira_some-team-id, sk: ticketId_
-                  </span>
-                </p>
-                <p>
-                  If you look at the table, you can have pk's with{" "}
-                  <span className="bg-pink-100 p-1">jira</span> or{" "}
-                  <span className="bg-purple-100 p-1">jira_team-id</span>
-                </p>
-                <p>You can see details of the above functions here.</p>
-                <ul className="list-none">
-                  <li>
-                    <a
-                      href="https://github.com/aisflat439/seven-single-tables/blob/main/packages/core/src/jira.ts#L108"
-                      target="_blank"
-                    >
-                      listTeams()
-                    </a>
-                  </li>
-                  <li>
-                    <a href="https://github.com/aisflat439/seven-single-tables/blob/main/packages/core/src/jira.ts#L127">
-                      listTickets()
-                    </a>
-                  </li>
-                  <li>
-                    <a href="https://github.com/aisflat439/seven-single-tables/blob/main/packages/core/src/jira.ts#L135">
-                      updateStatus()
-                    </a>
-                  </li>
-                </ul>
+            <div className="m-auto flex flex-col flex-1 mx-8 sm:mx-24 mt-8 sm:mt-96">
+              <div className="flex-1">{""}</div>
+              <div
+                className="bg-white flex-2 mt-auto p-8 border-2 border-black rounded overscroll-contain max-w-7xl m-auto"
+                ref={ref}
+              >
+                <div className="text-right">
+                  <Button variant="brick" onClick={toggle}>
+                    Close
+                  </Button>
+                </div>
+                <div className="m-auto prose">
+                  <p>
+                    Everything in DynamoDB works with primary keys and sort
+                    keys. From here forward, think of them as "sk" and "pk". You
+                    can have many of both. Rather than having a table with an
+                    index that references another table. In Dynamo, we keep
+                    everything together on one table. This relational data
+                    strategy is called "single table design."
+                  </p>
+                  <p>
+                    In this data model, we have Teams and Tickets. Teams
+                    have-many tickets. We have two access patterns. Retrieve all
+                    the teams. Retrieve all of the tickets of a team.
+                    Additionally, we set up deleting a team and updating ticket
+                    statuses just for fun!
+                  </p>
+                  <p>
+                    In this data model, we have Teams and Tickets. Teams
+                    have-many tickets. We have two access patterns. Retrieve all
+                    the teams. Retrieve all of the tickets of a team.
+                    Additionally, we set up deleting a team and updating ticket
+                    statuses just for fun!
+                  </p>
+                  <p>
+                    In this data model, we have Teams and Tickets. Teams
+                    have-many tickets. We have two access patterns. Retrieve all
+                    the teams. Retrieve all of the tickets of a team.
+                    Additionally, we set up deleting a team and updating ticket
+                    statuses just for fun!
+                  </p>
+                  <p>
+                    In this data model, we have Teams and Tickets. Teams
+                    have-many tickets. We have two access patterns. Retrieve all
+                    the teams. Retrieve all of the tickets of a team.
+                    Additionally, we set up deleting a team and updating ticket
+                    statuses just for fun!
+                  </p>
+                  <p>
+                    In this data model, we have Teams and Tickets. Teams
+                    have-many tickets. We have two access patterns. Retrieve all
+                    the teams. Retrieve all of the tickets of a team.
+                    Additionally, we set up deleting a team and updating ticket
+                    statuses just for fun!
+                  </p>
+                  <p>
+                    In this data model, we have Teams and Tickets. Teams
+                    have-many tickets. We have two access patterns. Retrieve all
+                    the teams. Retrieve all of the tickets of a team.
+                    Additionally, we set up deleting a team and updating ticket
+                    statuses just for fun!
+                  </p>
+                  <p>
+                    In this data model, we have Teams and Tickets. Teams
+                    have-many tickets. We have two access patterns. Retrieve all
+                    the teams. Retrieve all of the tickets of a team.
+                    Additionally, we set up deleting a team and updating ticket
+                    statuses just for fun!
+                  </p>
+                  <p>
+                    We have two entity types. Teams and Tickets. In ElectroDB we
+                    create collections to group like items. In this case, we
+                    name the collection{" "}
+                    <span className="bg-blue-100 p-1">jira</span>. The primary
+                    key for a team is
+                    <span className="bg-green-200 p-1">
+                      pk: = jira, sk: = teamId_some-team-id
+                    </span>
+                    . If we wanted all of the teams, we can just get{" "}
+                    <span className="bg-yellow-100 p-1">
+                      pk: = jira, sk: = teamId_
+                    </span>
+                    . This covers two of our access patterns!
+                  </p>
+                  <p>
+                    For ticket entity types, we can want to list all the tickets
+                    of a team. We're still using the same collection id{" "}
+                    <span className="bg-blue-100 p-1">jira</span>
+                    But now we add in a{" "}
+                    <span className="bg-indigo-100 p-1">teamId</span>. So if we
+                    want to list all the tickets for a team can say{" "}
+                    <span className="bg-orange-100 p-1">
+                      pk: = jira_some-team-id, sk: ticketId_
+                    </span>
+                  </p>
+                  <p>
+                    If you look at the table, you can have pk's with{" "}
+                    <span className="bg-pink-100 p-1">jira</span> or{" "}
+                    <span className="bg-purple-100 p-1">jira_team-id</span>
+                  </p>
+                  <p>You can see details of the above functions here.</p>
+                  <ul className="list-none">
+                    <li>
+                      <a
+                        href="https://github.com/aisflat439/seven-single-tables/blob/main/packages/core/src/jira.ts#L108"
+                        target="_blank"
+                      >
+                        listTeams()
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://github.com/aisflat439/seven-single-tables/blob/main/packages/core/src/jira.ts#L127">
+                        listTickets()
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://github.com/aisflat439/seven-single-tables/blob/main/packages/core/src/jira.ts#L135">
+                        updateStatus()
+                      </a>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
           </motion.div>
