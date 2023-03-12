@@ -11,18 +11,35 @@ import {
   updateStatus,
   Statuses,
 } from "../../core/src/jira";
+import { listPosts } from "../../core/src/reddit";
 
 export const t = initTRPC.create();
 
 const appRouter = t.router({
+  listPosts: t.procedure.query(async () => {
+    return await listPosts();
+  }),
+  createTeam: t.procedure.input(z.string()).mutation(async ({ input }) => {
+    return await createTeam(input);
+  }),
+  createTicket: t.procedure
+    .input(
+      z.object({
+        title: z.string(),
+        teamId: z.string(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      return await create(input.title, input.teamId);
+    }),
+  deleteTeam: t.procedure.input(z.string()).mutation(async ({ input }) => {
+    return await deleteTeam(input);
+  }),
   listTeams: t.procedure.query(async () => {
     return await listTeams();
   }),
   listTickets: t.procedure.input(z.string()).query(async ({ input }) => {
     return await listTickets(input);
-  }),
-  deleteTeam: t.procedure.input(z.string()).mutation(async ({ input }) => {
-    return await deleteTeam(input);
   }),
   updateStatus: t.procedure
     .input(
@@ -38,19 +55,6 @@ const appRouter = t.router({
         input.ticketId,
         input.status as Statuses
       );
-    }),
-  createTeam: t.procedure.input(z.string()).mutation(async ({ input }) => {
-    return await createTeam(input);
-  }),
-  createTicket: t.procedure
-    .input(
-      z.object({
-        title: z.string(),
-        teamId: z.string(),
-      })
-    )
-    .mutation(async ({ input }) => {
-      return await create(input.title, input.teamId);
     }),
 });
 
