@@ -233,13 +233,13 @@ export async function getPostersComments(redditorId: string) {
 }
 
 // This is unused but an example of how services can be used.
-const PostService = new Service({ RedditorEntity, PostEntity, CommentEntity });
+// const PostService = new Service({ RedditorEntity, PostEntity, CommentEntity });
 
-export async function getPostFromService(postId: string) {
-  // want to see the params that get generated? You can always log them out here.
-  // const params = PostService.collections.postComments({ postId }).params()
-  // console.log('params: ', params);
-  const data = await PostService.collections.postComments({ postId }).go();
+// export async function getPostFromService(postId: string) {
+//   // want to see the params that get generated? You can always log them out here.
+//   // const params = PostService.collections.postComments({ postId }).params()
+//   // console.log('params: ', params);
+//   const data = await PostService.collections.postComments({ postId }).go();
 
-  return { post: data.PostEntity, comments: data.CommentEntity };
-}
+//   return { post: data.PostEntity, comments: data.CommentEntity };
+// }
