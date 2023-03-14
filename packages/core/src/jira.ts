@@ -106,6 +106,8 @@ export async function deleteTeam(id: string) {
 }
 
 export async function listTeams() {
+  // const res = TeamEntity.query.teams({}).params();
+  // console.log("res: ", res);
   const result = await TeamEntity.query.teams({}).go();
 
   return result.data;

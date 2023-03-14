@@ -12,9 +12,9 @@
     "sst": "^2.0.23"
   },
   "dependencies": {
+    "@seven-single-tables/core": "^0.0.0",
     "@trpc/server": "^10.12.0",
     "@types/aws-lambda": "^8.10.110",
-    "@seven-single-tables/core": "^0.0.0",
     "sst": "^2.0.23",
     "ulid": "^2.3.0",
     "zod": "^3.20.6"

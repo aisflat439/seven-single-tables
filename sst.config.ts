@@ -1,5 +1,6 @@
 import { SSTConfig } from "sst";
 import { Api } from "./stacks/Api";
+import { Authentication } from "./stacks/Authentication";
 import { Database } from "./stacks/Database";
 import { Web } from "./stacks/Web";
 
@@ -15,6 +16,6 @@ export default {
     if (app.stage !== "prod") {
       app.setDefaultRemovalPolicy("destroy");
     }
-    app.stack(Database).stack(Api).stack(Web);
+    app.stack(Authentication).stack(Database).stack(Api).stack(Web);
   },
 } satisfies SSTConfig;
