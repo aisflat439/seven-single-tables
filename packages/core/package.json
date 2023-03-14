@@ -10,13 +10,12 @@
     "@aws-sdk/types": "^3.272.0",
     "@aws-sdk/smithy-client": "^3.272.0",
     "@types/node": "^18.14.0",
-    "sst": "^2.0.24",
     "vitest": "^0.28.5"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.272.0",
     "electrodb": "^2.4.1",
-    "sst": "^2.0.23",
+    "sst": "2.1.29",
     "ulid": "^2.3.0"
   }
 }
