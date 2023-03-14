@@ -10,8 +10,8 @@ import {
   listTickets,
   updateStatus,
   Statuses,
-} from "../../core/src/jira";
-import { listPosts } from "../../core/src/reddit";
+} from "@seven-single-tables/core/src/jira";
+import { listPosts } from "@seven-single-tables/core/src/reddit";
 
 export const t = initTRPC.create();
 

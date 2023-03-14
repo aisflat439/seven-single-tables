@@ -4,9 +4,7 @@ import { AuthHandler, GithubAdapter } from "sst/node/auth";
 export const handler = AuthHandler({
   providers: {
     github: GithubAdapter({
-      // @ts-ignore
       clientID: Config.GITHUB_CLIENT_ID,
-      // @ts-ignore
       clientSecret: Config.GITHUB_CLIENT_SECRET,
       scope: "<space separated list of scopes>",
       onSuccess: async (tokenset) => {

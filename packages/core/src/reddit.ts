@@ -1,6 +1,6 @@
 export * as Reddit from "./reddit";
 import { Dynamo } from "./dynamo";
-import { Entity, EntityItem, Service } from "electrodb";
+import { Entity, EntityItem } from "electrodb";
 import { ulid } from "ulid";
 
 export const RedditorEntity = new Entity(
