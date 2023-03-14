@@ -1,25 +1,14 @@
 import { motion } from "framer-motion";
 
 import { PageDetails } from "../components/Reusable/PageDetails";
-import { usePosts } from "../hooks/usePosts";
 
-export function Posts() {
-  const { posts } = usePosts();
-
+export function Orders() {
   return (
-    <div className="bg-orange-500 p-2 min-h-screen">
+    <div className="bg-purple-600 p-2 min-h-screen">
       <div className="max-w-7xl m-auto">
-        <PageDetails
-          title="Posts"
-          accessPattern={[
-            "Create a post",
-            "Comment on the post",
-            "List Comments",
-            "List Posts",
-          ]}
-        >
+        <PageDetails title="Orders" accessPattern={["View Orders"]}>
           <p>
-            Here's where I'll talk about what Posts is all about. I don't know
+            Here's where I'll talk about what Orders is all about. I don't know
             what I'll say because I haven't written it yet. This is just
             placeholder text
           </p>

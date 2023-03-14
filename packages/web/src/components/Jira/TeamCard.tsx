@@ -4,8 +4,8 @@ import React from "react";
 import { useBoolean } from "usehooks-ts";
 import { useJiraTeam, useJiraTicket } from "../../hooks/useJira";
 import { RouterOutputs } from "../../trpc";
-import { Button } from "../Button";
-import { Input } from "../Input";
+import { Button } from "../Reusable/Button";
+import { Input } from "../Reusable/Input";
 
 export const TeamCard: React.FC<{
   team: RouterOutputs["listTeams"][number];

@@ -10,9 +10,10 @@ import { trpc } from "./trpc";
 
 import { Dashboard } from "./pages/Dashboard";
 import { Jira } from "./pages/Jira";
-import { Frame } from "./components/Frame";
+import { Frame } from "./components/Reusable/Frame";
 import { Privacy } from "./pages/Privacy";
 import { Posts } from "./pages/Posts";
+import { Orders } from "./pages/Orders";
 
 export function Query() {
   const [queryClient] = React.useState(() => new QueryClient());
@@ -43,6 +44,7 @@ function App() {
           <Route path="/" element={<Dashboard />} />
           <Route path="jira" element={<Jira />} />
           <Route path="posts" element={<Posts />} />
+          <Route path="orders" element={<Orders />} />
           <Route path="privacy" element={<Privacy />} />
           <Route path="*" element={<Dashboard />} />
         </Routes>

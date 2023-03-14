@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
-import { Card } from "../components/Card";
+import { Card } from "../components/Reusable/Card";
 
 export function Dashboard() {
   return (
