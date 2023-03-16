@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useMediaQuery } from "usehooks-ts";
 import { motion } from "framer-motion";
+import { Button } from "./Button";
 interface FrameProps {
   children: React.ReactNode;
 }
@@ -9,6 +10,34 @@ interface FrameProps {
 export const Frame = ({ children }: FrameProps) => {
   const matches = useMediaQuery("(min-width: 768px)");
   const [isOpen, setIsOpen] = React.useState(matches);
+
+  const [session, setSession] = React.useState("");
+
+  const getSession = async () => {
+    const token = localStorage.getItem("seven-single-tables-session-token");
+    if (token) {
+      setSession(token);
+    }
+  };
+
+  const signOut = async () => {
+    localStorage.removeItem("seven-single-tables-session-token");
+    setSession("");
+  };
+
+  React.useEffect(() => {
+    getSession();
+  }, []);
+
+  React.useEffect(() => {
+    const search = window.location.search;
+    const params = new URLSearchParams(search);
+    const token = params.get("token");
+    if (token) {
+      localStorage.setItem("seven-single-tables-session-token", token);
+      window.location.replace(window.location.origin);
+    }
+  }, []);
 
   const handleOpen = () => {
     setIsOpen((current) => !current);
@@ -21,12 +50,30 @@ export const Frame = ({ children }: FrameProps) => {
           <div className="max-w-screen-xl m-auto">
             <ul>
               <div className="md:flex justify-between">
-                <div className="flex justify-between p-4">
+                <div className="flex justify-between items-center p-4">
                   <li>
                     <Link className="text-3xl" to="/">
                       Seven Single Tables
                     </Link>
                   </li>
+                  {session ? (
+                    <li className="ml-4">
+                      <Button variant="destructive" onClick={signOut}>
+                        Log out
+                      </Button>
+                    </li>
+                  ) : (
+                    <li className="ml-4">
+                      <a
+                        className="bg-blue-500 py-2 px-4 rounded border-2 border-black"
+                        href={`${
+                          import.meta.env.VITE_API_URL
+                        }/auth/github/authorize`}
+                      >
+                        Log in
+                      </a>
+                    </li>
+                  )}
                   <button className="md:hidden" onClick={handleOpen}>
                     {isOpen ? (
                       <svg

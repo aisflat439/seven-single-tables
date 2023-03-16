@@ -4,6 +4,12 @@ export function Authentication({ stack }: StackContext) {
   const auth = new Auth(stack, "auth", {
     authenticator: {
       handler: "packages/functions/src/auth/authenticator.handler",
+      environment: {
+        URL:
+          stack.stage === "prod"
+            ? "api.sevensingletables.com"
+            : "http://localhost:3000",
+      },
     },
   });
 
