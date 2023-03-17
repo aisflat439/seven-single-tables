@@ -7,7 +7,7 @@ export function Authentication({ stack }: StackContext) {
       environment: {
         URL:
           stack.stage === "prod"
-            ? "api.sevensingletables.com"
+            ? "https://sevensingletables.com"
             : "http://localhost:3000",
       },
     },
