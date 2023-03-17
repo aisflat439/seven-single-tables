@@ -1,4 +1,6 @@
 import { useForm, SubmitHandler } from "react-hook-form";
+import { toast } from "react-toastify";
+import { useUser } from "../context/UserContext";
 import { RouterOutputs, trpc } from "../trpc";
 
 type TCreateTeam = {
@@ -17,6 +19,7 @@ export const useJiraTicket = (id: string) => {
     isRefetching,
   } = trpc.listTickets.useQuery(id);
   const { register, handleSubmit, reset } = useForm<TCreateTicket>();
+  const { session } = useUser();
 
   const createTicket = trpc.createTicket.useMutation({
     onSuccess: () => {
@@ -32,7 +35,9 @@ export const useJiraTicket = (id: string) => {
   });
 
   const handleCreateTicket: SubmitHandler<TCreateTicket> = (data) => {
-    createTicket.mutate({ title: data.title, teamId: id });
+    Boolean(session)
+      ? createTicket.mutate({ title: data.title, teamId: id })
+      : toast.error("You must be logged in to create a ticket");
   };
 
   const handleChangeStatus = (
@@ -64,6 +69,7 @@ export const useJiraTeam = () => {
     isLoading,
     isRefetching,
   } = trpc.listTeams.useQuery();
+  const { session } = useUser();
 
   const createTeam = trpc.createTeam.useMutation({
     onSuccess: () => {
@@ -81,11 +87,15 @@ export const useJiraTeam = () => {
   const mutating = isLoading || isRefetching || createTeam.isLoading;
 
   const handleCreateTeam: SubmitHandler<TCreateTeam> = (data) => {
-    createTeam.mutate(data.name);
+    Boolean(session)
+      ? createTeam.mutate(data.name)
+      : toast.error("You must be logged in to create a team");
   };
 
   const handleDeleteTeam = (id: string) => {
-    deleteTeam.mutate(id);
+    Boolean(session)
+      ? deleteTeam.mutate(id)
+      : toast.error("You must be logged in to delete a team");
   };
 
   return {

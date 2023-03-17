@@ -1,8 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useMediaQuery } from "usehooks-ts";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import { motion } from "framer-motion";
 import { Button } from "./Button";
+import { useUser } from "../../context/UserContext";
+
 interface FrameProps {
   children: React.ReactNode;
 }
@@ -10,34 +15,7 @@ interface FrameProps {
 export const Frame = ({ children }: FrameProps) => {
   const matches = useMediaQuery("(min-width: 768px)");
   const [isOpen, setIsOpen] = React.useState(matches);
-
-  const [session, setSession] = React.useState("");
-
-  const getSession = async () => {
-    const token = localStorage.getItem("seven-single-tables-session-token");
-    if (token) {
-      setSession(token);
-    }
-  };
-
-  const signOut = async () => {
-    localStorage.removeItem("seven-single-tables-session-token");
-    setSession("");
-  };
-
-  React.useEffect(() => {
-    getSession();
-  }, []);
-
-  React.useEffect(() => {
-    const search = window.location.search;
-    const params = new URLSearchParams(search);
-    const token = params.get("token");
-    if (token) {
-      localStorage.setItem("seven-single-tables-session-token", token);
-      window.location.replace(window.location.origin);
-    }
-  }, []);
+  const { session, signOut } = useUser();
 
   const handleOpen = () => {
     setIsOpen((current) => !current);
@@ -156,6 +134,7 @@ export const Frame = ({ children }: FrameProps) => {
         </nav>
       </header>
       <main className="m-auto min-h-screen">{children}</main>
+      <ToastContainer />
       <footer className="bg-gray-100 p-4 flex justify-between">
         <a
           href="https://twitter.com/fitzsimons_dev"

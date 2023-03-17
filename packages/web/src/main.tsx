@@ -14,6 +14,7 @@ import { Frame } from "./components/Reusable/Frame";
 import { Privacy } from "./pages/Privacy";
 import { Posts } from "./pages/Posts";
 import { Orders } from "./pages/Orders";
+import { UserProvider } from "./context/UserContext";
 
 export function Query() {
   const [queryClient] = React.useState(() => new QueryClient());
@@ -30,7 +31,9 @@ export function Query() {
   return (
     <trpc.Provider client={trpcClient} queryClient={queryClient}>
       <QueryClientProvider client={queryClient}>
-        <App />
+        <UserProvider>
+          <App />
+        </UserProvider>
       </QueryClientProvider>
     </trpc.Provider>
   );
