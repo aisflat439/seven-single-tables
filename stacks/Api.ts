@@ -29,7 +29,7 @@ export function Api({ stack }: StackContext) {
   auth.attach(stack, { api });
 
   stack.addOutputs({
-    API_URL: api.url,
+    API_URL: api.customDomainUrl || api.url,
   });
 
   return api;

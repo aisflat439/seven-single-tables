@@ -18,13 +18,13 @@ export function Web({ stack }: StackContext) {
     buildCommand: "npm run build",
     buildOutput: "dist",
     environment: {
-      VITE_API_URL: api.url,
+      VITE_API_URL: api.customDomainUrl || api.url,
     },
   });
 
   stack.addOutputs({
     SITE: site.url || "https://localhost:3000",
-    VITE_API_URL: api.url,
+    VITE_API_URL: api.customDomainUrl || api.url,
   });
 
   return api;
