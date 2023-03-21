@@ -43,15 +43,17 @@ export async function login(token: string) {
     data: { login },
   } = await octokit.rest.users.getAuthenticated();
 
-  const user = await UserEntity.get({
+  let user = await UserEntity.get({
     login,
   }).go();
 
   if (!user.data) {
-    await UserEntity.create({
+    let newUser = await UserEntity.create({
       login,
       accessToken: token,
     }).go();
+
+    user = newUser;
   } else {
     await UserEntity.patch({
       login,
@@ -62,7 +64,7 @@ export async function login(token: string) {
 
   return {
     ...user,
-    login,
+    token,
   };
 }
 
