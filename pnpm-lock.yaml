@@ -5645,7 +5645,7 @@ packages:
       react: '>=16.8.2'
     dependencies:
       cli-spinners: 2.7.0
-      ink: 3.2.0_jguntkfjozdfrzd4l22x7bdnx4
+      ink: 3.2.0_react@17.0.2
       react: 17.0.2
 
   /ink/3.2.0_jguntkfjozdfrzd4l22x7bdnx4:
@@ -5686,6 +5686,7 @@ packages:
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
+    dev: true
 
   /ink/3.2.0_react@17.0.2:
     resolution: {integrity: sha512-firNp1q3xxTzoItj/eOOSZQnYSlyrWks5llCTVX37nJ59K3eXbQ8PtzCguqo8YI19EELo5QxaKnJd4VxzhU8tg==}

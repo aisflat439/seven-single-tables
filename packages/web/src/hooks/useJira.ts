@@ -4,11 +4,11 @@ import { useUser } from "../context/UserContext";
 import { RouterOutputs, trpc } from "../trpc";
 
 type TCreateTeam = {
-  name: string;
+  name: RouterOutputs["createTeam"]["name"];
 };
 
 type TCreateTicket = {
-  title: string;
+  title: RouterOutputs["createTicket"]["title"];
 };
 
 export const useJiraTicket = (id: string) => {
@@ -42,7 +42,7 @@ export const useJiraTicket = (id: string) => {
 
   const handleChangeStatus = (
     status: string,
-    ticket: RouterOutputs["listTickets"][number]
+    ticket: RouterOutputs["listTickets"][0]
   ) => {
     updateStatus.mutate({
       ticketId: ticket.ticketId,

@@ -11,11 +11,24 @@ import {
   updateStatus,
   Statuses,
 } from "@seven-single-tables/core/src/jira";
-import { listPosts } from "@seven-single-tables/core/src/reddit";
+import {
+  createRedditor,
+  listPosts,
+  listRedditors,
+} from "@seven-single-tables/core/src/reddit";
 
 export const t = initTRPC.create();
 
 const appRouter = t.router({
+  createRedditor: t.procedure.input(z.string()).mutation(async ({ input }) => {
+    return await createRedditor(input);
+  }),
+  listRedditors: t.procedure.query(async () => {
+    return await listRedditors();
+  }),
+  // createPost: t.procedure.input(z.string()).mutation(async ({ input }) => {
+  //   return await create(input);
+  // }),
   listPosts: t.procedure.query(async () => {
     return await listPosts();
   }),

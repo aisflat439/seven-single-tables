@@ -1,10 +1,13 @@
 import { motion } from "framer-motion";
+import { RedditorListItem } from "../components/Posts/RedditorList";
+import { Button } from "../components/Reusable/Button";
+import { Input } from "../components/Reusable/Input";
 
 import { PageDetails } from "../components/Reusable/PageDetails";
 import { usePosts } from "../hooks/usePosts";
 
 export function Posts() {
-  const { posts } = usePosts();
+  const { loading, register, handleCreateRedditor, redditors } = usePosts();
 
   return (
     <div className="bg-orange-500 p-2 min-h-screen">
@@ -12,6 +15,7 @@ export function Posts() {
         <PageDetails
           title="Posts"
           accessPattern={[
+            "Create a redditor",
             "Create a post",
             "Comment on the post",
             "List Comments",
@@ -54,10 +58,30 @@ export function Posts() {
             laborum soluta quis.
           </p>
         </PageDetails>
+        <form onSubmit={handleCreateRedditor}>
+          <Input {...register("name")} />
+          <Button type="submit" disabled={loading}>
+            {loading ? "working..." : "create a redditor"}
+          </Button>
+        </form>
         <motion.div
           layout
           className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4 mt-6 "
-        ></motion.div>
+        >
+          {redditors.map((redditor, index) => {
+            return (
+              <RedditorListItem
+                index={index}
+                redditor={redditor}
+                key={redditor.redditorId}
+                handleDeleteRedditor={() => {}}
+              />
+            );
+          })}
+          {/* {posts.map((post) => {
+            return <Post post={post} key={post.id} />;
+          })} */}
+        </motion.div>
       </div>
     </div>
   );
