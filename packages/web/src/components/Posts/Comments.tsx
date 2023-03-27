@@ -1,4 +1,4 @@
-import { usePost } from "../../hooks/usePosts";
+import { useComments, usePost } from "../../hooks/usePosts";
 import { RouterOutputs } from "../../trpc";
 import { Content } from "../Reusable/Content";
 

@@ -12,22 +12,44 @@ import {
   Statuses,
 } from "@seven-single-tables/core/src/jira";
 import {
+  comment,
+  create as createPost,
   createRedditor,
   getComments,
   getPostersComments,
   getPosts,
   getSinglePost,
+  listPosts,
   listRedditors,
 } from "@seven-single-tables/core/src/reddit";
 
 export const t = initTRPC.create();
 
 const appRouter = t.router({
+  create: t.procedure
+    .input(z.object({ redditorID: z.string(), post: z.string() }))
+    .mutation(async ({ input }) => {
+      return await createPost(input.redditorID, input.post);
+    }),
+  createComment: t.procedure
+    .input(
+      z.object({
+        redditorID: z.string(),
+        postID: z.string(),
+        comment: z.string(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      return await comment(input.comment, input.postID, input.redditorID);
+    }),
   createRedditor: t.procedure.input(z.string()).mutation(async ({ input }) => {
     return await createRedditor(input);
   }),
   listRedditors: t.procedure.query(async () => {
     return await listRedditors();
+  }),
+  list: t.procedure.query(async () => {
+    return await listPosts();
   }),
   getPostsByPoster: t.procedure.input(z.string()).query(async ({ input }) => {
     return await getPosts(input);
@@ -43,9 +65,6 @@ const appRouter = t.router({
   getPostsForComment: t.procedure.input(z.string()).query(async ({ input }) => {
     return await getSinglePost(input);
   }),
-  // listComments: t.procedure.query(async () => {
-  //   return await listComments();
-  // }),
   createTeam: t.procedure.input(z.string()).mutation(async ({ input }) => {
     return await createTeam(input);
   }),
