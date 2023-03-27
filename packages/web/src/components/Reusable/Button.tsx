@@ -1,11 +1,12 @@
 import { motion } from "framer-motion";
 
 type Variants =
+  | "brick"
+  | "destructive"
+  | "informational"
   | "primary"
   | "secondary"
-  | "destructive"
-  | "brick"
-  | "informational";
+  | "selection";
 
 interface IButton {
   children: React.ReactNode;
@@ -17,6 +18,8 @@ interface IButton {
 }
 
 const variantStyles = {
+  selection:
+    "px-2 py-1 bg-green-600 border-black border-2 border text-white text-xs",
   primary:
     "px-8 py-2 bg-green-600 border-black border-2 rounded-3xl text-white",
   secondary:

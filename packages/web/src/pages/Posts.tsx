@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import React from "react";
 import { RedditorListItem } from "../components/Posts/RedditorList";
 import { Button } from "../components/Reusable/Button";
 import { Input } from "../components/Reusable/Input";
@@ -8,6 +9,11 @@ import { usePosts } from "../hooks/usePosts";
 
 export function Posts() {
   const { loading, register, handleCreateRedditor, redditors } = usePosts();
+  const [selected, setSelected] = React.useState<string>("");
+
+  const handleSelect = (id: string) => {
+    setSelected(id);
+  };
 
   return (
     <div className="bg-orange-500 p-2 min-h-screen">
@@ -64,20 +70,23 @@ export function Posts() {
             {loading ? "working..." : "create a redditor"}
           </Button>
         </form>
-        <motion.div
-          layout
-          className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4 mt-6 "
-        >
+        <motion.div layout className="grid sm:grid-cols-3 gap-4 mt-6 ">
           {redditors.map((redditor, index) => {
             return (
               <RedditorListItem
                 index={index}
                 redditor={redditor}
                 key={redditor.redditorId}
-                handleDeleteRedditor={() => {}}
+                handleSelect={handleSelect}
+                isChecked={selected === redditor.redditorId}
               />
             );
           })}
+        </motion.div>
+        <motion.div
+          layout
+          className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4 mt-6 "
+        >
           {/* {posts.map((post) => {
             return <Post post={post} key={post.id} />;
           })} */}

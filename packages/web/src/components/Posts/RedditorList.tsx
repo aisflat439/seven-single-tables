@@ -1,20 +1,23 @@
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { ICONS } from "../../constants";
 import { RouterOutputs } from "../../trpc";
+import { Button } from "../Reusable/Button";
 
 export const RedditorListItem = ({
-  handleDeleteRedditor,
+  handleSelect,
   index,
+  isChecked = false,
   redditor,
 }: {
   index: number;
-  handleDeleteRedditor: (id: string) => void;
+  isChecked: boolean;
+  handleSelect: (id: string) => void;
   redditor: RouterOutputs["listRedditors"]["data"][number];
 }) => {
   return (
     <motion.div
       layout
-      className="bg-white rounded-lg shadow-lg p-4"
+      className="bg-white rounded shadow-lg p-4 border-2 border-black"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -28,14 +31,41 @@ export const RedditorListItem = ({
             </div>
           </div>
         </div>
-        <div className="flex">
-          <button
-            type="button"
-            className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded-full text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-            onClick={() => handleDeleteRedditor(redditor.redditorId)}
+        <div className="flex items-center justify-between">
+          <Button
+            variant="selection"
+            onClick={() => handleSelect(redditor.redditorId)}
           >
-            Delete
-          </button>
+            Select
+          </Button>
+          <div className="h-5 w-5 ml-2">
+            <AnimatePresence initial={false}>
+              {isChecked && (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={3.5}
+                  stroke="currentColor"
+                  className="text-green-500 h-10 w-10 -translate-y-4 -translate-x-2"
+                >
+                  <motion.path
+                    initial={{ pathLength: 0 }}
+                    animate={{ pathLength: 1 }}
+                    exit={{ pathLength: 0 }}
+                    transition={{
+                      type: "tween",
+                      duration: 0.3,
+                      ease: isChecked ? "easeOut" : "easeIn",
+                    }}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M4.5 12.75l6 6 9-13.5"
+                  />
+                </svg>
+              )}
+            </AnimatePresence>
+          </div>
         </div>
       </div>
     </motion.div>

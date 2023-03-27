@@ -25,7 +25,7 @@ export const usePosts = () => {
 
   const createRedditor = trpc.createRedditor.useMutation({
     onSuccess: () => {
-      refectPosts();
+      refectRedditors();
       reset();
     },
   });
