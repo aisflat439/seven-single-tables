@@ -43,7 +43,7 @@ export const Content = ({
             >
               {details.map((details) => (
                 <motion.div
-                  key={details.id}
+                  key={`${details.id}-${details.text.replace(" ", "-")})}`}
                   className="flex items-center"
                   variants={{
                     closed: { opacity: 0 },

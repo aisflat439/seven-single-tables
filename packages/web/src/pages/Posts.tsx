@@ -2,8 +2,6 @@ import { motion } from "framer-motion";
 import { Comment } from "../components/Posts/Comments";
 import { Post } from "../components/Posts/Post";
 import { RedditorListItem } from "../components/Posts/RedditorList";
-import { Button } from "../components/Reusable/Button";
-import { Input } from "../components/Reusable/Input";
 
 import { PageDetails } from "../components/Reusable/PageDetails";
 import { Spinner } from "../components/Reusable/Spinner";
@@ -11,16 +9,11 @@ import { usePoster, usePosters, usePosts } from "../hooks/usePosts";
 
 export function Posts() {
   const { selectedPoster, handleSelect, loading, redditors } = usePosters();
-  const { posts, loading: isPostsLoading } = usePosts();
-  const {
-    posts: usersPosts,
-    comments,
-    handleCreatePost,
-    register,
-  } = usePoster(selectedPoster);
+  const { posts } = usePosts();
+  const { posts: usersPosts, comments } = usePoster(selectedPoster);
 
   return (
-    <div className="bg-orange-500 p-2 min-h-screen">
+    <div className="bg-orange-500 p-2 min-h-screen pb-16">
       <div className="max-w-7xl m-auto">
         <PageDetails
           title="Posts"
@@ -69,6 +62,7 @@ export function Posts() {
             laborum soluta quis.
           </p>
         </PageDetails>
+        <h3 className="text-2xl underline">All Posts</h3>
         <div className="mb-6">
           <motion.div layout className="grid sm:grid-cols-2 gap-4 mt-6 ">
             {posts?.map((post) => {
@@ -78,12 +72,7 @@ export function Posts() {
             })}
           </motion.div>
         </div>
-        <form onSubmit={handleCreatePost}>
-          <Input {...register("text")} />
-          <Button type="submit" disabled={loading || !selectedPoster}>
-            {loading ? "working..." : "Create a post"}
-          </Button>
-        </form>
+        <h3 className="text-2xl underline">All Posters</h3>
         <motion.div layout className="grid sm:grid-cols-3 gap-4 mt-6 mb-6">
           {loading ? (
             <>
