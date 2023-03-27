@@ -5,7 +5,6 @@ import { Button } from "../Reusable/Button";
 
 export const RedditorListItem = ({
   handleSelect,
-  index,
   isChecked = false,
   redditor,
 }: {
@@ -24,7 +23,7 @@ export const RedditorListItem = ({
     >
       <div className="flex justify-between">
         <div className="flex">
-          <div className="flex-shrink-0">{ICONS[index]}</div>
+          <div className="flex-shrink-0">{ICONS[redditor.redditorId]}</div>
           <div className="ml-4 flex items-center">
             <div className="text-sm font-medium text-gray-900">
               {redditor.name}
@@ -32,13 +31,7 @@ export const RedditorListItem = ({
           </div>
         </div>
         <div className="flex items-center justify-between">
-          <Button
-            variant="selection"
-            onClick={() => handleSelect(redditor.redditorId)}
-          >
-            Select
-          </Button>
-          <div className="h-5 w-5 ml-2">
+          <div className="h-5 w-5">
             <AnimatePresence initial={false}>
               {isChecked && (
                 <svg
@@ -66,6 +59,14 @@ export const RedditorListItem = ({
               )}
             </AnimatePresence>
           </div>
+          <Button
+            className="ml-3"
+            variant="selection"
+            disabled={isChecked}
+            onClick={() => handleSelect(redditor.redditorId)}
+          >
+            Select
+          </Button>
         </div>
       </div>
     </motion.div>

@@ -13,7 +13,10 @@ import {
 } from "@seven-single-tables/core/src/jira";
 import {
   createRedditor,
-  listPosts,
+  getComments,
+  getPostersComments,
+  getPosts,
+  getSinglePost,
   listRedditors,
 } from "@seven-single-tables/core/src/reddit";
 
@@ -26,12 +29,23 @@ const appRouter = t.router({
   listRedditors: t.procedure.query(async () => {
     return await listRedditors();
   }),
-  // createPost: t.procedure.input(z.string()).mutation(async ({ input }) => {
-  //   return await create(input);
-  // }),
-  listPosts: t.procedure.query(async () => {
-    return await listPosts();
+  getPostsByPoster: t.procedure.input(z.string()).query(async ({ input }) => {
+    return await getPosts(input);
   }),
+  getCommentsByPoster: t.procedure
+    .input(z.string())
+    .query(async ({ input }) => {
+      return await getPostersComments(input);
+    }),
+  getCommentsByPost: t.procedure.input(z.string()).query(async ({ input }) => {
+    return await getComments(input);
+  }),
+  getPostsForComment: t.procedure.input(z.string()).query(async ({ input }) => {
+    return await getSinglePost(input);
+  }),
+  // listComments: t.procedure.query(async () => {
+  //   return await listComments();
+  // }),
   createTeam: t.procedure.input(z.string()).mutation(async ({ input }) => {
     return await createTeam(input);
   }),
