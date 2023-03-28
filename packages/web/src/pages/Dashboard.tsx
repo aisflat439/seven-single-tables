@@ -32,7 +32,7 @@ export function Dashboard() {
               SST's opinions about how applications should be built, I've
               created this project. The intent is that each table gets
               progressively more complicated. The growing complexity will show
-              how Single Table Design works along with an example of how I'd
+              how Single Table Design works along with an example of how I might
               implement it.
             </p>
             <p className="prose-sm text-black">

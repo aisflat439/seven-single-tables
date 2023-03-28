@@ -5,6 +5,7 @@ import { Input } from "../components/Reusable/Input";
 import { TeamCard } from "../components/Jira/TeamCard";
 import { useJiraTeam } from "../hooks/useJira";
 import { PageDetails } from "../components/Reusable/PageDetails";
+import { Mark } from "../components/Reusable/Mark";
 
 export function Jira() {
   const { teams, register, handleCreateTeam, loading } = useJiraTeam();
@@ -54,9 +55,7 @@ export function Jira() {
             But now we add in a{" "}
             <span className="bg-indigo-100 p-1">teamId</span>. So if we want to
             list all the tickets for a team can say{" "}
-            <span className="bg-orange-100 p-1">
-              pk: = jira_some-team-id, sk: ticketId_
-            </span>
+            <Mark color="orange">pk: = jira_some-team-id, sk: ticketId_</Mark>
           </p>
           <p>
             If you look at the table, you can have pk's with{" "}

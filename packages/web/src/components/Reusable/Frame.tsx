@@ -30,7 +30,7 @@ export const Frame = ({ children }: FrameProps) => {
               <div className="md:flex justify-between">
                 <div className="flex justify-between items-center p-4">
                   <li>
-                    <Link className="text-3xl" to="/">
+                    <Link className="text-xl sm:text-3xl" to="/">
                       Seven Single Tables
                     </Link>
                   </li>

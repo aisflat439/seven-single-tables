@@ -7,10 +7,12 @@ import { Drawer } from "./Drawer";
 export const PageDetails = ({
   accessPattern,
   children,
+  subtitle,
   title,
 }: {
   accessPattern: string[];
   children: React.ReactNode;
+  subtitle?: string;
   title: string;
 }) => {
   const [show, toggle, setShow] = useToggle(false);
@@ -31,7 +33,12 @@ export const PageDetails = ({
     <>
       <article className="bg-white border-2 border-black rounded my-8">
         <div className="flex justify-between p-4">
-          <h1 className=" text-4xl">{title}</h1>
+          <h1 className="flex items-center text-4xl">
+            {title}{" "}
+            {Boolean(subtitle) && (
+              <span className="ml-2 text-2xl text-gray-700">({subtitle})</span>
+            )}
+          </h1>
           <Button
             disabled={show}
             onClick={toggle}
